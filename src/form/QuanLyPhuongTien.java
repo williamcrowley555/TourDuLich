@@ -6,7 +6,13 @@
 package form;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import menu.MyScrollBarUI;
 
 /**
  *
@@ -19,15 +25,52 @@ public class QuanLyPhuongTien extends javax.swing.JPanel {
      */
     public QuanLyPhuongTien() {
         initComponents();
-        headerColor(14,142,233);
+         
+        String[] columnNames = {
+                            "Id",
+                            "Tên Phương Tiện",
+                            "Số Chỗ",
+                            "Giá Tiền",
+                            };
+        Vector header = createHeader(columnNames);
+        DefaultTableModel model = (DefaultTableModel) tblPhuongTien.getModel();
+        model = new DefaultTableModel(header, 0);
+       
+        Vector row = new Vector();
+        row.add("1");
+        row.add("Xe Khách");
+        row.add(36);
+        row.add(100000);
+        
+         
+        model.addRow(row);
+        tblPhuongTien.setModel(model);
+        headerColor(14,142,233,tblPhuongTien);
+        scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
         
     }
     
-    public void headerColor(int r, int b, int g)
+    public Vector createHeader(Object[] columnNames){
+        Vector header = new Vector();
+        for(Object colName : columnNames){
+            header.add(colName);
+        }
+        return header;
+    }
+    
+    public void headerColor(int r, int b, int g, JTable table)
     {
         Color color = new Color(r,b,g);
-        JTableHeader header = tblPhuongTien.getTableHeader();
-        header.setBackground(color);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(color);
+        headerRenderer.setForeground(color.WHITE);
+        
+
+        for (int i = 0; i < table.getModel().getColumnCount(); i++) {
+        table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }       
+         
+        table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,19 +81,19 @@ public class QuanLyPhuongTien extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        pnlBody = new javax.swing.JPanel();
+        scroll = new javax.swing.JScrollPane();
         tblPhuongTien = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(808, 150));
+        pnlHead.setBackground(new java.awt.Color(255, 255, 255));
+        pnlHead.setPreferredSize(new java.awt.Dimension(808, 150));
 
         btnThem.setBackground(new java.awt.Color(14, 142, 233));
         btnThem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -81,11 +124,11 @@ public class QuanLyPhuongTien extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Phương Tiện");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlHeadLayout = new javax.swing.GroupLayout(pnlHead);
+        pnlHead.setLayout(pnlHeadLayout);
+        pnlHeadLayout.setHorizontalGroup(
+            pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHeadLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
@@ -95,22 +138,22 @@ public class QuanLyPhuongTien extends javax.swing.JPanel {
                 .addGap(30, 30, 30))
             .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        pnlHeadLayout.setVerticalGroup(
+            pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        add(pnlHead, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
         tblPhuongTien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,25 +166,25 @@ public class QuanLyPhuongTien extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblPhuongTien);
+        scroll.setViewportView(tblPhuongTien);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
+        pnlBody.setLayout(pnlBodyLayout);
+        pnlBodyLayout.setHorizontalGroup(
+            pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+        pnlBodyLayout.setVerticalGroup(
+            pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        add(jPanel2, java.awt.BorderLayout.CENTER);
+        add(pnlBody, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -156,10 +199,10 @@ public class QuanLyPhuongTien extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel pnlBody;
+    private javax.swing.JPanel pnlHead;
+    private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblPhuongTien;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables

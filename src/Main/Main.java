@@ -17,6 +17,7 @@ import form.QuanLyNhaHang;
 import form.QuanLyNhanVien;
 import form.QuanLyPhuongTien;
 import form.QuanLyTour;
+import form.QuanLyVaiTro;
 import form.ThongKeTheoDoan;
 import form.ThongKeTheoTour;
 import java.awt.Color;
@@ -55,10 +56,10 @@ public class Main extends javax.swing.JFrame {
     ImageIcon iconNhaHang = new ImageIcon(getClass().getResource("/menu/nha_hang_icon.png"));
     ImageIcon iconPhuongTien = new ImageIcon(getClass().getResource("/menu/phuong_tien_icon.png"));
     ImageIcon iconNhanVien = new ImageIcon(getClass().getResource("/menu/nhan_vien_icon.png"));
+    ImageIcon iconVaiTro = new ImageIcon(getClass().getResource("/menu/vai_tro_icon.png"));
     ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/menu/thong_ke_icon.png"));
     
-    
-    
+   
     
         //--submenu loai du lich--
                 MenuItem menuLoaiDuLich = new MenuItem(iconLoaiDuLich, "Quản Lý loại hình du lịch", new ActionListener() {
@@ -79,12 +80,7 @@ public class Main extends javax.swing.JFrame {
                 panelBody.add(new QuanLyTour());
                 panelBody.repaint();
                 panelBody.revalidate();
-                
-                //-- Chinh size sub menu nho hon --
-                menuLoaiDuLich.setSize(45);
-                menuLoaiDuLich.setLabelSize(14);
-                //----------------------------------
-                
+              
                 Selected(menuTour);
             }
         }, menuLoaiDuLich);
@@ -120,11 +116,7 @@ public class Main extends javax.swing.JFrame {
                 panelBody.add(new QuanLyDichVu());
                 panelBody.repaint();
                 panelBody.revalidate();
-                
-                 //-- Chinh size sub menu nho hon --
-                menuLoaiDichVu.setSize(45);
-                menuLoaiDichVu.setLabelSize(14);
-                //----------------------------------
+              
                 Selected(menuDichVu);
             }
         }, menuLoaiDichVu);
@@ -184,7 +176,17 @@ public class Main extends javax.swing.JFrame {
             }
         });
         
-      
+        //----Sub menu vai tro -----
+                MenuItem menuVaiTro = new MenuItem(iconVaiTro, "Quản Lý Vai Trò", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        panelBody.removeAll();
+                        panelBody.add(new QuanLyVaiTro());
+                        panelBody.repaint();
+                        panelBody.revalidate();
+                        Selected(menuNhanVien);
+                    }
+                });
         
         MenuItem menuNhanVien = new MenuItem(iconNhanVien, "Quản Lý Nhân Viên", new ActionListener() {
             @Override
@@ -193,9 +195,11 @@ public class Main extends javax.swing.JFrame {
                 panelBody.add(new QuanLyNhanVien());
                 panelBody.repaint();
                 panelBody.revalidate();
+                
+                
                 Selected(menuNhanVien);
             }
-        });
+        }, menuVaiTro);
         
        
         //----Sub menu TK -----
@@ -225,13 +229,6 @@ public class Main extends javax.swing.JFrame {
        @Override
             public void actionPerformed(ActionEvent ae) {
               
-                 //-- Chinh size sub menu nho hon --
-                menuTkTheoTour.setSize(45);
-                menuTkTheoTour.setLabelSize(14);
-                
-                menuTkTheoDoan.setSize(45);
-                menuTkTheoDoan.setLabelSize(14);
-                //----------------------------------
                 
                 Selected(menuThongKe);
             }
@@ -302,7 +299,7 @@ public class Main extends javax.swing.JFrame {
     
     public void resetSelect()
     {
-       Color lightGray = new Color(245,245,245);
+       Color lightGray = new Color(240,240,240);
        menuTour.setColor(lightGray);
        menuDoan.setColor(lightGray);
        menuDichVu.setColor(lightGray);
@@ -420,11 +417,15 @@ public class Main extends javax.swing.JFrame {
         menuScroll.setBorder(null);
 
         menus.setBackground(new java.awt.Color(255, 255, 255));
+        menus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(204, 204, 204)));
         menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
         menuScroll.setViewportView(menus);
 
-        pnlAccount.setBackground(new java.awt.Color(255, 255, 255));
+        pnlAccount.setBackground(new java.awt.Color(0, 153, 255));
+        pnlAccount.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(204, 204, 204)));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu/avatar_icon.png"))); // NOI18N
         jLabel1.setText("Xin chào Admin");
 

@@ -13,14 +13,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 /**
  *
  * @author RavenPC
  */
-public class MenuItem extends javax.swing.JPanel {
 
+public class MenuItem extends javax.swing.JPanel {
+    ImageIcon iconMinus = new ImageIcon(getClass().getResource("./minus_icon.png"));
+    ImageIcon iconPlus = new ImageIcon(getClass().getResource("./plus_icon.png"));
+    Boolean flag = false;
     public void setShowing(boolean showing) {
         this.showing = showing;
     }
@@ -46,6 +50,14 @@ public class MenuItem extends javax.swing.JPanel {
         this.setSize(new Dimension(Integer.MAX_VALUE, 60));
         this.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         this.setMinimumSize(new Dimension(Integer.MAX_VALUE, 60));
+        
+        if (subMenu.length != 0) 
+        {
+            lblExtend.setIcon(iconPlus);
+            flag = true;
+        }
+        
+        
         for (int i = 0; i < subMenu.length; i++) {
             this.subMenu.add(subMenu[i]);
             subMenu[i].setVisible(false);
@@ -83,8 +95,10 @@ public class MenuItem extends javax.swing.JPanel {
         Line = new javax.swing.JSeparator();
         lbIcon = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
+        lblExtend = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -97,16 +111,24 @@ public class MenuItem extends javax.swing.JPanel {
         lbName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbName.setText("Menu Name Here ...");
 
+        lblExtend.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblExtendMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Line)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
+                .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblExtend, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -114,9 +136,10 @@ public class MenuItem extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15)
+                    .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblExtend, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Line, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -124,15 +147,25 @@ public class MenuItem extends javax.swing.JPanel {
 
     private boolean showing = false;
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        if (showing) {
-            hideMenu();
-        } else {
-            showMenu();
-        }
+      
         if (act != null) {
             act.actionPerformed(null);
         }
     }//GEN-LAST:event_formMousePressed
+
+    private void lblExtendMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExtendMousePressed
+        // TODO add your handling code here:
+        if (showing) {
+            hideMenu();
+            lblExtend.setIcon(iconPlus);
+        } else {
+            if(flag)
+            {
+            showMenu();
+            lblExtend.setIcon(iconMinus);
+            }
+        }
+    }//GEN-LAST:event_lblExtendMousePressed
 
     private void showMenu() {
         new Thread(new Runnable() {
@@ -141,6 +174,8 @@ public class MenuItem extends javax.swing.JPanel {
                 for (int i = 0; i < subMenu.size(); i++) {
                     sleep();
                     subMenu.get(i).setVisible(true);
+                    subMenu.get(i).setSize(45);
+                    subMenu.get(i).setLabelSize(14);
                 }
                 showing = true;
                 getParent().repaint();
@@ -175,5 +210,6 @@ public class MenuItem extends javax.swing.JPanel {
     private javax.swing.JSeparator Line;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lblExtend;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,14 @@
  */
 package form;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import menu.MyScrollBarUI;
+
 /**
  *
  * @author RavenPC
@@ -16,8 +24,49 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
      */
     public QuanLyLoaiDuLich() {
         initComponents();
+        
+         String[] columnNames = {
+                            "Id",
+                            "Tên Loại Du Lịch",
+                            };
+        Vector header = createHeader(columnNames);
+        DefaultTableModel model = (DefaultTableModel) tblLoaiDuLich.getModel();
+        model = new DefaultTableModel(header, 0);
+       
+        Vector row = new Vector();
+        row.add("1");
+        row.add("Du Lịch Sông Nước");
+       
+   
+        model.addRow(row);
+        tblLoaiDuLich.setModel(model);
+        headerColor(14,142,233,tblLoaiDuLich);
+        scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
+    
+    public Vector createHeader(Object[] columnNames){
+        Vector header = new Vector();
+        for(Object colName : columnNames){
+            header.add(colName);
+        }
+        return header;
+    }
+    
+    public void headerColor(int r, int b, int g, JTable table)
+    {
+        Color color = new Color(r,b,g);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(color);
+        headerRenderer.setForeground(color.WHITE);
+        
 
+        for (int i = 0; i < table.getModel().getColumnCount(); i++) {
+        table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }       
+         
+        table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,7 +82,7 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
         btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scroll = new javax.swing.JScrollPane();
         tblLoaiDuLich = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
@@ -112,7 +161,7 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblLoaiDuLich);
+        scroll.setViewportView(tblLoaiDuLich);
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -120,13 +169,13 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addComponent(jScrollPane2)
+                .addComponent(scroll)
                 .addContainerGap())
         );
 
@@ -145,10 +194,10 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHead;
+    private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblLoaiDuLich;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
