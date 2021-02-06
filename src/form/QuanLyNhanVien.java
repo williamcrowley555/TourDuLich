@@ -5,6 +5,7 @@
  */
 package form;
 
+import form.pop_up.popUpNhanVien;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -107,7 +108,13 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
         btnThem.setContentAreaFilled(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setOpaque(true);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemMousePressed(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -201,6 +208,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
+        // TODO add your handling code here:
+        popUpNhanVien popUp = new popUpNhanVien("Them");
+    }//GEN-LAST:event_btnThemMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
