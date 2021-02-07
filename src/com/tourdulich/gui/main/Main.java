@@ -44,20 +44,20 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     private boolean maximized = false;
-    ImageIcon iconRestoreDown = new ImageIcon(getClass().getResource("/menu/restore_down.png"));
-    ImageIcon iconTour = new ImageIcon(getClass().getResource("/menu/tour_icon.png"));
-    ImageIcon iconLoaiDuLich = new ImageIcon(getClass().getResource("/menu/loai_du_lich_icon.png"));
-    ImageIcon iconDoan = new ImageIcon(getClass().getResource("/menu/doan_icon.png"));
-    ImageIcon iconDichVu = new ImageIcon(getClass().getResource("/menu/dich_vu_icon.png"));
-    ImageIcon iconLoaiDichVu = new ImageIcon(getClass().getResource("/menu/loai_dich_vu_icon.png"));
-    ImageIcon iconDiaDiem = new ImageIcon(getClass().getResource("/menu/dia_diem_icon.png"));
-    ImageIcon iconKhachHang = new ImageIcon(getClass().getResource("/menu/khach_hang_icon.png"));
-    ImageIcon iconKhachSan = new ImageIcon(getClass().getResource("/menu/hotel_icon.png"));
-    ImageIcon iconNhaHang = new ImageIcon(getClass().getResource("/menu/nha_hang_icon.png"));
-    ImageIcon iconPhuongTien = new ImageIcon(getClass().getResource("/menu/phuong_tien_icon.png"));
-    ImageIcon iconNhanVien = new ImageIcon(getClass().getResource("/menu/nhan_vien_icon.png"));
-    ImageIcon iconVaiTro = new ImageIcon(getClass().getResource("/menu/vai_tro_icon.png"));
-    ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/menu/thong_ke_icon.png"));
+    ImageIcon iconRestoreDown = new ImageIcon(getClass().getResource("/com/tourdulich/img/restore_down.png"));
+    ImageIcon iconTour = new ImageIcon(getClass().getResource("/com/tourdulich/img/tour_icon.png"));
+    ImageIcon iconLoaiDuLich = new ImageIcon(getClass().getResource("/com/tourdulich/img/loai_du_lich_icon.png"));
+    ImageIcon iconDoan = new ImageIcon(getClass().getResource("/com/tourdulich/img/doan_icon.png"));
+    ImageIcon iconDichVu = new ImageIcon(getClass().getResource("/com/tourdulich/img/dich_vu_icon.png"));
+    ImageIcon iconLoaiDichVu = new ImageIcon(getClass().getResource("/com/tourdulich/img/loai_dich_vu_icon.png"));
+    ImageIcon iconDiaDiem = new ImageIcon(getClass().getResource("/com/tourdulich/img/dia_diem_icon.png"));
+    ImageIcon iconKhachHang = new ImageIcon(getClass().getResource("/com/tourdulich/img/khach_hang_icon.png"));
+    ImageIcon iconKhachSan = new ImageIcon(getClass().getResource("/com/tourdulich/img/hotel_icon.png"));
+    ImageIcon iconNhaHang = new ImageIcon(getClass().getResource("/com/tourdulich/img/nha_hang_icon.png"));
+    ImageIcon iconPhuongTien = new ImageIcon(getClass().getResource("/com/tourdulich/img/phuong_tien_icon.png"));
+    ImageIcon iconNhanVien = new ImageIcon(getClass().getResource("/com/tourdulich/img/nhan_vien_icon.png"));
+    ImageIcon iconVaiTro = new ImageIcon(getClass().getResource("/com/tourdulich/img/vai_tro_icon.png"));
+    ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/com/tourdulich/img/thong_ke_icon.png"));
     
    
     
@@ -426,7 +426,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu/avatar_icon.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/avatar_icon.png"))); // NOI18N
         jLabel1.setText("Xin chào Admin");
 
         javax.swing.GroupLayout pnlAccountLayout = new javax.swing.GroupLayout(pnlAccount);

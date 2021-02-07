@@ -22,8 +22,8 @@ import javax.swing.SwingConstants;
  */
 
 public class MenuItem extends javax.swing.JPanel {
-    ImageIcon iconMinus = new ImageIcon(getClass().getResource("./minus_icon.png"));
-    ImageIcon iconPlus = new ImageIcon(getClass().getResource("./plus_icon.png"));
+    ImageIcon iconMinus = new ImageIcon(getClass().getResource("/com/tourdulich/img/minus_icon.png"));
+    ImageIcon iconPlus = new ImageIcon(getClass().getResource("/com/tourdulich/img/plus_icon.png"));
     Boolean flag = false;
     public void setShowing(boolean showing) {
         this.showing = showing;

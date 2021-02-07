@@ -223,7 +223,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/menu/avatar_icon.png"/>
+                  <Image iconType="3" name="/com/tourdulich/img/avatar_icon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Xin ch&#xe0;o Admin"/>
               </Properties>
