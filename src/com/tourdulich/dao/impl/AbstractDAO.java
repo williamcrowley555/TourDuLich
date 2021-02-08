@@ -17,6 +17,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -60,6 +62,7 @@ public class AbstractDAO<T> implements GenericDAO<T>{
         try {
             connection = DBConnectionUtil.getConnection();
             statement = connection.prepareStatement(sql);
+            setParameters(statement, parameters);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {                
                 results.add(rowMapper.mapRow(resultSet));
@@ -88,8 +91,43 @@ public class AbstractDAO<T> implements GenericDAO<T>{
 
     @Override
     public Long insert(String sql, Object... parameters) {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Long id = null;
+            connection = DBConnectionUtil.getConnection();
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            setParameters(statement, parameters);
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if(resultSet.next()) {
+                id = resultSet.getLong(1);
+            }
+            connection.commit();
+            return id;
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                if (connection != null) {
+                connection.close();
+                }
+            
+                if (statement != null) {
+                    statement.close();
+                }
+            
+                if (resultSet != null) {
+                    resultSet.close();
+                } 
+            } catch (SQLException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     @Override
