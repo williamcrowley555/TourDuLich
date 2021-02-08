@@ -5,6 +5,9 @@
  */
 package com.tourdulich.gui.main;
 
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.VaiTroDTO;
 import com.tourdulich.gui.others.ComponentResizer;
 import com.tourdulich.gui.form.QuanLyDiaDiem;
 import com.tourdulich.gui.form.QuanLyDichVu;
@@ -33,6 +36,7 @@ import javax.swing.JScrollBar;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import com.tourdulich.gui.menu.MenuItem;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import java.util.List;
 
 /**
  *
@@ -244,6 +248,13 @@ public class Main extends javax.swing.JFrame {
         CustomWindow();
         addMenu(menuTour, menuDoan, menuDichVu,menuDiaDiem,menuKhachHang,menuKhachSan,menuNhaHang,menuPhuongTien,menuNhanVien,menuThongKe);
         Selected(menuTour);
+        
+//        TESTING
+//        IVaiTroBLL vaiTroBLL = new VaiTroBLL();
+//        List<VaiTroDTO> list = vaiTroBLL.findAll();
+//        for(VaiTroDTO vaiTro : list) {
+//            System.out.println(vaiTro.toString() + "\n");
+//        }
     }
     
     public void invisibleMenuScrollBar(int speed)

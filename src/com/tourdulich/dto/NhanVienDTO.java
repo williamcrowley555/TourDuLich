@@ -5,6 +5,8 @@
  */
 package com.tourdulich.dto;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author HP
@@ -15,6 +17,7 @@ public class NhanVienDTO {
     private String ho;
     private String ten;
     private Boolean gioiTinh;
+    private LocalDate ngaySinh;
     private String diaChi;
     private String sdt;
     private Byte[] hinhAnh;
@@ -22,11 +25,12 @@ public class NhanVienDTO {
     
     public NhanVienDTO(){}
 
-    public NhanVienDTO(Long id, String ho, String ten, Boolean gioiTinh, String diaChi, String sdt, Byte[] hinhAnh, Long idVaiTro) {
+    public NhanVienDTO(Long id, String ho, String ten, Boolean gioiTinh, LocalDate ngaySinh, String diaChi, String sdt, Byte[] hinhAnh, Long idVaiTro) {
         this.id = id;
         this.ho = ho;
         this.ten = ten;
         this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
         this.diaChi = diaChi;
         this.sdt = sdt;
         this.hinhAnh = hinhAnh;
@@ -63,6 +67,14 @@ public class NhanVienDTO {
 
     public void setGioiTinh(Boolean gioiTinh) {
         this.gioiTinh = gioiTinh;
+    }
+
+    public LocalDate getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(LocalDate ngaySinh) {
+        this.ngaySinh = ngaySinh;
     }
 
     public String getDiaChi() {

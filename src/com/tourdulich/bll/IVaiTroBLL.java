@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tourdulich.dao;
+package com.tourdulich.bll;
+
+import com.tourdulich.dto.VaiTroDTO;
+import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface VaiTroDAO {
-    
+public interface IVaiTroBLL {
+    List<VaiTroDTO> findAll();
 }
