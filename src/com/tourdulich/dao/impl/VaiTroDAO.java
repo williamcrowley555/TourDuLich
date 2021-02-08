@@ -21,5 +21,11 @@ public class VaiTroDAO extends AbstractDAO<VaiTroDTO> implements IVaiTroDAO {
         String sql = "SELECT * FROM vai_tro";
         return query(sql, new VaiTroMapper());
     }
+
+    @Override
+    public Long save(VaiTroDTO vaiTro) {
+        String sql = "INSERT INTO vai_tro(ten_vai_tro) VALUES(?)";
+        return insert(sql, vaiTro.getTenVaiTro());
+    }
     
 }

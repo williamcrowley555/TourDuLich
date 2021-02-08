@@ -250,11 +250,16 @@ public class Main extends javax.swing.JFrame {
         Selected(menuTour);
         
 //        TESTING
-//        IVaiTroBLL vaiTroBLL = new VaiTroBLL();
-//        List<VaiTroDTO> list = vaiTroBLL.findAll();
-//        for(VaiTroDTO vaiTro : list) {
-//            System.out.println(vaiTro.toString() + "\n");
-//        }
+        IVaiTroBLL vaiTroBLL = new VaiTroBLL();
+//INSERT DATA
+        VaiTroDTO vaiTro = new VaiTroDTO();
+        vaiTro.setTenVaiTro("Bảo vệ");
+        vaiTroBLL.save(vaiTro);
+//DISPLAY DATA
+        List<VaiTroDTO> list = vaiTroBLL.findAll();
+        for(VaiTroDTO vt : list) {
+            System.out.println(vt.toString() + "\n");
+        }
     }
     
     public void invisibleMenuScrollBar(int speed)

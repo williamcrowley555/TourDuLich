@@ -13,5 +13,7 @@ import java.util.List;
  * @author HP
  */
 public interface IVaiTroDAO extends GenericDAO<VaiTroDTO> {
+    
     List<VaiTroDTO> findAll();
+    Long save(VaiTroDTO vaiTro);
 }
