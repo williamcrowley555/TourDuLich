@@ -29,6 +29,11 @@ public class VaiTroBLL implements IVaiTroBLL {
     }
 
     @Override
+    public VaiTroDTO findById(Long id) {
+        return vaiTroDAO.findById(id);
+    }
+
+    @Override
     public Long save(VaiTroDTO vaiTro) {
         return vaiTroDAO.save(vaiTro);
     }

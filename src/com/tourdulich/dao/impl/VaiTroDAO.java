@@ -23,6 +23,13 @@ public class VaiTroDAO extends AbstractDAO<VaiTroDTO> implements IVaiTroDAO {
     }
 
     @Override
+    public VaiTroDTO findById(Long id) {
+        String sql = "SELECT * FROM vai_tro WHERE id = ?";
+        List<VaiTroDTO> vaiTro = query(sql, new VaiTroMapper(), id);
+        return vaiTro.isEmpty() ? null : vaiTro.get(0);
+    }
+
+    @Override
     public Long save(VaiTroDTO vaiTro) {
         String sql = "INSERT INTO vai_tro(ten_vai_tro) VALUES(?)";
         return insert(sql, vaiTro.getTenVaiTro());
