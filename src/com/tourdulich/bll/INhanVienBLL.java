@@ -5,18 +5,19 @@
  */
 package com.tourdulich.bll;
 
-import com.tourdulich.dto.VaiTroDTO;
+import com.tourdulich.dto.NhanVienDTO;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface IVaiTroBLL {
+public interface INhanVienBLL {
     
-    List<VaiTroDTO> findAll();
-    VaiTroDTO findById(Long id);
-    Long save(VaiTroDTO vaiTro);
-    void update(VaiTroDTO vaiTro);
+    List<NhanVienDTO> findAll();
+    NhanVienDTO findById(Long id);
+    Long save(NhanVienDTO nhanVien);
+    void update(NhanVienDTO nhanVien);
     void delete(Long id);
+    
 }
