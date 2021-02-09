@@ -251,10 +251,17 @@ public class Main extends javax.swing.JFrame {
         
 //        TESTING
         IVaiTroBLL vaiTroBLL = new VaiTroBLL();
-//INSERT DATA
         VaiTroDTO vaiTro = new VaiTroDTO();
-        vaiTro.setTenVaiTro("Bảo vệ");
-        vaiTroBLL.save(vaiTro);
+//INSERT DATA
+//        vaiTro.setTenVaiTro("Bảo vệ");
+//        vaiTroBLL.save(vaiTro);
+////UPDATE DATA
+//        vaiTro.setId(6L);
+//        vaiTro.setTenVaiTro("Tai xe");
+//        vaiTroBLL.update(vaiTro);
+//DELETE DATA
+//        vaiTroBLL.delete(7L);
+
 //DISPLAY DATA
         List<VaiTroDTO> list = vaiTroBLL.findAll();
         for(VaiTroDTO vt : list) {

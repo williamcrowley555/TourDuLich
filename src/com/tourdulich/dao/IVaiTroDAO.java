@@ -17,4 +17,6 @@ public interface IVaiTroDAO extends GenericDAO<VaiTroDTO> {
     List<VaiTroDTO> findAll();
     VaiTroDTO findById(Long id);
     Long save(VaiTroDTO vaiTro);
+    void update(VaiTroDTO vaiTro);
+    void delete(Long id);
 }

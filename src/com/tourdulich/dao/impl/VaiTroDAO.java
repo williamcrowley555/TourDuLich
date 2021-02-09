@@ -34,5 +34,17 @@ public class VaiTroDAO extends AbstractDAO<VaiTroDTO> implements IVaiTroDAO {
         String sql = "INSERT INTO vai_tro(ten_vai_tro) VALUES(?)";
         return insert(sql, vaiTro.getTenVaiTro());
     }
+
+    @Override
+    public void update(VaiTroDTO vaiTro) {
+        String sql = "UPDATE vai_tro SET ten_vai_tro = ? WHERE id = ?";
+        update(sql, vaiTro.getTenVaiTro(), vaiTro.getId());
+    }
+
+    @Override
+    public void delete(Long id) {
+        String sql = "DELETE FROM vai_tro WHERE id = ?";
+        update(sql, id);
+    }
     
 }

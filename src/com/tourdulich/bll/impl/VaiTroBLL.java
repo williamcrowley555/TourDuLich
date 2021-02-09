@@ -37,5 +37,15 @@ public class VaiTroBLL implements IVaiTroBLL {
     public Long save(VaiTroDTO vaiTro) {
         return vaiTroDAO.save(vaiTro);
     }
+
+    @Override
+    public void update(VaiTroDTO vaiTro) {
+        vaiTroDAO.update(vaiTro);
+    }
+
+    @Override
+    public void delete(Long id) {
+        vaiTroDAO.delete(id);
+    }
     
 }
