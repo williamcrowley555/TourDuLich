@@ -5,6 +5,9 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.VaiTroDTO;
 import com.tourdulich.gui.popup.popUpVaiTro;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,37 +17,48 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import java.util.List;
 
 /**
  *
  * @author RavenPC
  */
 public class QuanLyVaiTro extends javax.swing.JPanel {
+    
+    private IVaiTroBLL vaiTroBLL;
 
     /**
      * Creates new form Panel1
      */
     public QuanLyVaiTro() {
         initComponents();
-     
         
-        String[] columnNames = {
+        vaiTroBLL = new VaiTroBLL();
+        
+        String[] listColumns = {
                             "Id",
                             "Tên Vai Trò"};
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblVaiTro.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Lái Xe");
-    
-         
-        model.addRow(row);
-        tblVaiTro.setModel(model);
+        
+        tblVaiTro.setModel(setTable(vaiTroBLL.findAll(), listColumns));
+        
         headerColor(14,142,233,tblVaiTro);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
         
+    }
+    
+    public DefaultTableModel setTable(List<VaiTroDTO> listItems, String[] listColumns) {
+        Vector header = createHeader(listColumns);
+        DefaultTableModel model = new DefaultTableModel(header, 0);
+       
+        Vector row = null;
+        for(VaiTroDTO vaiTro : listItems) {
+            row = new Vector();
+            row.add(vaiTro.getId());
+            row.add(vaiTro.getTenVaiTro());
+            model.addRow(row);
+        }
+        
+        return model;
     }
     
     public Vector createHeader(Object[] columnNames){
