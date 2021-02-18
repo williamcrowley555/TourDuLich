@@ -5,6 +5,10 @@
  */
 package com.tourdulich.dto;
 
+import java.util.Date;
+
+
+
 /**
  *
  * @author HP
@@ -15,18 +19,20 @@ public class NhanVienDTO {
     private String ho;
     private String ten;
     private Boolean gioiTinh;
+    private Date ngaySinh;
     private String diaChi;
     private String sdt;
-    private Byte[] hinhAnh;
+    private byte[] hinhAnh;
     private Long idVaiTro;
     
     public NhanVienDTO(){}
 
-    public NhanVienDTO(Long id, String ho, String ten, Boolean gioiTinh, String diaChi, String sdt, Byte[] hinhAnh, Long idVaiTro) {
+    public NhanVienDTO(Long id, String ho, String ten, Boolean gioiTinh, Date ngaySinh, String diaChi, String sdt, byte[] hinhAnh, Long idVaiTro) {
         this.id = id;
         this.ho = ho;
         this.ten = ten;
         this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
         this.diaChi = diaChi;
         this.sdt = sdt;
         this.hinhAnh = hinhAnh;
@@ -65,6 +71,14 @@ public class NhanVienDTO {
         this.gioiTinh = gioiTinh;
     }
 
+    public Date getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public void setNgaySinh(Date ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
     public String getDiaChi() {
         return diaChi;
     }
@@ -81,11 +95,11 @@ public class NhanVienDTO {
         this.sdt = sdt;
     }
 
-    public Byte[] getHinhAnh() {
+    public byte[] getHinhAnh() {
         return hinhAnh;
     }
 
-    public void setHinhAnh(Byte[] hinhAnh) {
+    public void setHinhAnh(byte[] hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 

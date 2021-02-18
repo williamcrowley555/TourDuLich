@@ -5,6 +5,9 @@
  */
 package com.tourdulich.gui.main;
 
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.VaiTroDTO;
 import com.tourdulich.gui.others.ComponentResizer;
 import com.tourdulich.gui.form.QuanLyDiaDiem;
 import com.tourdulich.gui.form.QuanLyDichVu;
@@ -33,6 +36,7 @@ import javax.swing.JScrollBar;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import com.tourdulich.gui.menu.MenuItem;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import java.util.List;
 
 /**
  *
@@ -244,6 +248,25 @@ public class Main extends javax.swing.JFrame {
         CustomWindow();
         addMenu(menuTour, menuDoan, menuDichVu,menuDiaDiem,menuKhachHang,menuKhachSan,menuNhaHang,menuPhuongTien,menuNhanVien,menuThongKe);
         Selected(menuTour);
+        
+//        TESTING
+        IVaiTroBLL vaiTroBLL = new VaiTroBLL();
+        VaiTroDTO vaiTro = new VaiTroDTO();
+//INSERT DATA
+//        vaiTro.setTenVaiTro("Bảo vệ");
+//        vaiTroBLL.save(vaiTro);
+////UPDATE DATA
+//        vaiTro.setId(6L);
+//        vaiTro.setTenVaiTro("Tai xe");
+//        vaiTroBLL.update(vaiTro);
+//DELETE DATA
+//        vaiTroBLL.delete(7L);
+
+//DISPLAY DATA
+        List<VaiTroDTO> list = vaiTroBLL.findAll();
+        for(VaiTroDTO vt : list) {
+            System.out.println(vt.toString() + "\n");
+        }
     }
     
     public void invisibleMenuScrollBar(int speed)
