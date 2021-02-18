@@ -5,6 +5,9 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.VaiTroDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -20,28 +23,32 @@ import javax.swing.plaf.basic.ComboPopup;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author Hi
  */
 public class popUpVaiTro extends javax.swing.JFrame {
-    String Action = "";
-    /**
-     * Creates new form popUpTour
-     */
-    public popUpVaiTro(String Action) {
+    private String action;
+    private IVaiTroBLL vaiTroBLL;
+   
+    public popUpVaiTro(String action) {
         initComponents();
-        this.Action = Action;
+        
+        this.action = action;
+        vaiTroBLL = new VaiTroBLL();
+        
         CustomWindow();
        
         this.setVisible(true);
-        
     }
     
+
     public popUpVaiTro(String Action, Vector data) {
         initComponents();
-        this.Action = Action;
+        this.action = action;
         CustomWindow();
         setLabelText(data);
         this.setVisible(true);
@@ -53,9 +60,22 @@ public class popUpVaiTro extends javax.swing.JFrame {
         txtTenVaiTro.setText(data.get(1).toString());
     }
     
+ 
     public popUpVaiTro() {
         initComponents();
         CustomWindow();
+    }
+    
+    private VaiTroDTO getFormInfo() {
+        VaiTroDTO vaiTro = new VaiTroDTO();
+        vaiTro.setTenVaiTro(txtTenVaiTro.getText());
+        return vaiTro;
+    }
+    
+    public void center()
+    {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
     
     public void CustomWindow()
@@ -66,16 +86,6 @@ public class popUpVaiTro extends javax.swing.JFrame {
         center();
         lblMinimize.setText("\u2014");
         lblExit.setText("X");
-       
-     
-    }
-    
-    
-    
-    public void center()
-    {
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -246,7 +256,25 @@ public class popUpVaiTro extends javax.swing.JFrame {
     }//GEN-LAST:event_panelHeaderMouseDragged
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        // TODO add your handling code here:
+        VaiTroDTO vaiTro = getFormInfo();
+        
+        if(action == "POST") {
+            Long newVaiTroId = vaiTroBLL.save(vaiTro);
+            if(newVaiTroId != null) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if(action == "PUT") {
+            try {
+                vaiTroBLL.update(vaiTro);
+                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -302,4 +330,5 @@ public class popUpVaiTro extends javax.swing.JFrame {
     private javax.swing.JPanel pnlBody;
     private javax.swing.JTextField txtTenVaiTro;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -25,7 +25,9 @@ import javax.swing.UIManager;
  * @author RavenPC
  */
 public class QuanLyVaiTro extends javax.swing.JPanel {
-    
+    String[] listColumns = {
+                            "Id",
+                            "Tên Vai Trò"};
     private IVaiTroBLL vaiTroBLL;
     Vector currentRow;
     /**
@@ -36,11 +38,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         
         vaiTroBLL = new VaiTroBLL();
         
-        String[] listColumns = {
-                            "Id",
-                            "Tên Vai Trò"};
-        
-        tblVaiTro.setModel(setTable(vaiTroBLL.findAll(), listColumns));
+        loadTableData();
         
         headerColor(14,142,233,tblVaiTro);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
@@ -78,12 +76,15 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         headerRenderer.setBackground(color);
         headerRenderer.setForeground(color.WHITE);
         
-
         for (int i = 0; i < table.getModel().getColumnCount(); i++) {
-        table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+            table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
         }       
          
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+    }
+    
+    public void loadTableData() {
+        tblVaiTro.setModel(setTable(vaiTroBLL.findAll(), this.listColumns));
     }
     
     /**
@@ -233,7 +234,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -242,7 +243,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
-        popUpVaiTro popUp = new popUpVaiTro("Them");
+        popUpVaiTro popUp = new popUpVaiTro("POST");
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed

@@ -67,7 +67,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         txtDiaChi.setText(data.get(5).toString());
         txtSDT.setText(data.get(6).toString());
         comboBoxVaiTro.setSelectedItem(data.get(7));
-        lblAnh.setText(data.get(7).toString());
+        //lblAnh.setText(data.get(7).toString());
     }
     
     public popUpNhanVien() {
