@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
 import java.util.List;
+import javax.swing.UIManager;
 
 /**
  *
@@ -26,7 +27,7 @@ import java.util.List;
 public class QuanLyVaiTro extends javax.swing.JPanel {
     
     private IVaiTroBLL vaiTroBLL;
-
+    Vector currentRow;
     /**
      * Creates new form Panel1
      */
@@ -43,6 +44,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         
         headerColor(14,142,233,tblVaiTro);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+       
         
     }
     
@@ -93,6 +95,9 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rightClickMenu = new javax.swing.JPopupMenu();
+        itemSua = new javax.swing.JMenuItem();
+        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -101,6 +106,23 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblVaiTro = new javax.swing.JTable();
+
+        itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemSua.setText("Sửa");
+        itemSua.setPreferredSize(new java.awt.Dimension(77, 30));
+        itemSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSuaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemSua);
+
+        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
+        itemXoa.setText("Xóa");
+        itemXoa.setToolTipText("");
+        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -184,6 +206,11 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblVaiTro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblVaiTroMouseReleased(evt);
+            }
+        });
         scroll.setViewportView(tblVaiTro);
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
@@ -218,13 +245,46 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         popUpVaiTro popUp = new popUpVaiTro("Them");
     }//GEN-LAST:event_btnThemMousePressed
 
+    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
+        // TODO add your handling code here:
+        popUpVaiTro popup = new popUpVaiTro("Sửa", currentRow);
+    }//GEN-LAST:event_itemSuaActionPerformed
+
+    private void tblVaiTroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVaiTroMouseReleased
+ 
+        int r = tblVaiTro.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblVaiTro.getRowCount()) {
+            tblVaiTro.setRowSelectionInterval(r, r);
+        } else {
+           tblVaiTro.clearSelection();
+        }
+
+        int rowindex = tblVaiTro.getSelectedRow();
+        String selectedRow;
+        currentRow = new Vector();
+        for (int i = 0; i < tblVaiTro.getColumnCount(); i++)
+        currentRow.add(tblVaiTro.getValueAt(rowindex,i).toString());  
+        System.out.println(currentRow);
+       
+
+        if (rowindex < 0)
+            return;
+        if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
+            
+            rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tblVaiTroMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JMenuItem itemSua;
+    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHead;
+    private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblVaiTro;
     private javax.swing.JTextField txtTimKiem;

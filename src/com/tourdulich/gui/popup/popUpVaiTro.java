@@ -19,6 +19,7 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
+import java.util.Vector;
 
 /**
  *
@@ -37,6 +38,21 @@ public class popUpVaiTro extends javax.swing.JFrame {
         this.setVisible(true);
         
     }
+    
+    public popUpVaiTro(String Action, Vector data) {
+        initComponents();
+        this.Action = Action;
+        CustomWindow();
+        setLabelText(data);
+        this.setVisible(true);
+        
+    }
+    
+    public void setLabelText(Vector data)
+    {
+        txtTenVaiTro.setText(data.get(1).toString());
+    }
+    
     public popUpVaiTro() {
         initComponents();
         CustomWindow();
@@ -75,8 +91,6 @@ public class popUpVaiTro extends javax.swing.JFrame {
         lblMinimize = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
-        lblId = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         lblTenVaiTro = new javax.swing.JLabel();
         txtTenVaiTro = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
@@ -132,14 +146,6 @@ public class popUpVaiTro extends javax.swing.JFrame {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblId.setText("ID:");
-
-        txtId.setEditable(false);
-        txtId.setBackground(new java.awt.Color(204, 204, 204));
-        txtId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtId.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
-
         lblTenVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTenVaiTro.setText("Tên Vai Trò:");
 
@@ -186,35 +192,27 @@ public class popUpVaiTro extends javax.swing.JFrame {
                     .addComponent(txtTenVaiTro, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addComponent(lblTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtId)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(36, 36, 36))
             .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(20, 20, 20)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(21, 21, 21))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblId))
-                .addGap(24, 24, 24)
+                .addGap(36, 36, 36)
                 .addComponent(lblTenVaiTro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -298,12 +296,10 @@ public class popUpVaiTro extends javax.swing.JFrame {
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblTenVaiTro;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtTenVaiTro;
     // End of variables declaration//GEN-END:variables
 }

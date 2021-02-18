@@ -24,6 +24,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
+    Vector currentRow;
     public QuanLyNhanVien() {
         initComponents();
          
@@ -91,6 +92,9 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rightClickMenu = new javax.swing.JPopupMenu();
+        itemSua = new javax.swing.JMenuItem();
+        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -99,6 +103,22 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblNhanVien = new javax.swing.JTable();
+
+        itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemSua.setText("Sửa");
+        itemSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSuaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemSua);
+
+        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
+        itemXoa.setText("Xóa");
+        itemXoa.setToolTipText("");
+        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -182,6 +202,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblNhanVienMouseReleased(evt);
+            }
+        });
         scroll.setViewportView(tblNhanVien);
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
@@ -216,13 +241,45 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         popUpNhanVien popUp = new popUpNhanVien("Them");
     }//GEN-LAST:event_btnThemMousePressed
 
+    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
+        // TODO add your handling code here:
+        popUpNhanVien popup = new popUpNhanVien("Sửa", currentRow);
+    }//GEN-LAST:event_itemSuaActionPerformed
+
+    private void tblNhanVienMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseReleased
+        // TODO add your handling code here:
+        int r = tblNhanVien.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblNhanVien.getRowCount()) {
+            tblNhanVien.setRowSelectionInterval(r, r);
+        } else {
+           tblNhanVien.clearSelection();
+        }
+
+        int rowindex = tblNhanVien.getSelectedRow();
+        String selectedRow;
+        currentRow = new Vector();
+        for (int i = 0; i < tblNhanVien.getColumnCount(); i++)
+        currentRow.add(tblNhanVien.getValueAt(rowindex,i).toString());  
+        System.out.println(currentRow);
+       
+        if (rowindex < 0)
+            return;
+        if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
+            
+            rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tblNhanVienMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JMenuItem itemSua;
+    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHead;
+    private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblNhanVien;
     private javax.swing.JTextField txtTimKiem;
