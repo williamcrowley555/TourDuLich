@@ -32,6 +32,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                             "Họ",
                             "Tên",
                             "Giới Tính",
+                            "Ngày Sinh",
                             "Địa Chỉ",
                             "SĐT",
                             "Id Vai Trò",
@@ -46,6 +47,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         row.add("Nguyễn");
         row.add("Mạnh");
         row.add("Nam");
+        row.add("1990-03-21");
         row.add("abc, Hà Nội");
         row.add("0987665432");
         row.add("1");

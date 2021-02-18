@@ -31,6 +31,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                             "Họ",
                             "Tên",
                             "CMND",
+                            "Ngày Sinh",
                             "Địa Chỉ",
                             "Giới Tính",
                             "Sđt"};
@@ -43,6 +44,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         row.add("Nguyễn Văn");
         row.add("A");
         row.add("012345678999");
+        row.add("1990-03-21");
         row.add("2/3,Q1,TPHCM");
         row.add("Nam");
         row.add("0987654321");
