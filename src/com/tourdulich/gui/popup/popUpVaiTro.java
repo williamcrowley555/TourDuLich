@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
 public class popUpVaiTro extends javax.swing.JFrame {
     private String action;
     private IVaiTroBLL vaiTroBLL;
+    private VaiTroDTO vaiTro;
    
     public popUpVaiTro(String action) {
         initComponents();
@@ -44,20 +45,21 @@ public class popUpVaiTro extends javax.swing.JFrame {
        
         this.setVisible(true);
     }
-    
 
-    public popUpVaiTro(String Action, Vector data) {
+    public popUpVaiTro(String action, VaiTroDTO vaiTro) {
         initComponents();
         this.action = action;
+        this.vaiTro = vaiTro;
+        vaiTroBLL = new VaiTroBLL();
         CustomWindow();
-        setLabelText(data);
+        setLabelText(vaiTro);
         this.setVisible(true);
         
     }
     
-    public void setLabelText(Vector data)
+    public void setLabelText(VaiTroDTO vaiTro)
     {
-        txtTenVaiTro.setText(data.get(1).toString());
+        txtTenVaiTro.setText(vaiTro.getTenVaiTro());
     }
     
  
@@ -68,6 +70,9 @@ public class popUpVaiTro extends javax.swing.JFrame {
     
     private VaiTroDTO getFormInfo() {
         VaiTroDTO vaiTro = new VaiTroDTO();
+        if(this.vaiTro != null) {
+            vaiTro.setId(this.vaiTro.getId());
+        }
         vaiTro.setTenVaiTro(txtTenVaiTro.getText());
         return vaiTro;
     }
@@ -258,7 +263,7 @@ public class popUpVaiTro extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         VaiTroDTO vaiTro = getFormInfo();
         
-        if(action == "POST") {
+        if(this.action.equals("POST")) {
             Long newVaiTroId = vaiTroBLL.save(vaiTro);
             if(newVaiTroId != null) {
                 JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -266,13 +271,14 @@ public class popUpVaiTro extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
-        } else if(action == "PUT") {
+        } else if(this.action.equals("PUT")) {
             try {
                 vaiTroBLL.update(vaiTro);
                 JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnLuuActionPerformed

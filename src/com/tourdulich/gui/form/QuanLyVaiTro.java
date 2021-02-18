@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -29,7 +30,6 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
                             "Id",
                             "Tên Vai Trò"};
     private IVaiTroBLL vaiTroBLL;
-    Vector currentRow;
     /**
      * Creates new form Panel1
      */
@@ -111,7 +111,6 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
         itemSua.setText("Sửa");
-        itemSua.setPreferredSize(new java.awt.Dimension(77, 30));
         itemSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSuaActionPerformed(evt);
@@ -123,6 +122,11 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
         itemXoa.setText("Xóa");
         itemXoa.setToolTipText("");
+        itemXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemXoaActionPerformed(evt);
+            }
+        });
         rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
@@ -247,12 +251,12 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-        // TODO add your handling code here:
-        popUpVaiTro popup = new popUpVaiTro("Sửa", currentRow);
+        int rowindex = tblVaiTro.getSelectedRow();
+        Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());
+        popUpVaiTro popup = new popUpVaiTro("PUT", vaiTroBLL.findById(id));
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void tblVaiTroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVaiTroMouseReleased
- 
         int r = tblVaiTro.rowAtPoint(evt.getPoint());
         if (r >= 0 && r < tblVaiTro.getRowCount()) {
             tblVaiTro.setRowSelectionInterval(r, r);
@@ -261,11 +265,6 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         }
 
         int rowindex = tblVaiTro.getSelectedRow();
-        String selectedRow;
-        currentRow = new Vector();
-        for (int i = 0; i < tblVaiTro.getColumnCount(); i++)
-        currentRow.add(tblVaiTro.getValueAt(rowindex,i).toString());  
-        System.out.println(currentRow);
        
 
         if (rowindex < 0)
@@ -275,6 +274,21 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
             rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tblVaiTroMouseReleased
+
+    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa vai trò này?");
+        if(response == JOptionPane.YES_OPTION) {
+            int rowindex = tblVaiTro.getSelectedRow();
+            Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());
+            try {
+                vaiTroBLL.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_itemXoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

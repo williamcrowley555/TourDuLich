@@ -17,9 +17,6 @@
               <Image iconType="3" name="/com/tourdulich/img/edit_icon.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[77, 30]"/>
-            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemSuaActionPerformed"/>
@@ -36,6 +33,9 @@
             <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemXoaActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
