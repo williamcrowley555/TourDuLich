@@ -5,6 +5,9 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.NhanVienDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -19,6 +22,7 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
+import com.tourdulich.util.ImageUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,42 +35,46 @@ import java.util.logging.Logger;
  * @author Hi
  */
 public class popUpNhanVien extends javax.swing.JFrame {
-    String Action = "";
-    /**
-     * Creates new form popUpTour
-     */
-    public popUpNhanVien(String Action) {
+    String action = "";
+    NhanVienDTO nhanVien;
+    private IVaiTroBLL vaiTroBLL;
+    
+    public popUpNhanVien(String action) {
         initComponents();
-        this.Action = Action;     
+        this.action = action;    
+        vaiTroBLL = new VaiTroBLL();
         CustomWindow();
         comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(14,142,233));
         this.setVisible(true);    
     }
     
-    public popUpNhanVien(String Action, Vector data) {
+    public popUpNhanVien(String action, NhanVienDTO nhanVien) {
         initComponents();
-        this.Action = Action;     
+        this.action = action;   
+        vaiTroBLL = new VaiTroBLL();   
         CustomWindow();
         comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(14,142,233));
-        setLabelText(data);
+        setLabelText(nhanVien);
         this.setVisible(true);    
     }
     
-    public void setLabelText(Vector  data)
+    public void setLabelText(NhanVienDTO nhanVien)
     {
-        txtHo.setText(data.get(1).toString());
-        txtTen.setText(data.get(2).toString());
-        if (data.get(3).toString().equals("Nữ"))
-        radioNu.setSelected(true);
+        txtHo.setText(nhanVien.getHo());
+        txtTen.setText(nhanVien.getTen());
+        if(nhanVien.getGioiTinh()) {
+            radioNam.setSelected(true);
+        } else {
+            radioNu.setSelected(true);
+        }
         try {
-                Date ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(data.get(4).toString());
-                DCNgaySinh.setDate(ngaySinh);
+                DCNgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(nhanVien.getNgaySinh().toString()));
             } catch (ParseException ex) {
                 Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
             }
-        txtDiaChi.setText(data.get(5).toString());
-        txtSDT.setText(data.get(6).toString());
-        comboBoxVaiTro.setSelectedItem(data.get(7));
+        txtDiaChi.setText(nhanVien.getDiaChi());
+        txtSDT.setText(nhanVien.getSdt());
+//        comboBoxVaiTro.setSelectedItem(data.get(7));
         //lblAnh.setText(data.get(7).toString());
     }
     
@@ -214,6 +222,11 @@ public class popUpNhanVien extends javax.swing.JFrame {
         btnChonAnh.setContentAreaFilled(false);
         btnChonAnh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnChonAnh.setOpaque(true);
+        btnChonAnh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonAnhActionPerformed(evt);
+            }
+        });
 
         lblHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblHo.setText("Họ:");
@@ -465,6 +478,10 @@ public class popUpNhanVien extends javax.swing.JFrame {
     private void comboBoxVaiTroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxVaiTroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxVaiTroActionPerformed
+
+    private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
+        ImageUtil.showJFileChooser(lblAnh);
+    }//GEN-LAST:event_btnChonAnhActionPerformed
 
     /**
      * @param args the command line arguments

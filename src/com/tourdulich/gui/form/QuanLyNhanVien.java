@@ -255,12 +255,13 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
-        popUpNhanVien popUp = new popUpNhanVien("Them");
+        popUpNhanVien popUp = new popUpNhanVien("POST");
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-        // TODO add your handling code here:
-        popUpNhanVien popup = new popUpNhanVien("Sửa", currentRow);
+        int rowindex = tblNhanVien.getSelectedRow();
+        Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
+        popUpNhanVien popup = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void tblNhanVienMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseReleased
