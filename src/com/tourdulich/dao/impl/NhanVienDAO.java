@@ -24,22 +24,30 @@ public class NhanVienDAO extends AbstractDAO<NhanVienDTO> implements INhanVienDA
 
     @Override
     public NhanVienDTO findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "SELECT * FROM nhan_vien WHERE id = ?";
+        List<NhanVienDTO> nhanVien = query(sql, new NhanVienMapper(), id);
+        return nhanVien.isEmpty() ? null : nhanVien.get(0);
+                
     }
 
     @Override
     public Long save(NhanVienDTO nhanVien) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "INSERT INTO nhan_vien(ho, ten, gioi_tinh, ngay_sinh, dia_chi, sdt, hinh_anh, id_vai_tro) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        return insert(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), nhanVien.getSdt(), 
+                nhanVien.getHinhAnh(), nhanVien.getIdVaiTro());
     }
 
     @Override
     public void update(NhanVienDTO nhanVien) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "UPDATE nhan_vien SET ho = ?, ten = ?, gioi_tinh = ?, ngay_sinh = ?, dia_chi = ?, sdt = ?, "
+                + "hinh_anh = ?, id_vai_tro = ? WHERE id = ?";
+        update(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), nhanVien.getSdt(), 
+                nhanVien.getHinhAnh(), nhanVien.getIdVaiTro(), nhanVien.getId());
     }
 
     @Override
     public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "DELETE FROM nhan_vien WHERE id = ?";
+        update(sql, id);
     }
-    
 }

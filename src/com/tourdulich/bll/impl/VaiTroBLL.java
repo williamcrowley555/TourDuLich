@@ -47,5 +47,4 @@ public class VaiTroBLL implements IVaiTroBLL {
     public void delete(Long id) {
         vaiTroDAO.delete(id);
     }
-    
 }

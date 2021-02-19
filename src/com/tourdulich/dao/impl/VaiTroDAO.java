@@ -46,5 +46,4 @@ public class VaiTroDAO extends AbstractDAO<VaiTroDTO> implements IVaiTroDAO {
         String sql = "DELETE FROM vai_tro WHERE id = ?";
         update(sql, id);
     }
-    
 }

@@ -5,9 +5,9 @@
  */
 package com.tourdulich.gui.main;
 
-import com.tourdulich.bll.IVaiTroBLL;
-import com.tourdulich.bll.impl.VaiTroBLL;
-import com.tourdulich.dto.VaiTroDTO;
+import com.tourdulich.bll.INhanVienBLL;
+import com.tourdulich.bll.impl.NhanVienBLL;
+import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.gui.others.ComponentResizer;
 import com.tourdulich.gui.form.QuanLyDiaDiem;
 import com.tourdulich.gui.form.QuanLyDichVu;
@@ -250,8 +250,8 @@ public class Main extends javax.swing.JFrame {
         Selected(menuTour);
         
 //        TESTING
-        IVaiTroBLL vaiTroBLL = new VaiTroBLL();
-        VaiTroDTO vaiTro = new VaiTroDTO();
+        INhanVienBLL nhanVienBLL = new NhanVienBLL();
+        NhanVienDTO nhanVien = new NhanVienDTO();
 //INSERT DATA
 //        vaiTro.setTenVaiTro("Bảo vệ");
 //        vaiTroBLL.save(vaiTro);
@@ -263,8 +263,8 @@ public class Main extends javax.swing.JFrame {
 //        vaiTroBLL.delete(7L);
 
 //DISPLAY DATA
-        List<VaiTroDTO> list = vaiTroBLL.findAll();
-        for(VaiTroDTO vt : list) {
+        List<NhanVienDTO> list = nhanVienBLL.findAll();
+        for(NhanVienDTO vt : list) {
             System.out.println(vt.toString() + "\n");
         }
     }

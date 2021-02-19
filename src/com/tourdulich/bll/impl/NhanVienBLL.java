@@ -30,22 +30,21 @@ public class NhanVienBLL implements INhanVienBLL {
 
     @Override
     public NhanVienDTO findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nhanVienDAO.findById(id);
     }
 
     @Override
     public Long save(NhanVienDTO nhanVien) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nhanVienDAO.save(nhanVien);
     }
 
     @Override
     public void update(NhanVienDTO nhanVien) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nhanVienDAO.update(nhanVien);
     }
 
     @Override
     public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nhanVienDAO.delete(id);
     }
-    
 }
