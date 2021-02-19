@@ -5,6 +5,11 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.INhanVienBLL;
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.NhanVienBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.gui.popup.popUpNhanVien;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import java.util.List;
 
 /**
  *
@@ -21,44 +27,55 @@ import com.tourdulich.gui.menu.MyScrollBarUI;
  */
 public class QuanLyNhanVien extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Panel1
-     */
+    String[] listColumns = {
+                        "Id",
+                        "Họ",
+                        "Tên",
+                        "Giới Tính",
+                        "Ngày Sinh",
+                        "Địa Chỉ",
+                        "SĐT",
+                        "Vai Trò"
+    };
+    private INhanVienBLL nhanVienBLL;
+    private IVaiTroBLL vaiTroBLL;
     Vector currentRow;
+    
     public QuanLyNhanVien() {
         initComponents();
-         
-        String[] columnNames = {
-                            "Id",
-                            "Họ",
-                            "Tên",
-                            "Giới Tính",
-                            "Ngày Sinh",
-                            "Địa Chỉ",
-                            "SĐT",
-                            "Id Vai Trò",
-                            "Hình Ảnh"
-        };
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Nguyễn");
-        row.add("Mạnh");
-        row.add("Nam");
-        row.add("1990-03-21");
-        row.add("abc, Hà Nội");
-        row.add("0987665432");
-        row.add("1");
-        row.add("");
         
-         
-        model.addRow(row);
-        tblNhanVien.setModel(model);
+        nhanVienBLL = new NhanVienBLL();
+        vaiTroBLL = new VaiTroBLL();
+        
+        loadTableData();
+        
         headerColor(14,142,233,tblNhanVien);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+    }
+    
+    public DefaultTableModel setTable(List<NhanVienDTO> listItems, String[] listColumns) {
+        Vector header = createHeader(listColumns);
+        DefaultTableModel model = new DefaultTableModel(header, 0);
+       
+        Vector row = null;
+        for(NhanVienDTO nhanVien : listItems) {
+            row = new Vector();
+            row.add(nhanVien.getId());
+            row.add(nhanVien.getHo());
+            row.add(nhanVien.getTen());
+            row.add(nhanVien.getGioiTinh() ? "Nam" : "Nữ");
+            row.add(nhanVien.getNgaySinh());
+            row.add(nhanVien.getDiaChi());
+            row.add(nhanVien.getSdt());
+            row.add(vaiTroBLL.findById(nhanVien.getIdVaiTro()).getTenVaiTro());
+            model.addRow(row);
+        }
+        
+        return model;
+    }
+    
+    public void loadTableData() {
+        tblNhanVien.setModel(setTable(nhanVienBLL.findAll(), this.listColumns));
     }
     
     public Vector createHeader(Object[] columnNames){

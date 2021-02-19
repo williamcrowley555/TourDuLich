@@ -42,8 +42,6 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         
         headerColor(14,142,233,tblVaiTro);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
-       
-        
     }
     
     public DefaultTableModel setTable(List<VaiTroDTO> listItems, String[] listColumns) {
@@ -59,6 +57,10 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         }
         
         return model;
+    }
+    
+    public void loadTableData() {
+        tblVaiTro.setModel(setTable(vaiTroBLL.findAll(), this.listColumns));
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -81,10 +83,6 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         }       
          
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
-    }
-    
-    public void loadTableData() {
-        tblVaiTro.setModel(setTable(vaiTroBLL.findAll(), this.listColumns));
     }
     
     /**
