@@ -285,6 +285,7 @@ public class popUpVaiTro extends javax.swing.JFrame {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
