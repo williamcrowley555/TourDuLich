@@ -263,10 +263,10 @@ public class Main extends javax.swing.JFrame {
 //        vaiTroBLL.delete(7L);
 
 //DISPLAY DATA
-        List<NhanVienDTO> list = nhanVienBLL.findAll();
-        for(NhanVienDTO vt : list) {
-            System.out.println(vt.toString() + "\n");
-        }
+//        List<NhanVienDTO> list = nhanVienBLL.findAll();
+//        for(NhanVienDTO vt : list) {
+//            System.out.println(vt.toString() + "\n");
+//        }
     }
     
     public void invisibleMenuScrollBar(int speed)

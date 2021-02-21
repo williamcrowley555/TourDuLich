@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.util.NhanVienTableLoaderUtil;
 import java.util.List;
 
 /**
@@ -53,29 +54,29 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
     
-    public DefaultTableModel setTable(List<NhanVienDTO> listItems, String[] listColumns) {
-        Vector header = createHeader(listColumns);
-        DefaultTableModel model = new DefaultTableModel(header, 0);
-       
-        Vector row = null;
-        for(NhanVienDTO nhanVien : listItems) {
-            row = new Vector();
-            row.add(nhanVien.getId());
-            row.add(nhanVien.getHo());
-            row.add(nhanVien.getTen());
-            row.add(nhanVien.getGioiTinh() ? "Nam" : "Nữ");
-            row.add(nhanVien.getNgaySinh());
-            row.add(nhanVien.getDiaChi());
-            row.add(nhanVien.getSdt());
-            row.add(vaiTroBLL.findById(nhanVien.getIdVaiTro()).getTenVaiTro());
-            model.addRow(row);
-        }
-        
-        return model;
-    }
+//    public DefaultTableModel setTable(List<NhanVienDTO> listItems, String[] listColumns) {
+//        Vector header = createHeader(listColumns);
+//        DefaultTableModel model = new DefaultTableModel(header, 0);
+//       
+//        Vector row = null;
+//        for(NhanVienDTO nhanVien : listItems) {
+//            row = new Vector();
+//            row.add(nhanVien.getId());
+//            row.add(nhanVien.getHo());
+//            row.add(nhanVien.getTen());
+//            row.add(nhanVien.getGioiTinh() ? "Nam" : "Nữ");
+//            row.add(nhanVien.getNgaySinh());
+//            row.add(nhanVien.getDiaChi());
+//            row.add(nhanVien.getSdt());
+//            row.add(vaiTroBLL.findById(nhanVien.getIdVaiTro()).getTenVaiTro());
+//            model.addRow(row);
+//        }
+//        
+//        return model;
+//    }
     
     public void loadTableData() {
-        tblNhanVien.setModel(setTable(nhanVienBLL.findAll(), this.listColumns));
+        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), this.listColumns)) ;
     }
     
     public Vector createHeader(Object[] columnNames){
