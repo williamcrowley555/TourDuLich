@@ -47,7 +47,10 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    private boolean menuHided = false;
     private boolean maximized = false;
+    ImageIcon iconShowMenu = new ImageIcon(getClass().getResource("/com/tourdulich/img/show_menu_icon.png"));
+    ImageIcon iconHideMenu = new ImageIcon(getClass().getResource("/com/tourdulich/img/hide_menu_icon.png"));
     ImageIcon iconRestoreDown = new ImageIcon(getClass().getResource("/com/tourdulich/img/restore_down.png"));
     ImageIcon iconTour = new ImageIcon(getClass().getResource("/com/tourdulich/img/tour_icon.png"));
     ImageIcon iconLoaiDuLich = new ImageIcon(getClass().getResource("/com/tourdulich/img/loai_du_lich_icon.png"));
@@ -301,6 +304,8 @@ public class Main extends javax.swing.JFrame {
         cr.registerComponent(this);
     }
     
+    
+    
     public void Maximize_Restore(boolean state)
     {
        if (state)
@@ -364,6 +369,7 @@ public class Main extends javax.swing.JFrame {
         lblMinimize = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         lblMaximize_Restore = new javax.swing.JLabel();
+        lblShow_HideMenu = new javax.swing.JLabel();
         panelMenu = new javax.swing.JPanel();
         menuScroll = new javax.swing.JScrollPane();
         menus = new javax.swing.JPanel();
@@ -413,12 +419,21 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        lblShow_HideMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblShow_HideMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/hide_menu_icon.png"))); // NOI18N
+        lblShow_HideMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblShow_HideMenuMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
         panelHeader.setLayout(panelHeaderLayout);
         panelHeaderLayout.setHorizontalGroup(
             panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHeaderLayout.createSequentialGroup()
-                .addContainerGap(706, Short.MAX_VALUE)
+                .addComponent(lblShow_HideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 654, Short.MAX_VALUE)
                 .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblMaximize_Restore, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,6 +445,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(lblMinimize, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
             .addComponent(lblExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblMaximize_Restore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblShow_HideMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelHeader, java.awt.BorderLayout.PAGE_START);
@@ -511,6 +527,21 @@ public class Main extends javax.swing.JFrame {
            setLocation (evt.getXOnScreen()-(getWidth()/2),evt.getYOnScreen()-10);
     }//GEN-LAST:event_panelHeaderMouseDragged
 
+    private void lblShow_HideMenuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblShow_HideMenuMousePressed
+        // TODO add your handling code here:
+        if (menuHided)
+        {
+        panelMenu.setVisible(true);
+        menuHided = false;
+        lblShow_HideMenu.setIcon(iconHideMenu);
+        }
+        else {
+             panelMenu.setVisible(false);
+             menuHided = true; 
+             lblShow_HideMenu.setIcon(iconShowMenu);
+             }
+    }//GEN-LAST:event_lblShow_HideMenuMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -552,6 +583,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMaximize_Restore;
     private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblShow_HideMenu;
     private javax.swing.JScrollPane menuScroll;
     private javax.swing.JPanel menus;
     private javax.swing.JPanel panelBody;
