@@ -48,9 +48,9 @@ import javax.swing.JOptionPane;
  * @author Hi
  */
 public class popUpNhanVien extends javax.swing.JFrame {
-    private File selectedImg;
+    private File selectedImg = null;
     private String action;
-    private NhanVienDTO nhanVien;
+    private NhanVienDTO nhanVien = null;
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
     
@@ -97,11 +97,13 @@ public class popUpNhanVien extends javax.swing.JFrame {
         DCNgaySinh.setDate(nhanVien.getNgaySinh());
         txtDiaChi.setText(nhanVien.getDiaChi());
         txtSDT.setText(nhanVien.getSdt());
-        lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
+        if(nhanVien.getHinhAnh() != null) {
+            lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
+        }
         comboBoxVaiTro.setSelectedItem(getVaiTroItemName(vaiTroBLL.findById(nhanVien.getIdVaiTro())));
     }
     
-    private NhanVienDTO getFormInfo() throws FileNotFoundException, IOException {
+    private NhanVienDTO getFormInfo() throws IOException {
         NhanVienDTO nhanVien = new NhanVienDTO();
         if(this.nhanVien != null) {
             nhanVien.setId(this.nhanVien.getId());
@@ -112,19 +114,18 @@ public class popUpNhanVien extends javax.swing.JFrame {
         nhanVien.setNgaySinh(DCNgaySinh.getDate());
         nhanVien.setDiaChi(txtDiaChi.getText());
         nhanVien.setSdt(txtSDT.getText());
-        
-        FileInputStream fis = new FileInputStream(selectedImg);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        for (int readNum; (readNum = fis.read(buf)) != -1;) {
-            bos.write(buf, 0, readNum);
+        if (this.selectedImg != null) {
+            nhanVien.setHinhAnh(ImageUtil.getByteArray(this.selectedImg));
+        } else {
+            if (this.nhanVien != null) {
+                if(this.nhanVien.getHinhAnh() != null) {
+                    nhanVien.setHinhAnh(this.nhanVien.getHinhAnh());
+                }
+            }
         }
-        nhanVien.setHinhAnh(bos.toByteArray());
-        
         String selectedVaiTro = comboBoxVaiTro.getSelectedItem().toString();
         Long idVaiTro = Long.parseLong(selectedVaiTro.substring(0, selectedVaiTro.indexOf(" - ")));
         nhanVien.setIdVaiTro(idVaiTro);
-        System.out.println(nhanVien.toString());
         return nhanVien;
     }
     
@@ -161,7 +162,6 @@ public class popUpNhanVien extends javax.swing.JFrame {
         lblMinimize.setText("\u2014");
         lblExit.setText("X");
         comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(240,240,240));
-     
     }
     
     public void myTextArea()
@@ -550,7 +550,6 @@ public class popUpNhanVien extends javax.swing.JFrame {
         NhanVienDTO newNhanVien = null;
         try {
             newNhanVien = getFormInfo();
-            System.out.println(newNhanVien.toString());
         } catch (IOException ex) {
             Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
         }
