@@ -232,12 +232,24 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
         popUpVaiTro popUp = new popUpVaiTro("POST");
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
         int rowindex = tblVaiTro.getSelectedRow();
         Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());
-        popUpVaiTro popup = new popUpVaiTro("PUT", vaiTroBLL.findById(id));
+        popUpVaiTro popUp = new popUpVaiTro("PUT", vaiTroBLL.findById(id));
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void tblVaiTroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVaiTroMouseReleased
@@ -272,6 +284,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
+        loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
 
 

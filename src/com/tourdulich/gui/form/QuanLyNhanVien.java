@@ -78,6 +78,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     
     public void loadTableData() {
         tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), this.listColumns)) ;
+        headerColor(14,142,233,tblNhanVien);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -262,12 +263,24 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         popUpNhanVien popUp = new popUpNhanVien("POST");
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
         int rowindex = tblNhanVien.getSelectedRow();
         Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-        popUpNhanVien popup = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
+        popUpNhanVien popUp = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void tblNhanVienMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseReleased
@@ -306,6 +319,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
+        loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
 
 
