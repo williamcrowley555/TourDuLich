@@ -46,6 +46,8 @@ public class AbstractDAO<T> implements GenericDAO<T>{
                         statement.setBoolean(index, (Boolean) parameter);
                 } else if(parameter instanceof Date) {
                         statement.setDate(index, (Date) parameter);
+                } else if(parameter instanceof LocalDate) {
+                        statement.setObject(index, (LocalDate) parameter);
                 } else if(parameter instanceof byte[]) {
                         statement.setBytes(index, (byte[]) parameter);
                 } else if(parameter == null) {

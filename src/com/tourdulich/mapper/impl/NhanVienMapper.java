@@ -28,7 +28,7 @@ public class NhanVienMapper implements RowMapper<NhanVienDTO>{
             nhanVien.setGioiTinh(rs.getBoolean("gioi_tinh"));
 //            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //            nhanVien.setNgaySinh(df.format(rs.getDate("ngay_sinh")));
-            nhanVien.setNgaySinh(rs.getDate("ngay_sinh"));
+            nhanVien.setNgaySinh(rs.getDate("ngay_sinh").toLocalDate());
             nhanVien.setDiaChi(rs.getString("dia_chi"));
             nhanVien.setSdt(rs.getString("sdt"));
             nhanVien.setHinhAnh(rs.getBytes("hinh_anh"));

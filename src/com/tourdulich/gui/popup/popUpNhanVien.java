@@ -109,10 +109,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         nhanVien.setHo(txtHo.getText());
         nhanVien.setTen(txtTen.getText());
         nhanVien.setGioiTinh(radioNam.isSelected() ? true : false);
-        
-        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         nhanVien.setNgaySinh(DCNgaySinh.getDate());
-        
         nhanVien.setDiaChi(txtDiaChi.getText());
         nhanVien.setSdt(txtSDT.getText());
         
@@ -241,7 +238,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         lblNgaySinh = new javax.swing.JLabel();
         AreaScrollPane = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextArea();
-        DCNgaySinh = new com.toedter.calendar.JDateChooser();
+        DCNgaySinh = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -254,20 +251,20 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
+        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.setBackground(new java.awt.Color(255, 255, 255));
         lblMinimize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMinimizeMouseClicked(evt);
             }
         });
 
+        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblExit.setForeground(new java.awt.Color(255, 255, 255));
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExitMouseClicked(evt);
@@ -306,25 +303,25 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblHo.setText("Họ:");
+        lblHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        txtHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtHo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblDiaChi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblDiaChi.setText("Địa Chỉ:");
+        lblDiaChi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        txtTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTen.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenActionPerformed(evt);
             }
         });
 
-        lblGioiTinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblGioiTinh.setText("Giới Tính:");
+        lblGioiTinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnGroupGioiTinh.add(radioNam);
         radioNam.setSelected(true);
@@ -343,25 +340,25 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTen.setText("Tên:");
+        lblTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblVaiTro.setText("Vai trò:");
+        lblVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        comboBoxVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxVaiTro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboBoxVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxVaiTro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxVaiTroActionPerformed(evt);
             }
         });
 
-        txtSDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtSDT.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtSDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblSDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblSDT.setText("Sđt:");
+        lblSDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -393,8 +390,8 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNgaySinh.setText("Ngày Sinh:");
+        lblNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         AreaScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         AreaScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -420,8 +417,9 @@ public class popUpNhanVien extends javax.swing.JFrame {
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDiaChi)
                             .addComponent(lblNgaySinh)
-                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -438,9 +436,6 @@ public class popUpNhanVien extends javax.swing.JFrame {
                             .addComponent(txtSDT, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(pnlBodyLayout.createSequentialGroup()
                                 .addComponent(lblVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
@@ -480,20 +475,20 @@ public class popUpNhanVien extends javax.swing.JFrame {
                                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblGioiTinh)
                                     .addComponent(radioNam))))
+                        .addGap(13, 13, 13)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSDT)
+                            .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(radioNu))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblNgaySinh)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblSDT)
-                                    .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(radioNu))
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNgaySinh)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(56, 56, 56)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -631,7 +626,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane AreaScrollPane;
-    private com.toedter.calendar.JDateChooser DCNgaySinh;
+    private com.github.lgooddatepicker.components.DatePicker DCNgaySinh;
     private javax.swing.JButton btnChonAnh;
     private javax.swing.ButtonGroup btnGroupGioiTinh;
     private javax.swing.JButton btnHuy;
