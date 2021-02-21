@@ -5,7 +5,9 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.tourdulich.bll.INhanVienBLL;
 import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.NhanVienBLL;
 import com.tourdulich.bll.impl.VaiTroBLL;
 import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.dto.VaiTroDTO;
@@ -24,6 +26,12 @@ import javax.swing.plaf.basic.ComboPopup;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
 import com.tourdulich.util.ImageUtil;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,20 +41,24 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Hi
  */
 public class popUpNhanVien extends javax.swing.JFrame {
-    String action = "";
-    NhanVienDTO nhanVien;
+    private File selectedImg;
+    private String action;
+    private NhanVienDTO nhanVien;
+    private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
     
     public popUpNhanVien(String action) {
         initComponents();
         
         this.action = action;    
+        nhanVienBLL = new NhanVienBLL();
         vaiTroBLL = new VaiTroBLL();
         
         CustomWindow();
@@ -59,7 +71,9 @@ public class popUpNhanVien extends javax.swing.JFrame {
     
     public popUpNhanVien(String action, NhanVienDTO nhanVien) {
         initComponents();
-        this.action = action;   
+        this.action = action;  
+        this.nhanVien = nhanVien;
+        nhanVienBLL = new NhanVienBLL();
         vaiTroBLL = new VaiTroBLL(); 
         
         CustomWindow();
@@ -80,16 +94,41 @@ public class popUpNhanVien extends javax.swing.JFrame {
         } else {
             radioNu.setSelected(true);
         }
-        try {
-                DCNgaySinh.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(nhanVien.getNgaySinh().toString()));
-            } catch (ParseException ex) {
-                Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        DCNgaySinh.setDate(nhanVien.getNgaySinh());
         txtDiaChi.setText(nhanVien.getDiaChi());
         txtSDT.setText(nhanVien.getSdt());
+        lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
         comboBoxVaiTro.setSelectedItem(getVaiTroItemName(vaiTroBLL.findById(nhanVien.getIdVaiTro())));
+    }
+    
+    private NhanVienDTO getFormInfo() throws FileNotFoundException, IOException {
+        NhanVienDTO nhanVien = new NhanVienDTO();
+        if(this.nhanVien != null) {
+            nhanVien.setId(this.nhanVien.getId());
+        }
+        nhanVien.setHo(txtHo.getText());
+        nhanVien.setTen(txtTen.getText());
+        nhanVien.setGioiTinh(radioNam.isSelected() ? true : false);
         
-        //lblAnh.setText(data.get(7).toString());
+        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        nhanVien.setNgaySinh(DCNgaySinh.getDate());
+        
+        nhanVien.setDiaChi(txtDiaChi.getText());
+        nhanVien.setSdt(txtSDT.getText());
+        
+        FileInputStream fis = new FileInputStream(selectedImg);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        for (int readNum; (readNum = fis.read(buf)) != -1;) {
+            bos.write(buf, 0, readNum);
+        }
+        nhanVien.setHinhAnh(bos.toByteArray());
+        
+        String selectedVaiTro = comboBoxVaiTro.getSelectedItem().toString();
+        Long idVaiTro = Long.parseLong(selectedVaiTro.substring(0, selectedVaiTro.indexOf(" - ")));
+        nhanVien.setIdVaiTro(idVaiTro);
+        System.out.println(nhanVien.toString());
+        return nhanVien;
     }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
@@ -200,9 +239,9 @@ public class popUpNhanVien extends javax.swing.JFrame {
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
         lblNgaySinh = new javax.swing.JLabel();
-        DCNgaySinh = new com.toedter.calendar.JDateChooser();
         AreaScrollPane = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextArea();
+        DCNgaySinh = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -357,8 +396,6 @@ public class popUpNhanVien extends javax.swing.JFrame {
         lblNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNgaySinh.setText("Ngày Sinh:");
 
-        DCNgaySinh.setDateFormatString("yyyy-MM-dd\n\n");
-
         AreaScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         AreaScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
@@ -379,6 +416,16 @@ public class popUpNhanVien extends javax.swing.JFrame {
                     .addComponent(btnChonAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDiaChi)
+                            .addComponent(lblNgaySinh)
+                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,6 +439,9 @@ public class popUpNhanVien extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
                                 .addComponent(lblVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
                                 .addComponent(comboBoxVaiTro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -401,18 +451,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                                 .addComponent(lblGioiTinh)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(radioNam))))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDiaChi)
-                            .addComponent(lblNgaySinh)
-                            .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(radioNam)))))
                 .addGap(20, 20, 20))
         );
         pnlBodyLayout.setVerticalGroup(
@@ -441,22 +480,22 @@ public class popUpNhanVien extends javax.swing.JFrame {
                                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblGioiTinh)
                                     .addComponent(radioNam))))
-                        .addGap(13, 13, 13)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSDT)
-                            .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioNu))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNgaySinh)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblSDT)
+                                    .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(radioNu))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNgaySinh)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -513,7 +552,32 @@ public class popUpNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTenActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        // TODO add your handling code here:
+        NhanVienDTO newNhanVien = null;
+        try {
+            newNhanVien = getFormInfo();
+            System.out.println(newNhanVien.toString());
+        } catch (IOException ex) {
+            Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(this.action.equals("POST")) {
+            Long newNhanVienId = nhanVienBLL.save(newNhanVien);
+            if(newNhanVienId != null) {
+                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if(this.action.equals("PUT")) {
+            try {
+                nhanVienBLL.update(newNhanVien);
+                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
@@ -526,7 +590,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxVaiTroActionPerformed
 
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
-        ImageUtil.showJFileChooser(lblAnh);
+        selectedImg = ImageUtil.showJFileChooser(lblAnh);
     }//GEN-LAST:event_btnChonAnhActionPerformed
 
     /**

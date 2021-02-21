@@ -54,18 +54,11 @@ public class popUpVaiTro extends javax.swing.JFrame {
         CustomWindow();
         setLabelText(vaiTro);
         this.setVisible(true);
-        
     }
     
     public void setLabelText(VaiTroDTO vaiTro)
     {
         txtTenVaiTro.setText(vaiTro.getTenVaiTro());
-    }
-    
- 
-    public popUpVaiTro() {
-        initComponents();
-        CustomWindow();
     }
     
     private VaiTroDTO getFormInfo() {
@@ -75,6 +68,11 @@ public class popUpVaiTro extends javax.swing.JFrame {
         }
         vaiTro.setTenVaiTro(txtTenVaiTro.getText());
         return vaiTro;
+    }
+ 
+    public popUpVaiTro() {
+        initComponents();
+        CustomWindow();
     }
     
     public void center()

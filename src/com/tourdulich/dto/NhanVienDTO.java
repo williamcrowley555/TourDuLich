@@ -113,6 +113,8 @@ public class NhanVienDTO {
 
     @Override
     public String toString() {
-        return "NhanVienDTO{" + "id=" + id + ", ho=" + ho + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", hinhAnh=" + hinhAnh + ", idVaiTro=" + idVaiTro + '}';
+        return "NhanVienDTO{" + "id=" + id + ", ho=" + ho + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", hinhAnh=" + hinhAnh + ", idVaiTro=" + idVaiTro + '}';
     }
+
+    
 }

@@ -9,6 +9,8 @@ import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.mapper.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -24,6 +26,8 @@ public class NhanVienMapper implements RowMapper<NhanVienDTO>{
             nhanVien.setHo(rs.getString("ho"));
             nhanVien.setTen(rs.getString("ten"));
             nhanVien.setGioiTinh(rs.getBoolean("gioi_tinh"));
+//            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//            nhanVien.setNgaySinh(df.format(rs.getDate("ngay_sinh")));
             nhanVien.setNgaySinh(rs.getDate("ngay_sinh"));
             nhanVien.setDiaChi(rs.getString("dia_chi"));
             nhanVien.setSdt(rs.getString("sdt"));

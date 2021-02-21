@@ -260,7 +260,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     }//GEN-LAST:event_tblVaiTroMouseReleased
 
     private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa vai trò này?");
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
         if(response == JOptionPane.YES_OPTION) {
             int rowindex = tblVaiTro.getSelectedRow();
             Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());

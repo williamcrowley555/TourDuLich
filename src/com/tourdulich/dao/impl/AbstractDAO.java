@@ -36,16 +36,17 @@ public class AbstractDAO<T> implements GenericDAO<T>{
             for(int i = 0; i < parameters.length; ++i) {
                 index = i + 1; 
                 Object parameter = parameters[i];
-
                 if(parameter instanceof Long) {
                         statement.setLong(index, (Long) parameter);
                 } else if(parameter instanceof String) {
                         statement.setString(index, (String) parameter);
                 } else if(parameter instanceof Integer) {
                         statement.setInt(index, (Integer) parameter);
+                }else if(parameter instanceof Boolean) {
+                        statement.setBoolean(index, (Boolean) parameter);
                 } else if(parameter instanceof Date) {
                         statement.setDate(index, (Date) parameter);
-                } else if(parameter instanceof Byte) {
+                } else if(parameter instanceof byte[]) {
                         statement.setBytes(index, (byte[]) parameter);
                 } else if(parameter == null) {
                         statement.setNull(index, Types.NULL);
@@ -105,6 +106,7 @@ public class AbstractDAO<T> implements GenericDAO<T>{
             connection.commit();
             return id;
         } catch (SQLException e) {
+                e.printStackTrace();
             try {
                 connection.rollback();
             } catch (SQLException ex) {
@@ -159,5 +161,4 @@ public class AbstractDAO<T> implements GenericDAO<T>{
             }
         }
     }
-    
 }

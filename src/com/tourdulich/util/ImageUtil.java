@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class ImageUtil {
     
-    public static void showJFileChooser(JLabel thumbnailLbl){
+    public static File showJFileChooser(JLabel thumbnailLbl){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         
@@ -30,13 +30,21 @@ public class ImageUtil {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
             thumbnailLbl.setIcon(resizeImg(filePath, thumbnailLbl));
+            return selectedFile;
         } else if(fileState == JFileChooser.CANCEL_OPTION) {
             System.out.println("No Image Selected!");
         }
+        return null;
     }
     
     public static ImageIcon resizeImg(String imgPath, JLabel thumbnaiLbl) {
         ImageIcon imgIcon = new ImageIcon(imgPath);
+        Image img = imgIcon.getImage().getScaledInstance(thumbnaiLbl.getWidth(), thumbnaiLbl.getHeight(), Image.SCALE_SMOOTH);
+        return new ImageIcon(img);
+    }
+    
+    public static ImageIcon resizeImg(byte[] imgage, JLabel thumbnaiLbl) {
+        ImageIcon imgIcon = new ImageIcon(imgage);
         Image img = imgIcon.getImage().getScaledInstance(thumbnaiLbl.getWidth(), thumbnaiLbl.getHeight(), Image.SCALE_SMOOTH);
         return new ImageIcon(img);
     }

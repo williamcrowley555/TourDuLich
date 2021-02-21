@@ -33,16 +33,16 @@ public class NhanVienDAO extends AbstractDAO<NhanVienDTO> implements INhanVienDA
     @Override
     public Long save(NhanVienDTO nhanVien) {
         String sql = "INSERT INTO nhan_vien(ho, ten, gioi_tinh, ngay_sinh, dia_chi, sdt, hinh_anh, id_vai_tro) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        return insert(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), nhanVien.getSdt(), 
-                nhanVien.getHinhAnh(), nhanVien.getIdVaiTro());
+        return insert(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getGioiTinh(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), 
+                nhanVien.getSdt(), nhanVien.getHinhAnh(), nhanVien.getIdVaiTro());
     }
 
     @Override
     public void update(NhanVienDTO nhanVien) {
         String sql = "UPDATE nhan_vien SET ho = ?, ten = ?, gioi_tinh = ?, ngay_sinh = ?, dia_chi = ?, sdt = ?, "
                 + "hinh_anh = ?, id_vai_tro = ? WHERE id = ?";
-        update(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), nhanVien.getSdt(), 
-                nhanVien.getHinhAnh(), nhanVien.getIdVaiTro(), nhanVien.getId());
+        update(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getGioiTinh(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), 
+                nhanVien.getSdt(), nhanVien.getHinhAnh(), nhanVien.getIdVaiTro(), nhanVien.getId());
     }
 
     @Override
