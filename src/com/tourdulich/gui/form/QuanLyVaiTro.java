@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.util.VaiTroTableLoaderUtil;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -44,23 +45,8 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
     
-    public DefaultTableModel setTable(List<VaiTroDTO> listItems, String[] listColumns) {
-        Vector header = createHeader(listColumns);
-        DefaultTableModel model = new DefaultTableModel(header, 0);
-       
-        Vector row = null;
-        for(VaiTroDTO vaiTro : listItems) {
-            row = new Vector();
-            row.add(vaiTro.getId());
-            row.add(vaiTro.getTenVaiTro());
-            model.addRow(row);
-        }
-        
-        return model;
-    }
-    
     public void loadTableData() {
-        tblVaiTro.setModel(setTable(vaiTroBLL.findAll(), this.listColumns));
+        tblVaiTro.setModel(new VaiTroTableLoaderUtil().setTable(vaiTroBLL.findAll(), this.listColumns));
     }
     
     public Vector createHeader(Object[] columnNames){
