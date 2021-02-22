@@ -36,6 +36,11 @@ import javax.swing.JScrollBar;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 import com.tourdulich.gui.menu.MenuItem;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import java.awt.Rectangle;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.geom.Area;
+import java.awt.geom.RoundRectangle2D;
 import java.util.List;
 
 /**
@@ -243,7 +248,7 @@ public class Main extends javax.swing.JFrame {
          
     public Main() {
         initComponents();
-      
+       
         invisibleMenuScrollBar(8);
         panelBody.add(new QuanLyTour());
         panelBody.repaint();
@@ -456,7 +461,7 @@ public class Main extends javax.swing.JFrame {
         menuScroll.setBorder(null);
 
         menus.setBackground(new java.awt.Color(255, 255, 255));
-        menus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 1, new java.awt.Color(204, 204, 204)));
+        menus.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(204, 204, 204)));
         menus.setLayout(new javax.swing.BoxLayout(menus, javax.swing.BoxLayout.Y_AXIS));
         menuScroll.setViewportView(menus);
 
