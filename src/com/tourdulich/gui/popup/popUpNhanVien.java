@@ -98,7 +98,8 @@ public class popUpNhanVien extends javax.swing.JFrame {
         txtDiaChi.setText(nhanVien.getDiaChi());
         txtSDT.setText(nhanVien.getSdt());
         if(nhanVien.getHinhAnh() != null) {
-            lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
+            System.out.println(nhanVien.getHinhAnh()); 
+           lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
         }
         comboBoxVaiTro.setSelectedItem(getVaiTroItemName(vaiTroBLL.findById(nhanVien.getIdVaiTro())));
     }
