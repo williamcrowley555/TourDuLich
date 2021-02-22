@@ -28,6 +28,7 @@ public class ImageUtil {
         
         FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("*.Images", "jpg", "png", "gif");
         fileChooser.addChoosableFileFilter(fileFilter);
+        fileChooser.setMultiSelectionEnabled(false);
         
         int fileState = fileChooser.showSaveDialog(null);
         if(fileState == JFileChooser.APPROVE_OPTION) {
