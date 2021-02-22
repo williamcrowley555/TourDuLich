@@ -47,6 +47,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     
     public void loadTableData() {
         tblVaiTro.setModel(new VaiTroTableLoaderUtil().setTable(vaiTroBLL.findAll(), this.listColumns));
+        headerColor(14,142,233,tblVaiTro);
     }
     
     public Vector createHeader(Object[] columnNames){
