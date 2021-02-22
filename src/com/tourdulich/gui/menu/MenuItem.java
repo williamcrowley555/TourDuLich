@@ -92,7 +92,6 @@ public class MenuItem extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Line = new javax.swing.JSeparator();
         lbIcon = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
         lblExtend = new javax.swing.JLabel();
@@ -104,8 +103,6 @@ public class MenuItem extends javax.swing.JPanel {
                 formMousePressed(evt);
             }
         });
-
-        Line.setForeground(new java.awt.Color(102, 51, 255));
 
         lbName.setBackground(new java.awt.Color(14, 142, 233));
         lbName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -121,7 +118,6 @@ public class MenuItem extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Line)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(lbIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,9 +135,7 @@ public class MenuItem extends javax.swing.JPanel {
                     .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
                     .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblExtend, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Line, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,7 +201,6 @@ public class MenuItem extends javax.swing.JPanel {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSeparator Line;
     private javax.swing.JLabel lbIcon;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lblExtend;
