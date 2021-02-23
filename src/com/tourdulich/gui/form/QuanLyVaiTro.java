@@ -17,10 +17,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.util.TableSetupUtil;
 import com.tourdulich.util.VaiTroTableLoaderUtil;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -31,9 +34,8 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
                             "Id",
                             "Tên Vai Trò"};
     private IVaiTroBLL vaiTroBLL;
-    /**
-     * Creates new form Panel1
-     */
+    TableRowSorter<TableModel> rowSorter = null;
+    
     public QuanLyVaiTro() {
         initComponents();
         
@@ -47,6 +49,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     
     public void loadTableData() {
         tblVaiTro.setModel(new VaiTroTableLoaderUtil().setTable(vaiTroBLL.findAll(), this.listColumns));
+        this.rowSorter = TableSetupUtil.setTableFilter(tblVaiTro, txtTimKiem);
         headerColor(14,142,233,tblVaiTro);
     }
     

@@ -20,8 +20,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
 import com.tourdulich.util.NhanVienTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -41,7 +45,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     };
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
-    Vector currentRow;
+    TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyNhanVien() {
         initComponents();
@@ -55,29 +59,9 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
     
-//    public DefaultTableModel setTable(List<NhanVienDTO> listItems, String[] listColumns) {
-//        Vector header = createHeader(listColumns);
-//        DefaultTableModel model = new DefaultTableModel(header, 0);
-//       
-//        Vector row = null;
-//        for(NhanVienDTO nhanVien : listItems) {
-//            row = new Vector();
-//            row.add(nhanVien.getId());
-//            row.add(nhanVien.getHo());
-//            row.add(nhanVien.getTen());
-//            row.add(nhanVien.getGioiTinh() ? "Nam" : "Nữ");
-//            row.add(nhanVien.getNgaySinh());
-//            row.add(nhanVien.getDiaChi());
-//            row.add(nhanVien.getSdt());
-//            row.add(vaiTroBLL.findById(nhanVien.getIdVaiTro()).getTenVaiTro());
-//            model.addRow(row);
-//        }
-//        
-//        return model;
-//    }
-    
     public void loadTableData() {
         tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), this.listColumns)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblNhanVien, txtTimKiem);
         headerColor(14,142,233,tblNhanVien);
     }
     
@@ -171,6 +155,11 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyTyped(evt);
             }
         });
 
@@ -293,8 +282,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         }
 
         int rowindex = tblNhanVien.getSelectedRow();
-        String selectedRow;
-        currentRow = new Vector();
+        Vector currentRow = new Vector();
         for (int i = 0; i < tblNhanVien.getColumnCount(); i++)
         currentRow.add(tblNhanVien.getValueAt(rowindex,i).toString()); 
        
@@ -321,6 +309,10 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         }
         loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
+
+    private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
+        
+    }//GEN-LAST:event_txtTimKiemKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
