@@ -16,9 +16,12 @@ import java.util.regex.Pattern;
 public class InputValidatorUtil {
     
     public static String isValidName(String name, boolean whitespace) {
+        if (name.isEmpty()) return " không được để trống";
         String space = whitespace ? "\\s" : "";
         String regex = "[^A-Za-z" + space + "]";
-        boolean result = name.matches(regex);
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+        boolean result = matcher.find();
         if(result) {
             String extraMessage = whitespace ? "" : ", khoảng trắng";
             return " không bao gồm số, ký tự đặc biệt" + extraMessage;
@@ -26,7 +29,20 @@ public class InputValidatorUtil {
         return "";
     }
     
+    public static String isValidAddress(String name) {
+        if (name.isEmpty()) return " không được để trống";
+        String regex = "[^A-Za-z0-9.,\\s\\/]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+        boolean result = matcher.find();
+        if(result) {
+            return "Dịa chỉ không hợp lệ";
+        }
+        return "";
+    }
+    
     public static String isValidEmail(String email) {
+        if (email.isEmpty()) return " không được để trống";
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex) ? "" : "Email không hợp lệ";
     }
@@ -41,6 +57,7 @@ public class InputValidatorUtil {
     }
     
     public static String isVailidNumber(String number) {
+        if (number.isEmpty()) return " không được để trống";
         String regex = "[^0-9]";
         boolean result = number.matches(regex);
         if(result) {
@@ -54,6 +71,7 @@ public class InputValidatorUtil {
     }
     
     public static String isVailidNumber(String number, Integer min, Integer max) {
+        if (number.isEmpty()) return " không được để trống";
         String regex = "[^0-9]";
         boolean result = number.matches(regex);
         if(result) {
@@ -77,9 +95,19 @@ public class InputValidatorUtil {
         return "";
     }
     
-    public static void main(String[] args) {
-        String rs = isValidEmail("helloWorld@gmail.com");
-        if(rs.isEmpty()) System.out.println("OK");
-        else System.out.println(rs);
+    public static String isVailidPhoneNumber(String phoneNumber) {
+        if (phoneNumber.isEmpty()) return " không được để trống";
+        String regex = "0{1}\\d{9}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        boolean result = matcher.find();
+        if(!result) {
+            return "Số điện thoại không hợp lệ";
+        }
+        
+        String message = isInteger(phoneNumber);
+        if(!message.isEmpty()) return message;
+        
+        return "";
     }
 }
