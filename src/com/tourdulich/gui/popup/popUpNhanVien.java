@@ -107,9 +107,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
     }
     public boolean Validate()
     {   
-        System.out.println(InputValidatorUtil.isValidName(txtTen.getText(), true).isEmpty());
-        System.out.println(InputValidatorUtil.isValidName(txtHo.getText(), true).equals(""));
-        System.out.println(txtHo.getText());
+        boolean Ho, Ten, Sdt, DiaChi = true; 
         if (InputValidatorUtil.isValidName(txtHo.getText(), true).isEmpty())  
         return true;
         

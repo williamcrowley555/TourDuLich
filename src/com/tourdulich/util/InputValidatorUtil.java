@@ -6,6 +6,8 @@
 package com.tourdulich.util;
 
 import java.sql.Types;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,6 +41,33 @@ public class InputValidatorUtil {
             return "Dịa chỉ không hợp lệ";
         }
         return "";
+    }
+    
+    public static String isValidBirthDate(LocalDate birthDate, String role) {
+        if (birthDate.toString().isEmpty()) return " không được để trống";
+        LocalDate toDay = LocalDate.now();
+        int age = Period.between(birthDate, toDay).getYears();
+        if (role.equals("Nhân Viên")) {
+            if (age > 0 && age <= 100) 
+            {
+                 if (age < 18) return " nhân viên phải từ 18 tuổi";
+                 else return "";
+            }
+            else return "Tuổi không hợp lệ";
+               
+                 
+             
+            
+        } else if (role.equals("Khách Hàng"))
+            
+        {
+            if (age > 0 && age <= 100)
+            return "";
+            else return "Tuổi không hợp lệ";
+        }
+        
+        return "";
+       
     }
     
     public static String isValidEmail(String email) {
@@ -110,4 +139,5 @@ public class InputValidatorUtil {
         
         return "";
     }
+ 
 }
