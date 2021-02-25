@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.gui.popup.popUpKhachHang;
+import com.tourdulich.gui.popup.popUpNhanVien;
 
 /**
  *
@@ -198,6 +200,13 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        popUpKhachHang popUp = new popUpKhachHang("POST");
+//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+//        @Override
+//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//            loadTableData();
+//        }
+//    });
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
