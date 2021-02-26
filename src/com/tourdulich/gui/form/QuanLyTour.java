@@ -30,10 +30,9 @@ public class QuanLyTour extends javax.swing.JPanel {
         String[] columnNames = {
                             "Id",
                             "Tên Tour",
-                            "Id Phương Tiện",
-                            "Giá Tiền",
                             "Id Loại Du Lịch",
-                            "Đặc Điểm"};
+                            "Đặc Điểm"
+                            };
         Vector header = createHeader(columnNames);
         DefaultTableModel model = (DefaultTableModel) tblTour.getModel();
         model = new DefaultTableModel(header, 0);
@@ -41,10 +40,8 @@ public class QuanLyTour extends javax.swing.JPanel {
         Vector row = new Vector();
         row.add("1");
         row.add("Tour Miền Nam");
-        row.add("Xe khách 36 chỗ");
-        row.add(1000000);
-        row.add("3");
-        row.add("Du Lịch Sông Nước");
+        row.add("1");
+        row.add("7 ngày");
     
         
          

@@ -27,20 +27,20 @@ public class QuanLyDichVu extends javax.swing.JPanel {
         
         String[] columnNames = {
                             "Id",
-                            "Tên Dịch Vụ",
-                            "Id Loại Dịch Vụ",
-                            "Id Nhà Hàng",
-                            "Giá Tiền"};
+                            "Id Đoàn",
+                            "Id Dịch Vụ",
+                            "Chi Phí"
+                            };
         Vector header = createHeader(columnNames);
         DefaultTableModel model = (DefaultTableModel) tblDichVu.getModel();
         model = new DefaultTableModel(header, 0);
        
         Vector row = new Vector();
         row.add("1");
-        row.add("Hồ Bơi");
-        row.add("1");
-        row.add("1");
-        row.add(100000);
+        row.add("2");
+        row.add("3");
+        row.add(5000000);
+     
         
     
         
