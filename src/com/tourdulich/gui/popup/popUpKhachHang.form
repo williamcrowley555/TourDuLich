@@ -77,7 +77,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblMinimize">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
@@ -87,6 +86,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblMinimizeMouseClicked"/>
@@ -94,7 +94,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblExit">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
@@ -104,6 +103,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblExitMouseClicked"/>
@@ -134,11 +134,6 @@
                               <Component id="lblDiaChi" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblNgaySinh" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="DCNgaySinh" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblSDT" min="-2" pref="38" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtSDT" min="-2" pref="104" max="-2" attributes="0"/>
-                              </Group>
                               <Component id="AreaScrollPane" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="74" max="32767" attributes="0"/>
@@ -150,38 +145,38 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblHo" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtHo" min="-2" pref="104" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lblTen" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtTen" min="-2" pref="104" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="lblErrorHo" min="-2" pref="144" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblHo" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txtHo" min="-2" pref="104" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel2" min="-2" pref="144" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lblSDT" alignment="1" min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Component id="lblTen" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtTen" pref="104" max="32767" attributes="0"/>
+                                      <Component id="txtSDT" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="lblVaiTro" min="-2" pref="44" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="comboBoxVaiTro" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblGioiTinh" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="radioNam" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="radioNu" min="-2" pref="49" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblGioiTinh" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="radioNam" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCmnd" min="-2" pref="56" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txtCmnd" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -195,19 +190,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lblVaiTro" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblHo" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtHo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="comboBoxVaiTro" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblCmnd" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtHo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="txtCmnd" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -251,15 +239,11 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="lblErrorHo" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtTen" min="-2" pref="23" max="-2" attributes="0"/>
                                       <Component id="lblTen" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="lblDiaChi" min="-2" pref="17" max="-2" attributes="0"/>
                               </Group>
@@ -307,45 +291,45 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblHo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="H&#x1ecd;:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="H&#x1ecd;:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtHo">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder bottom="2" left="2" right="2" top="2">
                   <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
                 </MatteColorBorder>
               </Border>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDiaChi">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTen">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder bottom="2" left="2" right="2" top="2">
                   <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
                 </MatteColorBorder>
               </Border>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
@@ -354,10 +338,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblGioiTinh">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioNam">
@@ -385,43 +369,25 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblTen">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="T&#xea;n:"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
-            </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblVaiTro">
+        <Component class="javax.swing.JLabel" name="lblCmnd">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Vai tr&#xf2;:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Cmnd:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="comboBoxVaiTro">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="1"/>
-                <StringItem index="1" value="2"/>
-                <StringItem index="2" value="3"/>
-                <StringItem index="3" value="4"/>
-              </StringArray>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxVaiTroActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSDT">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder bottom="2" left="2" right="2" top="2">
@@ -429,17 +395,14 @@
                 </MatteColorBorder>
               </Border>
             </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="14" style="0"/>
-            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSDT">
           <Properties>
-            <Property name="text" type="java.lang.String" value="S&#x111;t:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="S&#x111;t:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLuu">
@@ -500,10 +463,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNgaySinh">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ng&#xe0;y Sinh:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Ng&#xe0;y Sinh:"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="AreaScrollPane">
@@ -537,24 +500,22 @@
         </Container>
         <Component class="com.github.lgooddatepicker.components.DatePicker" name="DCNgaySinh">
         </Component>
-        <Component class="javax.swing.JLabel" name="lblErrorHo">
+        <Component class="javax.swing.JTextField" name="txtCmnd">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="0"/>
+              <Font name="Tahoma" size="14" style="0"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="2" left="2" right="2" top="2">
+                  <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
+                </MatteColorBorder>
+              </Border>
             </Property>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCmndActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

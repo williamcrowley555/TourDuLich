@@ -49,14 +49,14 @@ import javax.swing.JOptionPane;
  *
  * @author Hi
  */
-public class popUpNhanVien extends javax.swing.JFrame {
+public class popUpKhachHang extends javax.swing.JFrame {
     private File selectedImg = null;
     private String action;
     private NhanVienDTO nhanVien = null;
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
     
-    public popUpNhanVien(String action) {
+    public popUpKhachHang(String action) {
         initComponents();
         
         this.action = action;    
@@ -65,13 +65,12 @@ public class popUpNhanVien extends javax.swing.JFrame {
         
         CustomWindow();
         myTextArea();
-        setComboBox(comboBoxVaiTro, getVaiTroItems());
-        comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(14,142,233));
+      
         
         this.setVisible(true);    
     }
     
-    public popUpNhanVien(String action, NhanVienDTO nhanVien) {
+    public popUpKhachHang(String action, NhanVienDTO nhanVien) {
         initComponents();
         this.action = action;  
         this.nhanVien = nhanVien;
@@ -80,8 +79,8 @@ public class popUpNhanVien extends javax.swing.JFrame {
  
         CustomWindow();
         myTextArea();
-        setComboBox(comboBoxVaiTro, getVaiTroItems());
-        comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(14,142,233));
+     
+       
         setLabelText(nhanVien);
         
         this.setVisible(true);    
@@ -103,7 +102,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
             System.out.println(nhanVien.getHinhAnh()); 
            lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
         }
-        comboBoxVaiTro.setSelectedItem(getVaiTroItemName(vaiTroBLL.findById(nhanVien.getIdVaiTro())));
+         
     }
     public boolean Validate()
     {   
@@ -134,9 +133,8 @@ public class popUpNhanVien extends javax.swing.JFrame {
                 }
             }
         }
-        String selectedVaiTro = comboBoxVaiTro.getSelectedItem().toString();
-        Long idVaiTro = Long.parseLong(selectedVaiTro.substring(0, selectedVaiTro.indexOf(" - ")));
-        nhanVien.setIdVaiTro(idVaiTro);
+      
+     
         return nhanVien;
     }
     
@@ -159,7 +157,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         return vaiTro.getId() + " - " + vaiTro.getTenVaiTro();
     }
     
-    public popUpNhanVien() {
+    public popUpKhachHang() {
         initComponents();
         CustomWindow();
     }
@@ -172,7 +170,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         center();
         lblMinimize.setText("\u2014");
         lblExit.setText("X");
-        comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(240,240,240));
+       
     }
     
     public void myTextArea()
@@ -240,8 +238,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         radioNam = new javax.swing.JRadioButton();
         radioNu = new javax.swing.JRadioButton();
         lblTen = new javax.swing.JLabel();
-        lblVaiTro = new javax.swing.JLabel();
-        comboBoxVaiTro = new javax.swing.JComboBox<>();
+        lblCmnd = new javax.swing.JLabel();
         txtSDT = new javax.swing.JTextField();
         lblSDT = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
@@ -250,8 +247,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         AreaScrollPane = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextArea();
         DCNgaySinh = new com.github.lgooddatepicker.components.DatePicker();
-        lblErrorHo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtCmnd = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -264,20 +260,20 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.setBackground(new java.awt.Color(255, 255, 255));
         lblMinimize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMinimizeMouseClicked(evt);
             }
         });
 
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblExit.setForeground(new java.awt.Color(255, 255, 255));
+        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExitMouseClicked(evt);
@@ -316,25 +312,25 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblHo.setText("Họ:");
         lblHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblHo.setText("Họ:");
 
-        txtHo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtHo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtHo.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
 
-        lblDiaChi.setText("Địa Chỉ:");
         lblDiaChi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDiaChi.setText("Địa Chỉ:");
 
-        txtTen.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTen.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtTen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenActionPerformed(evt);
             }
         });
 
-        lblGioiTinh.setText("Giới Tính:");
         lblGioiTinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblGioiTinh.setText("Giới Tính:");
 
         btnGroupGioiTinh.add(radioNam);
         radioNam.setSelected(true);
@@ -353,25 +349,17 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblTen.setText("Tên:");
         lblTen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTen.setText("Tên:");
 
-        lblVaiTro.setText("Vai trò:");
-        lblVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCmnd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCmnd.setText("Cmnd:");
 
-        comboBoxVaiTro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        comboBoxVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboBoxVaiTro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxVaiTroActionPerformed(evt);
-            }
-        });
-
-        txtSDT.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtSDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSDT.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
 
-        lblSDT.setText("Sđt:");
         lblSDT.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSDT.setText("Sđt:");
 
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -403,8 +391,8 @@ public class popUpNhanVien extends javax.swing.JFrame {
             }
         });
 
-        lblNgaySinh.setText("Ngày Sinh:");
         lblNgaySinh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNgaySinh.setText("Ngày Sinh:");
 
         AreaScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         AreaScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -415,12 +403,13 @@ public class popUpNhanVien extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         AreaScrollPane.setViewportView(txtDiaChi);
 
-        lblErrorHo.setBackground(new java.awt.Color(204, 0, 0));
-        lblErrorHo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblErrorHo.setForeground(new java.awt.Color(204, 0, 0));
-        lblErrorHo.setText("jLabel1");
-
-        jLabel2.setText("jLabel1");
+        txtCmnd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCmnd.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtCmnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCmndActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -438,10 +427,6 @@ public class popUpNhanVien extends javax.swing.JFrame {
                             .addComponent(lblDiaChi)
                             .addComponent(lblNgaySinh)
                             .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,31 +435,31 @@ public class popUpNhanVien extends javax.swing.JFrame {
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                                        .addComponent(lblHo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                                        .addComponent(lblTen)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(lblErrorHo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addComponent(lblHo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblTen))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTen, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                    .addComponent(txtSDT))))
                         .addGap(70, 70, 70)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(comboBoxVaiTro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
+                                .addComponent(lblGioiTinh)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(radioNam))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(radioNu, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblGioiTinh)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(radioNam)))))
+                                .addComponent(lblCmnd, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCmnd)))))
                 .addGap(20, 20, 20))
         );
         pnlBodyLayout.setVerticalGroup(
@@ -482,16 +467,12 @@ public class popUpNhanVien extends javax.swing.JFrame {
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblVaiTro)
-                                    .addComponent(lblHo)
-                                    .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(comboBoxVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 21, 21)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblCmnd)
+                            .addComponent(lblHo)
+                            .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCmnd, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblGioiTinh)
@@ -524,14 +505,10 @@ public class popUpNhanVien extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(lblErrorHo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(48, 48, 48)
                                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblTen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -587,7 +564,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         try {
             newNhanVien = getFormInfo();
         } catch (IOException ex) {
-            Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(popUpKhachHang.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         if(this.action.equals("POST")) {
@@ -619,13 +596,13 @@ public class popUpNhanVien extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
-    private void comboBoxVaiTroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxVaiTroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxVaiTroActionPerformed
-
     private void btnChonAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonAnhActionPerformed
         selectedImg = ImageUtil.showJFileChooser(lblAnh);
     }//GEN-LAST:event_btnChonAnhActionPerformed
+
+    private void txtCmndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCmndActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCmndActionPerformed
 
     /**
      * @param args the command line arguments
@@ -644,21 +621,27 @@ public class popUpNhanVien extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(popUpNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popUpKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(popUpNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popUpKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(popUpNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popUpKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(popUpNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(popUpKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new popUpNhanVien().setVisible(true);
+                new popUpKhachHang().setVisible(true);
             }
         });
     }
@@ -670,11 +653,9 @@ public class popUpNhanVien extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroupGioiTinh;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JComboBox<String> comboBoxVaiTro;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblAnh;
+    private javax.swing.JLabel lblCmnd;
     private javax.swing.JLabel lblDiaChi;
-    private javax.swing.JLabel lblErrorHo;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblGioiTinh;
     private javax.swing.JLabel lblHo;
@@ -682,11 +663,11 @@ public class popUpNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel lblNgaySinh;
     private javax.swing.JLabel lblSDT;
     private javax.swing.JLabel lblTen;
-    private javax.swing.JLabel lblVaiTro;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JRadioButton radioNam;
     private javax.swing.JRadioButton radioNu;
+    private javax.swing.JTextField txtCmnd;
     private javax.swing.JTextArea txtDiaChi;
     private javax.swing.JTextField txtHo;
     private javax.swing.JTextField txtSDT;
