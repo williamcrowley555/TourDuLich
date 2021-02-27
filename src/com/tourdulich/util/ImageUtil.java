@@ -26,7 +26,7 @@ public class ImageUtil {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("*.Images", "jpg", "png", "gif");
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("Image Files", "*.jpg", "*.png");
         fileChooser.addChoosableFileFilter(fileFilter);
         fileChooser.setMultiSelectionEnabled(false);
         

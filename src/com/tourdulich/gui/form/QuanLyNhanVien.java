@@ -45,6 +45,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     };
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
+    popUpNhanVien popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyNhanVien() {
@@ -251,10 +252,17 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
-        popUpNhanVien popUp = new popUpNhanVien("POST");
+        if (this.popUp == null) {
+            this.popUp = new popUpNhanVien("POST");
+            
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
         popUp.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
             loadTableData();
         }
     });
@@ -263,10 +271,16 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
         int rowindex = tblNhanVien.getSelectedRow();
         Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-        popUpNhanVien popUp = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
+        if (this.popUp == null) {
+        popUp = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
         popUp.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
             loadTableData();
         }
     });

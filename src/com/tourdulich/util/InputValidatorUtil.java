@@ -19,8 +19,12 @@ import java.util.regex.Pattern;
 public class InputValidatorUtil {
     
     public static String isValidName(String name, boolean whitespace) {
+        name = RemoveAccentUtil.removeAccent(name);
+        name = name.trim();
         if (name.isEmpty()) return " không được để trống";
+        
         String space = whitespace ? "\\s" : "";
+
         String regex = "[^A-Za-z" + space + "]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(name);
@@ -34,10 +38,18 @@ public class InputValidatorUtil {
     
     public static String isValidAddress(String name) {
         if (name.isEmpty()) return " không được để trống";
+        
+        boolean result = isVailidNumber(name).isEmpty();
+        if(result) {
+            return "Dịa chỉ không hợp lệ";
+        }
+        
+        name = RemoveAccentUtil.removeAccent(name);
+        name = name.trim();
         String regex = "[^A-Za-z0-9.,\\s\\/]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(name);
-        boolean result = matcher.find();
+        result = matcher.find();
         if(result) {
             return "Dịa chỉ không hợp lệ";
         }
@@ -45,7 +57,7 @@ public class InputValidatorUtil {
     }
     
     public static String isValidBirthDate(LocalDate birthDate, int smallestAge) {
-        if (birthDate.toString().isEmpty()) return " không được để trống";
+        if (birthDate == null) return " không được để trống";
         LocalDate toDay = LocalDate.now();
         int age = Period.between(birthDate, toDay).getYears();
             
@@ -131,6 +143,5 @@ public class InputValidatorUtil {
         
         return "";
     }
-    
-   
+
 }

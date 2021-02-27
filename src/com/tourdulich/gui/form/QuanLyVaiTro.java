@@ -35,7 +35,7 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
                             "Tên Vai Trò"};
     private IVaiTroBLL vaiTroBLL;
     TableRowSorter<TableModel> rowSorter = null;
-    
+    popUpVaiTro popUp = null;
     public QuanLyVaiTro() {
         initComponents();
         
@@ -235,10 +235,17 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
-        popUpVaiTro popUp = new popUpVaiTro("POST");
-        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        if (this.popUp == null)
+        {
+            this.popUp = new popUpVaiTro("POST");
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        this.popUp.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
             loadTableData();
         }
     });
@@ -247,10 +254,17 @@ public class QuanLyVaiTro extends javax.swing.JPanel {
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
         int rowindex = tblVaiTro.getSelectedRow();
         Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());
-        popUpVaiTro popUp = new popUpVaiTro("PUT", vaiTroBLL.findById(id));
-        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        if (this.popUp == null)
+        {
+            this.popUp = new popUpVaiTro("PUT", vaiTroBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        this.popUp.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
             loadTableData();
         }
     });
