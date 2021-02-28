@@ -5,6 +5,7 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.toedter.calendar.JTextFieldDateEditor;
 import com.tourdulich.bll.INhanVienBLL;
 import com.tourdulich.bll.IVaiTroBLL;
 import com.tourdulich.bll.impl.NhanVienBLL;
@@ -27,23 +28,15 @@ import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
 import com.tourdulich.util.ImageUtil;
 import com.tourdulich.util.InputValidatorUtil;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -55,7 +48,6 @@ public class popUpNhanVien extends javax.swing.JFrame {
     private NhanVienDTO nhanVien = null;
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
-    
     public popUpNhanVien(String action) {
         initComponents();
         
@@ -67,6 +59,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
         myTextArea();
         setComboBox(comboBoxVaiTro, getVaiTroItems());
         comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(14,142,233));
+        disableEditingDateChooser(true);
         
         this.setVisible(true);    
     }
@@ -77,16 +70,26 @@ public class popUpNhanVien extends javax.swing.JFrame {
         this.nhanVien = nhanVien;
         nhanVienBLL = new NhanVienBLL();
         vaiTroBLL = new VaiTroBLL(); 
- 
+      
         CustomWindow();
         myTextArea();
         setComboBox(comboBoxVaiTro, getVaiTroItems());
         comboBoxVaiTro = myComboBox(comboBoxVaiTro, new Color(14,142,233));
         setLabelText(nhanVien);
         
+       
         this.setVisible(true);    
     }
-    
+    public void disableEditingDateChooser(boolean flag)
+    {
+        if (flag)
+        {
+            JTextField editor =  DCNgaySinh.getComponentDateTextField();
+            editor.setEditable(false);
+        }else{
+            
+        }
+    }
     public void setLabelText(NhanVienDTO nhanVien)
     {
         txtHo.setText(nhanVien.getHo());
@@ -100,18 +103,74 @@ public class popUpNhanVien extends javax.swing.JFrame {
         txtDiaChi.setText(nhanVien.getDiaChi());
         txtSDT.setText(nhanVien.getSdt());
         if(nhanVien.getHinhAnh() != null) {
-            System.out.println(nhanVien.getHinhAnh()); 
            lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
         }
         comboBoxVaiTro.setSelectedItem(getVaiTroItemName(vaiTroBLL.findById(nhanVien.getIdVaiTro())));
     }
-    public boolean Validate()
+    public boolean validateForm() 
     {   
-        boolean Ho, Ten, Sdt, DiaChi = true; 
-        if (InputValidatorUtil.isValidName(txtHo.getText(), true).isEmpty())  
-        return true;
         
-        return false;
+        boolean Ho, Ten, Sdt, DiaChi, NgaySinh; 
+        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
+        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
+        if (InputValidatorUtil.isValidName(txtHo.getText(), false).isEmpty())
+        {
+            Ho = true;
+            lblValidateHo.setIcon(iconCheck);
+            lblValidateHo.setToolTipText(null);
+        } else {
+            Ho = false;
+            lblValidateHo.setIcon(iconError);
+            lblValidateHo.setToolTipText(InputValidatorUtil.isValidName(txtHo.getText(), false));
+        }
+        
+        if (InputValidatorUtil.isValidName(txtTen.getText(), true).isEmpty())  
+        {
+            Ten = true;
+            lblValidateTen.setIcon(iconCheck);
+            lblValidateTen.setToolTipText(null);
+        } else {
+            Ten = false;
+            lblValidateTen.setIcon(iconError);
+            lblValidateTen.setToolTipText(InputValidatorUtil.isValidName(txtTen.getText(), true));
+        }
+     
+        if (InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()).isEmpty())
+        {
+            Sdt = true;
+            lblValidateSDT.setIcon(iconCheck);
+            lblValidateSDT.setToolTipText(null);
+        } else {
+            Sdt = false;
+            lblValidateSDT.setIcon(iconError);
+            lblValidateSDT.setToolTipText(InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()));
+        }
+        
+        if (InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(), 18).isEmpty())  
+        {
+            NgaySinh = true;
+            lblValidateNgaySinh.setIcon(iconCheck);
+            lblValidateNgaySinh.setToolTipText(null);
+        } else {
+            NgaySinh = false;
+            lblValidateNgaySinh.setIcon(iconError);
+            lblValidateNgaySinh.setToolTipText(InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(),18));
+        }
+        
+        if (InputValidatorUtil.isValidAddress(txtDiaChi.getText()).isEmpty())  
+        {
+           DiaChi = true;
+           lblValidateDiaChi.setIcon(iconCheck);
+           lblValidateDiaChi.setToolTipText(null);
+        } else {
+           DiaChi = false;
+           lblValidateDiaChi.setIcon(iconError);
+           lblValidateDiaChi.setToolTipText(InputValidatorUtil.isValidAddress(txtDiaChi.getText()));
+        }
+        
+        if (Ho && Ten && Sdt && NgaySinh && DiaChi)
+        return true;
+        else return false;
        
     }
     private NhanVienDTO getFormInfo() throws IOException {
@@ -250,8 +309,13 @@ public class popUpNhanVien extends javax.swing.JFrame {
         AreaScrollPane = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextArea();
         DCNgaySinh = new com.github.lgooddatepicker.components.DatePicker();
+        lblValidateHo = new javax.swing.JLabel();
+        lblValidateTen = new javax.swing.JLabel();
+        lblValidateSDT = new javax.swing.JLabel();
+        lblValidateDiaChi = new javax.swing.JLabel();
+        lblValidateNgaySinh = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
         panelHeader.setBackground(new java.awt.Color(45, 113, 248));
@@ -413,115 +477,137 @@ public class popUpNhanVien extends javax.swing.JFrame {
         txtDiaChi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         AreaScrollPane.setViewportView(txtDiaChi);
 
+        lblValidateHo.setPreferredSize(new java.awt.Dimension(24, 24));
+
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
         pnlBodyLayout.setHorizontalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblAnh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChonAnh, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblDiaChi)
-                            .addComponent(lblNgaySinh)
-                            .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblSDT)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(83, 83, 83))
-                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblHo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                                        .addComponent(lblTen)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblValidateTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                                        .addComponent(lblHo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblValidateHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
+                                        .addGap(52, 52, 52)
+                                        .addComponent(lblValidateDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(52, 52, 52)
+                                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                                .addComponent(lblVaiTro)
+                                                .addGap(28, 28, 28)
+                                                .addComponent(comboBoxVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                                .addComponent(lblGioiTinh)
+                                                .addGap(18, 18, 18)
+                                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(radioNu, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(radioNam)))))))
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblTen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(70, 70, 70)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(comboBoxVaiTro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(radioNu, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblGioiTinh)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(radioNam)))))
-                .addGap(20, 20, 20))
+                                .addGap(1, 1, 1)
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                                        .addComponent(lblDiaChi)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                                        .addComponent(lblSDT)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(lblValidateSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblNgaySinh)
+                                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                                        .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblValidateNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblVaiTro)
-                                    .addComponent(lblHo)
-                                    .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(comboBoxVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(14, 14, 14)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblGioiTinh)
-                            .addComponent(radioNam))
+                                .addGap(3, 3, 3)
+                                .addComponent(lblHo))
+                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtHo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblValidateHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(13, 13, 13)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(radioNu)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(8, 8, 8)))
+                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblValidateTen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(16, 16, 16)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblValidateSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 8, 8)
                         .addComponent(lblNgaySinh)
+                        .addGap(13, 13, 13)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblValidateNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(lblDiaChi))
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addGap(2, 2, 2)
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(comboBoxVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblVaiTro)))
                             .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(DCNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(40, 40, 40)
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblGioiTinh)
+                                    .addComponent(radioNam))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radioNu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(4, 4, 4)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblTen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addComponent(btnChonAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblValidateDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -575,22 +661,28 @@ public class popUpNhanVien extends javax.swing.JFrame {
         }
         
         if(this.action.equals("POST")) {
-            Long newNhanVienId = nhanVienBLL.save(newNhanVien);
-            if(newNhanVienId != null) {
-               
-                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            if (validateForm())
+            {
+                Long newNhanVienId = nhanVienBLL.save(newNhanVien);
+                if(newNhanVienId != null) {
+
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else if(this.action.equals("PUT")) {
             try {
               
+                if(validateForm())
+                {
                 nhanVienBLL.update(newNhanVien);
                 JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
-                
+                }
+                                
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
@@ -665,6 +757,11 @@ public class popUpNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel lblSDT;
     private javax.swing.JLabel lblTen;
     private javax.swing.JLabel lblVaiTro;
+    private javax.swing.JLabel lblValidateDiaChi;
+    private javax.swing.JLabel lblValidateHo;
+    private javax.swing.JLabel lblValidateNgaySinh;
+    private javax.swing.JLabel lblValidateSDT;
+    private javax.swing.JLabel lblValidateTen;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JRadioButton radioNam;

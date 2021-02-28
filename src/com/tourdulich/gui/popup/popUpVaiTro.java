@@ -22,7 +22,9 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
+import com.tourdulich.util.InputValidatorUtil;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -75,6 +77,22 @@ public class popUpVaiTro extends javax.swing.JFrame {
         CustomWindow();
     }
     
+    public boolean validateForm() 
+    {
+       ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
+       ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));  
+       if(InputValidatorUtil.isValidName(txtTenVaiTro.getText(), true).isEmpty())
+       {
+           lblValidateTenVaiTro.setIcon(iconCheck);
+           lblValidateTenVaiTro.setToolTipText(null);
+           return true;
+       }
+       else {
+           lblValidateTenVaiTro.setIcon(iconError);
+           lblValidateTenVaiTro.setToolTipText(InputValidatorUtil.isValidName(txtTenVaiTro.getText(), true));
+          return false;
+       }
+    }
     public void center()
     {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -108,6 +126,7 @@ public class popUpVaiTro extends javax.swing.JFrame {
         txtTenVaiTro = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
+        lblValidateTenVaiTro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -200,19 +219,20 @@ public class popUpVaiTro extends javax.swing.JFrame {
         pnlBodyLayout.setHorizontalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTenVaiTro, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addComponent(lblTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(36, 36, 36))
-            .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
+            .addGroup(pnlBodyLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addComponent(txtTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValidateTenVaiTro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,7 +240,9 @@ public class popUpVaiTro extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(lblTenVaiTro)
                 .addGap(18, 18, 18)
-                .addComponent(txtTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValidateTenVaiTro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,21 +284,27 @@ public class popUpVaiTro extends javax.swing.JFrame {
         VaiTroDTO vaiTro = getFormInfo();
         
         if(this.action.equals("POST")) {
-            Long newVaiTroId = vaiTroBLL.save(vaiTro);
-            if(newVaiTroId != null) {
-                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            if (validateForm())
+            {
+                Long newVaiTroId = vaiTroBLL.save(vaiTro);
+                if(newVaiTroId != null) {
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else if(this.action.equals("PUT")) {
-            try {
-                vaiTroBLL.update(vaiTro);
-                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+            if (validateForm())
+            {
+                try {
+                    vaiTroBLL.update(vaiTro);
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                } catch(Exception e) {
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
+                }
             }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -331,6 +359,7 @@ public class popUpVaiTro extends javax.swing.JFrame {
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblTenVaiTro;
+    private javax.swing.JLabel lblValidateTenVaiTro;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JTextField txtTenVaiTro;
