@@ -16,6 +16,7 @@ public interface INhanVienDAO extends GenericDAO<NhanVienDTO> {
     
     List<NhanVienDTO> findAll();
     NhanVienDTO findById(Long id);
+    NhanVienDTO findBySdt(String sdt);
     Long save(NhanVienDTO nhanVien);
     void update(NhanVienDTO nhanVien);
     void delete(Long id);

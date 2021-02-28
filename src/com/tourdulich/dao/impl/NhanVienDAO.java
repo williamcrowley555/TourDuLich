@@ -31,6 +31,13 @@ public class NhanVienDAO extends AbstractDAO<NhanVienDTO> implements INhanVienDA
     }
 
     @Override
+    public NhanVienDTO findBySdt(String sdt) {
+        String sql = "SELECT * FROM nhan_vien WHERE sdt = ?";
+        List<NhanVienDTO> nhanVien = query(sql, new NhanVienMapper(), sdt);
+        return nhanVien.isEmpty() ? null : nhanVien.get(0);
+    }
+
+    @Override
     public Long save(NhanVienDTO nhanVien) {
         String sql = "INSERT INTO nhan_vien(ho, ten, gioi_tinh, ngay_sinh, dia_chi, sdt, hinh_anh, id_vai_tro) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         return insert(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getGioiTinh(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), 

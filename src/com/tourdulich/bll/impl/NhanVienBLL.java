@@ -34,6 +34,11 @@ public class NhanVienBLL implements INhanVienBLL {
     }
 
     @Override
+    public NhanVienDTO findBySdt(String sdt) {
+        return nhanVienDAO.findBySdt(sdt);
+    }
+
+    @Override
     public Long save(NhanVienDTO nhanVien) {
         return nhanVienDAO.save(nhanVien);
     }

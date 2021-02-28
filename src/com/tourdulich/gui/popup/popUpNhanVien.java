@@ -135,15 +135,18 @@ public class popUpNhanVien extends javax.swing.JFrame {
             lblValidateTen.setToolTipText(InputValidatorUtil.isValidName(txtTen.getText(), true));
         }
      
-        if (InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()).isEmpty())
-        {
-            Sdt = true;
-            lblValidateSDT.setIcon(iconCheck);
-            lblValidateSDT.setToolTipText(null);
-        } else {
+        if (!InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()).isEmpty()) {
             Sdt = false;
             lblValidateSDT.setIcon(iconError);
             lblValidateSDT.setToolTipText(InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()));
+        } else if (nhanVienBLL.findBySdt(txtSDT.getText().trim()) != null) {
+            Sdt = false;
+            lblValidateSDT.setIcon(iconError);
+            lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
+        } else {
+            Sdt = true;
+            lblValidateSDT.setIcon(iconCheck);
+            lblValidateSDT.setToolTipText(null);
         }
         
         if (InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(), 18).isEmpty())  
