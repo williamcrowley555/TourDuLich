@@ -50,7 +50,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     
     public QuanLyNhanVien() {
         initComponents();
-        
+        // Ghi chu
         nhanVienBLL = new NhanVienBLL();
         vaiTroBLL = new VaiTroBLL();
         
