@@ -5,7 +5,7 @@
  */
 package com.tourdulich.mapper.impl;
 
-import com.tourdulich.dto.LoaiDuLichDTO;
+import com.tourdulich.dto.DichVuDTO;
 import com.tourdulich.mapper.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,16 +14,17 @@ import java.sql.SQLException;
  *
  * @author HP
  */
-public class LoaiDuLichMapper implements RowMapper<LoaiDuLichDTO>{
+public class DichVuMapper implements RowMapper<DichVuDTO>{
 
     @Override
-    public LoaiDuLichDTO mapRow(ResultSet rs) {
+    public DichVuDTO mapRow(ResultSet rs) {
         try {
-            LoaiDuLichDTO loaiDuLich = new LoaiDuLichDTO();
-            loaiDuLich.setId(rs.getLong("id"));
-            loaiDuLich.setTenLoaiDuLich(rs.getString("ten_loai_du_lich"));
-            
-            return loaiDuLich;
+            DichVuDTO dichVu = new DichVuDTO();
+            dichVu.setId(rs.getLong("id"));
+            dichVu.setTenDichVu(rs.getString("ten_dich_vu"));
+            dichVu.setMoTa(rs.getString("mo_ta"));
+
+            return dichVu;
         } catch(SQLException e) {
             System.out.println(e.getMessage());
         }

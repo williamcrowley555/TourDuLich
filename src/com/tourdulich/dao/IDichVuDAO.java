@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tourdulich.bll;
+package com.tourdulich.dao;
 
-import com.tourdulich.dto.LoaiDuLichDTO;
+import com.tourdulich.dto.DichVuDTO;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface ILoaiDuLichBLL {
+public interface IDichVuDAO extends GenericDAO<DichVuDTO> {
     
-    List<LoaiDuLichDTO> findAll();
-    LoaiDuLichDTO findById(Long id);
-    Long save(LoaiDuLichDTO loaiDuLich);
-    void update(LoaiDuLichDTO loaiDuLich);
+    List<DichVuDTO> findAll();
+    DichVuDTO findById(Long id);
+    Long save(DichVuDTO DichVu);
+    void update(DichVuDTO DichVu);
     void delete(Long id);
 }

@@ -17,34 +17,34 @@ import java.util.List;
  */
 public class LoaiDuLichBLL implements ILoaiDuLichBLL {
 
-    private ILoaiDuLichDAO LoaiDuLichDAO;
+    private ILoaiDuLichDAO loaiDuLichDAO;
 
     public LoaiDuLichBLL() {
-        this.LoaiDuLichDAO = new LoaiDuLichDAO();
+        this.loaiDuLichDAO = new LoaiDuLichDAO();
     }
     
     @Override
     public List<LoaiDuLichDTO> findAll() {
-        return LoaiDuLichDAO.findAll();
+        return loaiDuLichDAO.findAll();
     }
 
     @Override
     public LoaiDuLichDTO findById(Long id) {
-        return LoaiDuLichDAO.findById(id);
+        return loaiDuLichDAO.findById(id);
     }
 
     @Override
     public Long save(LoaiDuLichDTO LoaiDuLich) {
-        return LoaiDuLichDAO.save(LoaiDuLich);
+        return loaiDuLichDAO.save(LoaiDuLich);
     }
 
     @Override
     public void update(LoaiDuLichDTO LoaiDuLich) {
-        LoaiDuLichDAO.update(LoaiDuLich);
+        loaiDuLichDAO.update(LoaiDuLich);
     }
 
     @Override
     public void delete(Long id) {
-        LoaiDuLichDAO.delete(id);
+        loaiDuLichDAO.delete(id);
     }
 }

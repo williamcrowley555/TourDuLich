@@ -5,18 +5,18 @@
  */
 package com.tourdulich.bll;
 
-import com.tourdulich.dto.LoaiDuLichDTO;
+import com.tourdulich.dto.DichVuDTO;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface ILoaiDuLichBLL {
+public interface IDichVuBLL {
     
-    List<LoaiDuLichDTO> findAll();
-    LoaiDuLichDTO findById(Long id);
-    Long save(LoaiDuLichDTO loaiDuLich);
-    void update(LoaiDuLichDTO loaiDuLich);
+    List<DichVuDTO> findAll();
+    DichVuDTO findById(Long id);
+    Long save(DichVuDTO dichVu);
+    void update(DichVuDTO dichVu);
     void delete(Long id);
 }
