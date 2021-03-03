@@ -110,7 +110,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
     public boolean validateForm() 
     {   
         
-        boolean Ho, Ten, Sdt, DiaChi, NgaySinh; 
+        boolean Ho, Ten, Sdt = false, DiaChi, NgaySinh; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
         if (InputValidatorUtil.isValidName(txtHo.getText(), false).isEmpty())
@@ -139,15 +139,29 @@ public class popUpNhanVien extends javax.swing.JFrame {
             Sdt = false;
             lblValidateSDT.setIcon(iconError);
             lblValidateSDT.setToolTipText(InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()));
-        } else if (nhanVienBLL.findBySdt(txtSDT.getText().trim()) != null) {
-            Sdt = false;
-            lblValidateSDT.setIcon(iconError);
-            lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
         } else {
             Sdt = true;
             lblValidateSDT.setIcon(iconCheck);
             lblValidateSDT.setToolTipText(null);
-        }
+            
+            if (this.action.equals("POST")) {
+                if (nhanVienBLL.findBySdt(txtSDT.getText().trim()) != null) {
+                    Sdt = false;
+                    lblValidateSDT.setIcon(iconError);
+                    lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
+                }
+            } else if (this.action.equals("PUT")) {
+                NhanVienDTO newNhanVien = nhanVienBLL.findBySdt(txtSDT.getText().trim());
+                if (newNhanVien != null) {
+                    if (newNhanVien.getId() != this.nhanVien.getId()) {  
+                        Sdt = false;
+                        lblValidateSDT.setIcon(iconError);
+                        lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
+                    }
+                }
+                       
+            }    
+        } 
         
         if (InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(), 18).isEmpty())  
         {

@@ -89,6 +89,15 @@ public class InputValidatorUtil {
         return "";
     }
     
+    public static String isLong(String number) {
+        try {
+            Long num = Long.parseLong(number);
+        } catch(Exception e) {
+            return "Số nhập vào phải là số nguyên";
+        }
+        return "";
+    }
+    
     public static String isVailidNumber(String number) {
         if (number.isEmpty()) return " không được để trống";
         String regex = "[^0-9]";
@@ -143,5 +152,28 @@ public class InputValidatorUtil {
         
         return "";
     }
-
+    
+    public static String isVailidIdentityID(String id) {
+        if (id.isEmpty()) return " không được để trống";
+        String regex = "^\\d{9}$|^\\d{12}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(id);
+        boolean result = matcher.find();
+        if(!result) {
+            return "CMND không hợp lệ";
+        }
+        
+        String message = isLong(id);
+        if(!message.isEmpty()) return message;
+        
+        return "";
+    }
+    
+    public static void main(String[] args)
+    {
+        String rs = "123456789121";
+        if (InputValidatorUtil.isVailidIdentityID(rs).isEmpty())
+            System.out.println("ok");
+        else System.out.println(InputValidatorUtil.isVailidIdentityID(rs));
+    }
 }
