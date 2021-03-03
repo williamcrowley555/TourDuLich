@@ -25,6 +25,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
+    private popUpKhachHang popUp = null;
     public QuanLyKhachHang() {
         initComponents();
          
@@ -137,6 +138,11 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         btnThem.setContentAreaFilled(false);
         btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setOpaque(true);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemMousePressed(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -230,13 +236,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        popUpKhachHang popUp = new popUpKhachHang("POST");
-//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-//        @Override
-//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//            loadTableData();
-//        }
-//    });
+ 
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -299,6 +299,24 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_tblKhachHangMouseReleased
+
+    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
+        // TODO add your handling code here:
+        if (this.popUp == null) {
+            this.popUp = new popUpKhachHang("POST");
+            
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+           // loadTableData();
+        }
+    });
+    }//GEN-LAST:event_btnThemMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
