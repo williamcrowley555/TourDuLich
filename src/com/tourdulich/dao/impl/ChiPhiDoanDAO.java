@@ -30,14 +30,14 @@ public class ChiPhiDoanDAO extends AbstractDAO<ChiPhiDoanDTO> implements IChiPhi
 
     @Override
     public Long save(ChiPhiDoanDTO chiPhiDoan) {
-        String sql = "INSERT INTO chi_phi_doan(id_doan, id_dich_vu, chi_phi) VALUES(?, ?, ?)";
-        return insert(sql, chiPhiDoan.getIdDoan(), chiPhiDoan.getIdDichVu(), chiPhiDoan.getChiPhi());
+        String sql = "INSERT INTO chi_phi_doan(id_doan, id_dich_vu, chi_phi, hoa_don, ngay_hoa_don) VALUES(?, ?, ?, ?, ?)";
+        return insert(sql, chiPhiDoan.getIdDoan(), chiPhiDoan.getIdDichVu(), chiPhiDoan.getChiPhi(), chiPhiDoan.getHoaDon(), chiPhiDoan.getNgayHoaDon());
     }
 
     @Override
     public void update(ChiPhiDoanDTO chiPhiDoan) {
-        String sql = "UPDATE chi_phi_doan SET id_doan = ?, id_dich_vu = ?, chi_phi = ? WHERE id = ?";
-        update(sql, chiPhiDoan.getIdDoan(), chiPhiDoan.getIdDichVu(), chiPhiDoan.getChiPhi(), chiPhiDoan.getId());
+        String sql = "UPDATE chi_phi_doan SET id_doan = ?, id_dich_vu = ?, chi_phi = ?, hoa_don = ?, ngay_hoa_don = ? WHERE id = ?";
+        update(sql, chiPhiDoan.getIdDoan(), chiPhiDoan.getIdDichVu(), chiPhiDoan.getChiPhi(), chiPhiDoan.getHoaDon(), chiPhiDoan.getNgayHoaDon(), chiPhiDoan.getId());
     }
 
     @Override

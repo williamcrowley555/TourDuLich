@@ -5,6 +5,8 @@
  */
 package com.tourdulich.dto;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author kossp
@@ -14,14 +16,18 @@ public class ChiPhiDoanDTO {
     private Long idDoan;
     private Long idDichVu;
     private int chiPhi;
+    private String hoaDon;
+    private LocalDate ngayHoaDon;
     
     public ChiPhiDoanDTO(){}
 
-    public ChiPhiDoanDTO(Long id, Long idDoan, Long idDichVu, int chiPhi) {
+    public ChiPhiDoanDTO(Long id, Long idDoan, Long idDichVu, int chiPhi, String hoaDon, LocalDate ngayHoaDon) {
         this.id = id;
         this.idDoan = idDoan;
         this.idDichVu = idDichVu;
         this.chiPhi = chiPhi;
+        this.hoaDon = hoaDon;
+        this.ngayHoaDon = ngayHoaDon;
     }
 
     public Long getId() {
@@ -56,8 +62,23 @@ public class ChiPhiDoanDTO {
         this.chiPhi = chiPhi;
     }
     
+    public String getHoaDon() {
+        return hoaDon;
+    }
+
+    public void setHoaDon(String hoaDon) {
+        this.hoaDon = hoaDon;
+    }
+    
+    public LocalDate getNgayHoaDon() {
+        return ngayHoaDon;
+    }
+
+    public void setNgayHoaDon(LocalDate ngayHoaDon) {
+        this.ngayHoaDon = ngayHoaDon;
+    }
     @Override
     public String toString() {
-        return "ChiPhiDoanDTO{" + "id=" + id + ", idDoan=" + idDoan + ", idDichVu=" + idDichVu + ", chiPhi=" + chiPhi + '}';
+        return "ChiPhiDoanDTO{" + "id=" + id + ", idDoan=" + idDoan + ", idDichVu=" + idDichVu + ", chiPhi=" + chiPhi + ", hoaDon=" + hoaDon + ", ngayHoaDon=" + ngayHoaDon + '}';
     }    
 }

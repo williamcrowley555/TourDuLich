@@ -23,6 +23,8 @@ public class ChiPhiDoanMapper implements RowMapper<ChiPhiDoanDTO>{
             chiPhiDoan.setIdDoan(rs.getLong("id_doan"));
             chiPhiDoan.setIdDichVu(rs.getLong("id_dich_vu"));
             chiPhiDoan.setChiPhi(rs.getInt("chi_phi"));
+            chiPhiDoan.setHoaDon(rs.getString("hoa_don"));
+            chiPhiDoan.setNgayHoaDon(rs.getDate("ngay_hoa_don").toLocalDate());
             
             return chiPhiDoan;
         } catch(SQLException e) {

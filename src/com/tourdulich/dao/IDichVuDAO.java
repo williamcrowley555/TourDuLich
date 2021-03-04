@@ -16,7 +16,7 @@ public interface IDichVuDAO extends GenericDAO<DichVuDTO> {
     
     List<DichVuDTO> findAll();
     DichVuDTO findById(Long id);
-    Long save(DichVuDTO DichVu);
-    void update(DichVuDTO DichVu);
+    Long save(DichVuDTO dichVu);
+    void update(DichVuDTO dichVu);
     void delete(Long id);
 }
