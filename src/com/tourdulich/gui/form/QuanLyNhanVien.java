@@ -45,7 +45,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     };
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
-    popUpNhanVien popUp = null;
+    private popUpNhanVien popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyNhanVien() {
