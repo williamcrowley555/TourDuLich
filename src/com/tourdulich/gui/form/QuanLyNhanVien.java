@@ -294,12 +294,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         } else {
            tblNhanVien.clearSelection();
         }
-
-        int rowindex = tblNhanVien.getSelectedRow();
-        Vector currentRow = new Vector();
-        for (int i = 0; i < tblNhanVien.getColumnCount(); i++)
-        currentRow.add(tblNhanVien.getValueAt(rowindex,i).toString()); 
-       
+        int rowindex = tblNhanVien.getSelectedRow();         
         if (rowindex < 0)
             return;
         if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
