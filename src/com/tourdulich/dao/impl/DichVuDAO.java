@@ -25,20 +25,20 @@ public class DichVuDAO extends AbstractDAO<DichVuDTO> implements IDichVuDAO {
     @Override
     public DichVuDTO findById(Long id) {
         String sql = "SELECT * FROM dich_vu WHERE id = ?";
-        List<DichVuDTO> DichVu = query(sql, new DichVuMapper(), id);
-        return DichVu.isEmpty() ? null : DichVu.get(0);
+        List<DichVuDTO> dichVu = query(sql, new DichVuMapper(), id);
+        return dichVu.isEmpty() ? null : dichVu.get(0);
     }
 
     @Override
-    public Long save(DichVuDTO DichVu) {
-        String sql = "INSERT INTO dich_vu(ten_dich_vu) VALUES(?)";
-        return insert(sql, DichVu.getTenDichVu());
+    public Long save(DichVuDTO dichVu) {
+        String sql = "INSERT INTO dich_vu(ten_dich_vu, mo_ta) VALUES(?, ?)";
+        return insert(sql, dichVu.getTenDichVu(), dichVu.getMoTa());
     }
 
     @Override
-    public void update(DichVuDTO DichVu) {
-        String sql = "UPDATE dich_vu SET ten_dich_vu = ? WHERE id = ?";
-        update(sql, DichVu.getTenDichVu(), DichVu.getId());
+    public void update(DichVuDTO dichVu) {
+        String sql = "UPDATE dich_vu SET ten_dich_vu = ?, mo_ta = ? WHERE id = ?";
+        update(sql, dichVu.getTenDichVu(), dichVu.getMoTa(), dichVu.getId());
     }
 
     @Override

@@ -5,6 +5,11 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.IDichVuBLL;
+import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.DichVuBLL;
+import com.tourdulich.bll.impl.NhanVienBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -13,44 +18,44 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.tourdulich.gui.menu.MyScrollBarUI;
 import com.tourdulich.gui.popup.popUpDichVu;
+import com.tourdulich.gui.popup.popUpNhanVien;
+import com.tourdulich.util.DichVuTableLoaderUtil;
+import com.tourdulich.util.NhanVienTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author RavenPC
  */
 public class QuanLyDichVu extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Panel1
-     */
+    
+    String[] listColumns = {
+                        "Id",
+                        "Tên dịch vụ",
+                        "Mô tả",
+    };
+    private IDichVuBLL dichVuBLL;
     private popUpDichVu popUp = null;
+    TableRowSorter<TableModel> rowSorter = null;
+
     public QuanLyDichVu() {
         initComponents();
+        // Ghi chu
+        dichVuBLL = new DichVuBLL();
         
-        String[] columnNames = {
-                            "Id",
-                            "Id Đoàn",
-                            "Id Dịch Vụ",
-                            "Chi Phí"
-                            };
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblDichVu.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("2");
-        row.add("3");
-        row.add(5000000);
-     
+        loadTableData();
         
-    
-        
-         
-        model.addRow(row);
-        tblDichVu.setModel(model);
         headerColor(14,142,233,tblDichVu);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+    }
+    
+    public void loadTableData() {
+        tblDichVu.setModel(new DichVuTableLoaderUtil().setTable(dichVuBLL.findAll(), this.listColumns)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblDichVu, txtTimKiem);
+        headerColor(14,142,233,tblDichVu);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -234,8 +239,7 @@ public class QuanLyDichVu extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
-        // TODO add your handling code here:
-            if (this.popUp == null) {
+        if (this.popUp == null) {
             this.popUp = new popUpDichVu("POST");
             
         } else {
@@ -246,48 +250,48 @@ public class QuanLyDichVu extends javax.swing.JPanel {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
             popUp = null;
-            //loadTableData();
+            loadTableData();
         }
     });
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-//        int rowindex = tblNhanVien.getSelectedRow();
-//        Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-//        if (this.popUp == null) {
-//            popUp = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
-//        } else {
-//            this.popUp.toFront();
-//            this.popUp.center();
-//        }
-//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                popUp = null;
-//                loadTableData();
-//            }
-//        });
+        int rowindex = tblDichVu.getSelectedRow();
+        Long id = Long.parseLong(tblDichVu.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+        popUp = new popUpDichVu("PUT", dichVuBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-//        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-//        if(response == JOptionPane.YES_OPTION) {
-//            int rowindex = tblNhanVien.getSelectedRow();
-//            Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-//            try {
-//                nhanVienBLL.delete(id);
-//                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//            } catch(Exception e) {
-//                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-//                e.printStackTrace();
-//            }
-//        }
-//        loadTableData();
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+        if(response == JOptionPane.YES_OPTION) {
+            int rowindex = tblDichVu.getSelectedRow();
+            Long id = Long.parseLong(tblDichVu.getValueAt(rowindex,0).toString());
+            try {
+                dichVuBLL.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+        loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
 
     private void tblDichVuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseReleased
         // TODO add your handling code here:
-         int r = tblDichVu.rowAtPoint(evt.getPoint());
+        int r = tblDichVu.rowAtPoint(evt.getPoint());
         if (r >= 0 && r < tblDichVu.getRowCount()) {
             tblDichVu.setRowSelectionInterval(r, r);
         } else {
@@ -295,9 +299,6 @@ public class QuanLyDichVu extends javax.swing.JPanel {
         }
 
         int rowindex = tblDichVu.getSelectedRow();
-        Vector currentRow = new Vector();
-        for (int i = 0; i < tblDichVu.getColumnCount(); i++)
-        currentRow.add(tblDichVu.getValueAt(rowindex,i).toString()); 
        
         if (rowindex < 0)
             return;

@@ -125,9 +125,9 @@
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="AreaScrollPane" pref="0" max="32767" attributes="0"/>
-                      <Component id="lblTenVaiTro" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                      <Component id="txtTenVaiTro" alignment="0" pref="176" max="32767" attributes="0"/>
-                      <Component id="lblTenVaiTro1" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="lblTenDichVu" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="txtTenDichVu" alignment="0" pref="176" max="32767" attributes="0"/>
+                      <Component id="lblMoTa" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="lblValidateTenVaiTro" pref="31" max="32767" attributes="0"/>
@@ -146,11 +146,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblTenVaiTro" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblTenDichVu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtTenVaiTro" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="txtTenDichVu" min="-2" pref="24" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblTenVaiTro1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblMoTa" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
@@ -162,7 +162,7 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnHuy" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="btnLuu" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
@@ -172,7 +172,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblTenVaiTro">
+        <Component class="javax.swing.JLabel" name="lblTenDichVu">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -180,7 +180,7 @@
             <Property name="text" type="java.lang.String" value="T&#xea;n d&#x1ecb;ch v&#x1ee5;:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTenVaiTro">
+        <Component class="javax.swing.JTextField" name="txtTenDichVu">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -252,7 +252,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblValidateTenVaiTro">
         </Component>
-        <Component class="javax.swing.JLabel" name="lblTenVaiTro1">
+        <Component class="javax.swing.JLabel" name="lblMoTa">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>

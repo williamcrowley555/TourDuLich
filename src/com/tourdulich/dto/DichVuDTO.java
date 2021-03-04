@@ -50,6 +50,6 @@ public class DichVuDTO {
 
     @Override
     public String toString() {
-        return "DichVuDTO{" + "id=" + id + ", tenDichVu=" + tenDichVu + ", moTa=" + moTa +'}';
+        return "DichVuDTO{" + "id=" + id + ", tenDichVu=" + tenDichVu + ", moTa=" + moTa + '}';
     }
 }

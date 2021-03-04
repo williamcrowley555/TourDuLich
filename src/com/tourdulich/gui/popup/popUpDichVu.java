@@ -5,8 +5,10 @@
  */
 package com.tourdulich.gui.popup;
 
-import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.IDichVuBLL;
+import com.tourdulich.bll.impl.DichVuBLL;
 import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.dto.DichVuDTO;
 import com.tourdulich.dto.VaiTroDTO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,47 +36,47 @@ import javax.swing.JOptionPane;
  */
 public class popUpDichVu extends javax.swing.JFrame {
     private String action;
-    private IVaiTroBLL vaiTroBLL;
-    private VaiTroDTO vaiTro;
+    private IDichVuBLL dichVuBLL;
+    private DichVuDTO dichVu;
    
     public popUpDichVu(String action) {
         initComponents();
         
         this.action = action;
-        vaiTroBLL = new VaiTroBLL();
+        dichVuBLL = new DichVuBLL();
         
         CustomWindow();
         myTextArea();
         this.setVisible(true);
     }
 
-    public popUpDichVu(String action, VaiTroDTO vaiTro) {
+    public popUpDichVu(String action, DichVuDTO dichVu) {
         initComponents();
         this.action = action;
-        this.vaiTro = vaiTro;
-        vaiTroBLL = new VaiTroBLL();
+        this.dichVu = dichVu;
+        dichVuBLL = new DichVuBLL();
         CustomWindow();
         myTextArea();
-        setLabelText(vaiTro);
+        setLabelText(dichVu);
         this.setVisible(true);
     }
     
-    public void setLabelText(VaiTroDTO vaiTro)
+    public void setLabelText(DichVuDTO dichVu)
     {
-        txtTenVaiTro.setText(vaiTro.getTenVaiTro());
+        txtTenDichVu.setText(dichVu.getTenDichVu());
     }
     public void myTextArea()
     {
         txtMoTa.setWrapStyleWord(true);
         txtMoTa.setLineWrap(true);
     }
-    private VaiTroDTO getFormInfo() {
-        VaiTroDTO vaiTro = new VaiTroDTO();
-        if(this.vaiTro != null) {
-            vaiTro.setId(this.vaiTro.getId());
+    private DichVuDTO getFormInfo() {
+        DichVuDTO dichVu = new DichVuDTO();
+        if(this.dichVu != null) {
+            dichVu.setId(this.dichVu.getId());
         }
-        vaiTro.setTenVaiTro(txtTenVaiTro.getText().trim());
-        return vaiTro;
+        dichVu.setTenDichVu(txtTenDichVu.getText().trim());
+        return dichVu;
     }
  
     public popUpDichVu() {
@@ -86,7 +88,7 @@ public class popUpDichVu extends javax.swing.JFrame {
     {
        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));  
-       if(InputValidatorUtil.isValidName(txtTenVaiTro.getText(), true).isEmpty())
+       if(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true).isEmpty())
        {
            lblValidateTenVaiTro.setIcon(iconCheck);
            lblValidateTenVaiTro.setToolTipText(null);
@@ -94,7 +96,7 @@ public class popUpDichVu extends javax.swing.JFrame {
        }
        else {
            lblValidateTenVaiTro.setIcon(iconError);
-           lblValidateTenVaiTro.setToolTipText(InputValidatorUtil.isValidName(txtTenVaiTro.getText(), true));
+           lblValidateTenVaiTro.setToolTipText(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true));
           return false;
        }
     }
@@ -126,12 +128,12 @@ public class popUpDichVu extends javax.swing.JFrame {
         lblMinimize = new javax.swing.JLabel();
         lblExit = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
-        lblTenVaiTro = new javax.swing.JLabel();
-        txtTenVaiTro = new javax.swing.JTextField();
+        lblTenDichVu = new javax.swing.JLabel();
+        txtTenDichVu = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
         lblValidateTenVaiTro = new javax.swing.JLabel();
-        lblTenVaiTro1 = new javax.swing.JLabel();
+        lblMoTa = new javax.swing.JLabel();
         AreaScrollPane = new javax.swing.JScrollPane();
         txtMoTa = new javax.swing.JTextArea();
 
@@ -185,11 +187,11 @@ public class popUpDichVu extends javax.swing.JFrame {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblTenVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblTenVaiTro.setText("Tên dịch vụ:");
+        lblTenDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblTenDichVu.setText("Tên dịch vụ:");
 
-        txtTenVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtTenVaiTro.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtTenDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTenDichVu.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
 
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -221,8 +223,8 @@ public class popUpDichVu extends javax.swing.JFrame {
             }
         });
 
-        lblTenVaiTro1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblTenVaiTro1.setText("Mô tả:");
+        lblMoTa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblMoTa.setText("Mô tả:");
 
         AreaScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         AreaScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -241,9 +243,9 @@ public class popUpDichVu extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(lblTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenVaiTro, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                    .addComponent(lblTenVaiTro1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                    .addComponent(lblMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblValidateTenVaiTro, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                 .addContainerGap())
@@ -258,11 +260,11 @@ public class popUpDichVu extends javax.swing.JFrame {
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTenVaiTro)
+                .addComponent(lblTenDichVu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTenVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTenVaiTro1)
+                .addComponent(lblMoTa)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
@@ -271,7 +273,7 @@ public class popUpDichVu extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -311,11 +313,11 @@ public class popUpDichVu extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {    
-            VaiTroDTO vaiTro = getFormInfo();
+            DichVuDTO dichVu = getFormInfo();
 
             if(this.action.equals("POST")) {             
-                    Long newVaiTroId = vaiTroBLL.save(vaiTro);
-                    if(newVaiTroId != null) {
+                    Long newDichVuId = dichVuBLL.save(dichVu);
+                    if(newDichVuId != null) {
                         JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } else {
@@ -323,7 +325,7 @@ public class popUpDichVu extends javax.swing.JFrame {
                     }              
             } else if(this.action.equals("PUT")) {              
                     try {
-                        vaiTroBLL.update(vaiTro);
+                        dichVuBLL.update(dichVu);
                         JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                     } catch(Exception e) {
@@ -387,13 +389,13 @@ public class popUpDichVu extends javax.swing.JFrame {
     private javax.swing.JButton btnLuu;
     private javax.swing.JLabel lblExit;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JLabel lblTenVaiTro;
-    private javax.swing.JLabel lblTenVaiTro1;
+    private javax.swing.JLabel lblMoTa;
+    private javax.swing.JLabel lblTenDichVu;
     private javax.swing.JLabel lblValidateTenVaiTro;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JTextArea txtMoTa;
-    private javax.swing.JTextField txtTenVaiTro;
+    private javax.swing.JTextField txtTenDichVu;
     // End of variables declaration//GEN-END:variables
 
 }
