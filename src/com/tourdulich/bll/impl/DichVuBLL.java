@@ -5,10 +5,46 @@
  */
 package com.tourdulich.bll.impl;
 
+import com.tourdulich.bll.IDichVuBLL;
+import com.tourdulich.dao.IDichVuDAO;
+import com.tourdulich.dao.impl.DichVuDAO;
+import com.tourdulich.dto.DichVuDTO;
+import java.util.List;
+
 /**
  *
- * @author USER
+ * @author HP
  */
-public class DichVuBLL {
+public class DichVuBLL implements IDichVuBLL {
+
+    private IDichVuDAO dichVuDAO;
+
+    public DichVuBLL() {
+        this.dichVuDAO = new DichVuDAO();
+    }
     
+    @Override
+    public List<DichVuDTO> findAll() {
+        return dichVuDAO.findAll();
+    }
+
+    @Override
+    public DichVuDTO findById(Long id) {
+        return dichVuDAO.findById(id);
+    }
+
+    @Override
+    public Long save(DichVuDTO dichVu) {
+        return dichVuDAO.save(dichVu);
+    }
+
+    @Override
+    public void update(DichVuDTO dichVu) {
+        dichVuDAO.update(dichVu);
+    }
+
+    @Override
+    public void delete(Long id) {
+        dichVuDAO.delete(id);
+    }
 }
