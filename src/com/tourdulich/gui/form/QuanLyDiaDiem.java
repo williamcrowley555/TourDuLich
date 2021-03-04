@@ -35,8 +35,8 @@ public class QuanLyDiaDiem extends javax.swing.JPanel {
                             "Tên Địa Điểm",
                             "Id Tỉnh",
                             "Địa Chỉ",
-                            "Giới Thiệu",
-                            "Hình Ảnh"};
+                            "Giới Thiệu"};
+                          
     /**
      * Creates new form Panel1
      */
