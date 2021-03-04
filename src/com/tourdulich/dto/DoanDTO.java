@@ -18,16 +18,26 @@ public class DoanDTO {
     private LocalDate ngayKetThuc;
     private Long idTour;
     private int soLuong;
+    private Long giaTien;
     
     public DoanDTO(){}
 
-    public DoanDTO(Long id, String tenDoan, LocalDate ngayKhoiHanh, LocalDate ngayKetThuc, Long idTour, int soLuong) {
+    public DoanDTO(Long id, String tenDoan, LocalDate ngayKhoiHanh, LocalDate ngayKetThuc, Long idTour, int soLuong, Long giaTien) {
         this.id = id;
         this.tenDoan = tenDoan;
         this.ngayKhoiHanh = ngayKhoiHanh;
         this.ngayKetThuc = ngayKetThuc;
         this.idTour = idTour;
         this.soLuong = soLuong;
+        this.giaTien = giaTien;
+    }
+
+    public Long getGiaTien() {
+        return giaTien;
+    }
+
+    public void setGiaTien(Long giaTien) {
+        this.giaTien = giaTien;
     }
 
     public Long getId() {
@@ -80,6 +90,6 @@ public class DoanDTO {
     
     @Override
     public String toString() {
-        return "DoanDTO{" + "id=" + id + ", tenDoan=" + tenDoan + ", ngayKhoiHanh=" + ngayKhoiHanh + ", ngayKetThuc=" + ngayKetThuc + ", idTour=" + idTour + ", soLuong=" + soLuong + '}';
+        return "DoanDTO{" + "id=" + id + ", tenDoan=" + tenDoan + ", ngayKhoiHanh=" + ngayKhoiHanh + ", ngayKetThuc=" + ngayKetThuc + ", idTour=" + idTour + ", soLuong=" + soLuong + ", giaTien=" + giaTien + '}';
     }
 }
