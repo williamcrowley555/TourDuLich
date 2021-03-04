@@ -6,12 +6,18 @@
 package com.tourdulich.gui.popup;
 
 import com.toedter.calendar.JTextFieldDateEditor;
-import com.tourdulich.bll.INhanVienBLL;
-import com.tourdulich.bll.IVaiTroBLL;
-import com.tourdulich.bll.impl.NhanVienBLL;
-import com.tourdulich.bll.impl.VaiTroBLL;
-import com.tourdulich.dto.NhanVienDTO;
-import com.tourdulich.dto.VaiTroDTO;
+import com.tourdulich.bll.IDiaDiemBLL;
+import com.tourdulich.bll.IDiaDiemBLL;
+import com.tourdulich.bll.ITinhBLL;
+import com.tourdulich.bll.ITinhBLL;
+import com.tourdulich.bll.impl.DiaDiemBLL;
+import com.tourdulich.bll.impl.DiaDiemBLL;
+import com.tourdulich.bll.impl.TinhBLL;
+import com.tourdulich.bll.impl.TinhBLL;
+import com.tourdulich.dto.DiaDiemDTO;
+import com.tourdulich.dto.DiaDiemDTO;
+import com.tourdulich.dto.TinhDTO;
+import com.tourdulich.dto.TinhDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -45,53 +51,53 @@ import javax.swing.JTextField;
 public class popUpDiaDiem extends javax.swing.JFrame {
     private File selectedImg = null;
     private String action;
-    private NhanVienDTO nhanVien = null;
-    private INhanVienBLL nhanVienBLL;
-    private IVaiTroBLL vaiTroBLL;
+    private DiaDiemDTO diaDiem = null;
+    private IDiaDiemBLL diaDiemBLL;
+    private ITinhBLL tinhBLL;
     public popUpDiaDiem(String action) {
         initComponents();
         
         this.action = action;    
-        nhanVienBLL = new NhanVienBLL();
-        vaiTroBLL = new VaiTroBLL();
+        diaDiemBLL = new DiaDiemBLL();
+        tinhBLL = new TinhBLL();
         
         CustomWindow();
         myTextArea();
-        setComboBox(comboBoxTinh, getVaiTroItems());
+        setComboBox(comboBoxTinh, getTinhItems());
         comboBoxTinh = myComboBox(comboBoxTinh, new Color(14,142,233));
         
         
         this.setVisible(true);    
     }
     
-    public popUpDiaDiem(String action, NhanVienDTO nhanVien) {
+    public popUpDiaDiem(String action, DiaDiemDTO diaDiem) {
         initComponents();
         this.action = action;  
-        this.nhanVien = nhanVien;
-        nhanVienBLL = new NhanVienBLL();
-        vaiTroBLL = new VaiTroBLL(); 
+        this.diaDiem = diaDiem;
+        diaDiemBLL = new DiaDiemBLL();
+        tinhBLL = new TinhBLL(); 
       
         CustomWindow();
         myTextArea();
-        setComboBox(comboBoxTinh, getVaiTroItems());
+        setComboBox(comboBoxTinh, getTinhItems());
         comboBoxTinh = myComboBox(comboBoxTinh, new Color(14,142,233));
-        setLabelText(nhanVien);
+        setLabelText(diaDiem);
         
        
         this.setVisible(true);    
     }
      
-    public void setLabelText(NhanVienDTO nhanVien)
+    public void setLabelText(DiaDiemDTO diaDiem)
     {
-        txtTenDiaDiem.setText(nhanVien.getHo());
-        txtGioiThieu.setText(nhanVien.getTen());
+        txtTenDiaDiem.setText(diaDiem.getTenDiaDiem());
+        txtGioiThieu.setText(diaDiem.getGioiThieu());
         
-        txtDiaChi.setText(nhanVien.getDiaChi());
+        txtDiaChi.setText(diaDiem.getDiaChi());
         
-        if(nhanVien.getHinhAnh() != null) {
-           lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
+        if(diaDiem.getHinhAnh() != null) {
+           lblAnh.setIcon(ImageUtil.resizeImg(diaDiem.getHinhAnh(), lblAnh));
         }
-        comboBoxTinh.setSelectedItem(getVaiTroItemName(vaiTroBLL.findById(nhanVien.getIdVaiTro())));
+        comboBoxTinh.setSelectedItem(getTinhItemName(tinhBLL.findById(diaDiem.getIdTinh())));
     }
     public boolean validateForm() 
     {   
@@ -139,49 +145,46 @@ public class popUpDiaDiem extends javax.swing.JFrame {
         else return false;
        
     }
-    private NhanVienDTO getFormInfo() throws IOException {
-//        NhanVienDTO nhanVien = new NhanVienDTO();
-//        if(this.nhanVien != null) {
-//            nhanVien.setId(this.nhanVien.getId());
-//        }
-//        nhanVien.setHo(txtHo.getText().trim());
-//        nhanVien.setTen(txtTenDiaDiem.getText().trim());
-//        nhanVien.setGioiTinh(radioNam.isSelected() ? true : false);
-//        nhanVien.setNgaySinh(DCNgaySinh.getDate());
-//        nhanVien.setDiaChi(txtDiaChi.getText().trim());
-//        nhanVien.setSdt(txtSDT.getText().trim());
-//        if (this.selectedImg != null) {
-//            nhanVien.setHinhAnh(ImageUtil.getByteArray(this.selectedImg));
-//        } else {
-//            if (this.nhanVien != null) {
-//                if(this.nhanVien.getHinhAnh() != null) {
-//                    nhanVien.setHinhAnh(this.nhanVien.getHinhAnh());
-//                }
-//            }
-//        }
-//        String selectedVaiTro = comboBoxTinh.getSelectedItem().toString();
-//        Long idVaiTro = Long.parseLong(selectedVaiTro.substring(0, selectedVaiTro.indexOf(" - ")));
-//        nhanVien.setIdVaiTro(idVaiTro);
-        return nhanVien;
+    private DiaDiemDTO getFormInfo() throws IOException {
+        DiaDiemDTO diaDiem = new DiaDiemDTO();
+        if(this.diaDiem != null) {
+            diaDiem.setId(this.diaDiem.getId());
+        }
+        diaDiem.setTenDiaDiem(txtTenDiaDiem.getText().trim());
+        diaDiem.setGioiThieu(txtGioiThieu.getText().trim());
+        diaDiem.setDiaChi(txtDiaChi.getText().trim());
+        if (this.selectedImg != null) {
+            diaDiem.setHinhAnh(ImageUtil.getByteArray(this.selectedImg));
+        } else {
+            if (this.diaDiem != null) {
+                if(this.diaDiem.getHinhAnh() != null) {
+                    diaDiem.setHinhAnh(this.diaDiem.getHinhAnh());
+                }
+            }
+        }
+        String selectedTinh = comboBoxTinh.getSelectedItem().toString();
+        Long idTinh = Long.parseLong(selectedTinh.substring(0, selectedTinh.indexOf(" - ")));
+        diaDiem.setIdTinh(idTinh);
+        return diaDiem;
     }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
     
-    public String[] getVaiTroItems() {
-        List<VaiTroDTO> vaiTroLists = vaiTroBLL.findAll();
-        String[] vaiTroItems = new String[vaiTroLists.size()];
+    public String[] getTinhItems() {
+        List<TinhDTO> tinhLists = tinhBLL.findAll();
+        String[] tinhItems = new String[tinhLists.size()];
         int index = 0;
-        for(VaiTroDTO vt : vaiTroLists) {
-            vaiTroItems[index] = vt.getId() + " - " + vt.getTenVaiTro();
+        for(TinhDTO vt : tinhLists) {
+            tinhItems[index] = vt.getId() + " - " + vt.getTenTinh();
             ++ index;
         }
-        return vaiTroItems;
+        return tinhItems;
     }
     
-    public String getVaiTroItemName(VaiTroDTO vaiTro) {
-        return vaiTro.getId() + " - " + vaiTro.getTenVaiTro();
+    public String getTinhItemName(TinhDTO tinh) {
+        return tinh.getId() + " - " + tinh.getTenTinh();
     }
     
     public popUpDiaDiem() {
@@ -549,16 +552,16 @@ public class popUpDiaDiem extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {
-            NhanVienDTO newNhanVien = null;
+            DiaDiemDTO newDiaDiem = null;
             try {
-                newNhanVien = getFormInfo();
+                newDiaDiem = getFormInfo();
             } catch (IOException ex) {
                 Logger.getLogger(popUpDiaDiem.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if(this.action.equals("POST")) {           
-                    Long newNhanVienId = nhanVienBLL.save(newNhanVien);
-                    if(newNhanVienId != null) {
+                    Long newDiaDiemId = diaDiemBLL.save(newDiaDiem);
+                    if(newDiaDiemId != null) {
 
                         JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
@@ -568,7 +571,7 @@ public class popUpDiaDiem extends javax.swing.JFrame {
                     }
             } else if(this.action.equals("PUT")) {
                 try {    
-                    nhanVienBLL.update(newNhanVien);
+                    diaDiemBLL.update(newDiaDiem);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(Exception e) {
