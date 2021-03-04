@@ -6,12 +6,9 @@
 package com.tourdulich.gui.popup;
 
 import com.toedter.calendar.JTextFieldDateEditor;
-import com.tourdulich.bll.INhanVienBLL;
-import com.tourdulich.bll.IVaiTroBLL;
-import com.tourdulich.bll.impl.NhanVienBLL;
-import com.tourdulich.bll.impl.VaiTroBLL;
-import com.tourdulich.dto.NhanVienDTO;
-import com.tourdulich.dto.VaiTroDTO;
+import com.tourdulich.bll.IKhachHangBLL;
+import com.tourdulich.bll.impl.KhachHangBLL;
+import com.tourdulich.dto.KhachHangDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -45,15 +42,14 @@ import javax.swing.JTextField;
 public class popUpKhachHang extends javax.swing.JFrame {
     private File selectedImg = null;
     private String action;
-    private NhanVienDTO nhanVien = null;
-    private INhanVienBLL nhanVienBLL;
-    private IVaiTroBLL vaiTroBLL;
+    private KhachHangDTO khachHang = null;
+    private IKhachHangBLL khachHangBLL;
+    
     public popUpKhachHang(String action) {
         initComponents();
         
         this.action = action;    
-        nhanVienBLL = new NhanVienBLL();
-        vaiTroBLL = new VaiTroBLL();
+        khachHangBLL = new KhachHangBLL();
         
         CustomWindow();
         myTextArea();
@@ -63,19 +59,17 @@ public class popUpKhachHang extends javax.swing.JFrame {
         this.setVisible(true);    
     }
     
-    public popUpKhachHang(String action, NhanVienDTO nhanVien) {
+    public popUpKhachHang(String action, KhachHangDTO khachHang) {
         initComponents();
         this.action = action;  
-        this.nhanVien = nhanVien;
-        nhanVienBLL = new NhanVienBLL();
-        vaiTroBLL = new VaiTroBLL(); 
+        this.khachHang = khachHang;
+        khachHangBLL = new KhachHangBLL(); 
       
         CustomWindow();
         myTextArea();
        
-        setLabelText(nhanVien);
+        setLabelText(khachHang);
         
-       
         this.setVisible(true);    
     }
     public void disableEditingDateChooser(boolean flag)
@@ -88,22 +82,22 @@ public class popUpKhachHang extends javax.swing.JFrame {
             
         }
     }
-    public void setLabelText(NhanVienDTO nhanVien)
+    public void setLabelText(KhachHangDTO khachHang)
     {
-        txtHo.setText(nhanVien.getHo());
-        txtTen.setText(nhanVien.getTen());
-        if(nhanVien.getGioiTinh()) {
+        txtHo.setText(khachHang.getHo());
+        txtTen.setText(khachHang.getTen());
+        if(khachHang.getGioiTinh()) {
             radioNam.setSelected(true);
         } else {
             radioNu.setSelected(true);
         }
-        DCNgaySinh.setDate(nhanVien.getNgaySinh());
-        txtDiaChi.setText(nhanVien.getDiaChi());
-        txtSDT.setText(nhanVien.getSdt());
-        if(nhanVien.getHinhAnh() != null) {
-           lblAnh.setIcon(ImageUtil.resizeImg(nhanVien.getHinhAnh(), lblAnh));
+        DCNgaySinh.setDate(khachHang.getNgaySinh());
+        txtDiaChi.setText(khachHang.getDiaChi());
+        txtSDT.setText(khachHang.getSdt());
+        if(khachHang.getHinhAnh() != null) {
+           lblAnh.setIcon(ImageUtil.resizeImg(khachHang.getHinhAnh(), lblAnh));
         }
-        
+        txtCMND.setText(khachHang.getCmnd());
     }
     public boolean validateForm() 
     {   
@@ -143,15 +137,15 @@ public class popUpKhachHang extends javax.swing.JFrame {
             lblValidateSDT.setToolTipText(null);
             
             if (this.action.equals("POST")) {
-                if (nhanVienBLL.findBySdt(txtSDT.getText().trim()) != null) {
+                if (khachHangBLL.findBySdt(txtSDT.getText().trim()) != null) {
                     Sdt = false;
                     lblValidateSDT.setIcon(iconError);
                     lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
                 }
             } else if (this.action.equals("PUT")) {
-                NhanVienDTO newNhanVien = nhanVienBLL.findBySdt(txtSDT.getText().trim());
-                if (newNhanVien != null) {
-                    if (newNhanVien.getId() != this.nhanVien.getId()) {  
+                KhachHangDTO newKhachHang = khachHangBLL.findBySdt(txtSDT.getText().trim());
+                if (newKhachHang != null) {
+                    if (newKhachHang.getId() != this.khachHang.getId()) {  
                         Sdt = false;
                         lblValidateSDT.setIcon(iconError);
                         lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
@@ -199,50 +193,36 @@ public class popUpKhachHang extends javax.swing.JFrame {
         else return false;
        
     }
-    private NhanVienDTO getFormInfo() throws IOException {
-        NhanVienDTO nhanVien = new NhanVienDTO();
-        if(this.nhanVien != null) {
-            nhanVien.setId(this.nhanVien.getId());
+    private KhachHangDTO getFormInfo() throws IOException {
+        KhachHangDTO khachHang = new KhachHangDTO();
+        if(this.khachHang != null) {
+            khachHang.setId(this.khachHang.getId());
         }
-        nhanVien.setHo(txtHo.getText().trim());
-        nhanVien.setTen(txtTen.getText().trim());
-        nhanVien.setGioiTinh(radioNam.isSelected() ? true : false);
-        nhanVien.setNgaySinh(DCNgaySinh.getDate());
-        nhanVien.setDiaChi(txtDiaChi.getText().trim());
-        nhanVien.setSdt(txtSDT.getText().trim());
+        khachHang.setHo(txtHo.getText().trim());
+        khachHang.setTen(txtTen.getText().trim());
+        khachHang.setGioiTinh(radioNam.isSelected() ? true : false);
+        khachHang.setNgaySinh(DCNgaySinh.getDate());
+        khachHang.setDiaChi(txtDiaChi.getText().trim());
+        khachHang.setSdt(txtSDT.getText().trim());
+        khachHang.setCmnd(txtCMND.getText().trim());
         if (this.selectedImg != null) {
-            nhanVien.setHinhAnh(ImageUtil.getByteArray(this.selectedImg));
+            khachHang.setHinhAnh(ImageUtil.getByteArray(this.selectedImg));
         } else {
-            if (this.nhanVien != null) {
-                if(this.nhanVien.getHinhAnh() != null) {
-                    nhanVien.setHinhAnh(this.nhanVien.getHinhAnh());
+            if (this.khachHang != null) {
+                if(this.khachHang.getHinhAnh() != null) {
+                    khachHang.setHinhAnh(this.khachHang.getHinhAnh());
                 }
             }
         }
        
        
        
-        return nhanVien;
+        return khachHang;
     }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
-    
-    public String[] getVaiTroItems() {
-        List<VaiTroDTO> vaiTroLists = vaiTroBLL.findAll();
-        String[] vaiTroItems = new String[vaiTroLists.size()];
-        int index = 0;
-        for(VaiTroDTO vt : vaiTroLists) {
-            vaiTroItems[index] = vt.getId() + " - " + vt.getTenVaiTro();
-            ++ index;
-        }
-        return vaiTroItems;
-    }
-    
-    public String getVaiTroItemName(VaiTroDTO vaiTro) {
-        return vaiTro.getId() + " - " + vaiTro.getTenVaiTro();
-    }
     
     public popUpKhachHang() {
         initComponents();
@@ -681,16 +661,16 @@ public class popUpKhachHang extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {
-            NhanVienDTO newNhanVien = null;
+            KhachHangDTO newKhachHang = null;
             try {
-                newNhanVien = getFormInfo();
+                newKhachHang = getFormInfo();
             } catch (IOException ex) {
                 Logger.getLogger(popUpKhachHang.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if(this.action.equals("POST")) {           
-                    Long newNhanVienId = nhanVienBLL.save(newNhanVien);
-                    if(newNhanVienId != null) {
+                    Long newKhachHangId = khachHangBLL.save(newKhachHang);
+                    if(newKhachHangId != null) {
 
                         JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
@@ -700,7 +680,7 @@ public class popUpKhachHang extends javax.swing.JFrame {
                     }
             } else if(this.action.equals("PUT")) {
                 try {    
-                    nhanVienBLL.update(newNhanVien);
+                    khachHangBLL.update(newKhachHang);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(Exception e) {

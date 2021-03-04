@@ -15,6 +15,14 @@ import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
 import com.tourdulich.gui.popup.popUpKhachHang;
 import com.tourdulich.gui.popup.popUpNhanVien;
+import com.tourdulich.bll.IKhachHangBLL;
+import com.tourdulich.bll.impl.KhachHangBLL;
+import com.tourdulich.bll.impl.NhanVienBLL;
+import com.tourdulich.util.KhachHangTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -25,11 +33,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
-    private popUpKhachHang popUp = null;
-    public QuanLyKhachHang() {
-        initComponents();
-         
-        String[] columnNames = {
+    String[] columnNames = {
                             "Id",
                             "Họ",
                             "Tên",
@@ -38,28 +42,25 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                             "Địa Chỉ",
                             "Giới Tính",
                             "Sđt"};
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Nguyễn Văn");
-        row.add("A");
-        row.add("012345678999");
-        row.add("1990-03-21");
-        row.add("2/3,Q1,TPHCM");
-        row.add("Nam");
-        row.add("0987654321");
-        
-        
+    private IKhachHangBLL khachHangBLL;
+    private popUpKhachHang popUp = null;
+    TableRowSorter<TableModel> rowSorter = null;
     
+    public QuanLyKhachHang() {
+        initComponents();
+        // Ghi chu
+        khachHangBLL = new KhachHangBLL();
         
-         
-        model.addRow(row);
-        tblKhachHang.setModel(model);
+        loadTableData();
+        
         headerColor(14,142,233,tblKhachHang);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+    }
+    
+    public void loadTableData() {
+        tblKhachHang.setModel(new KhachHangTableLoaderUtil().setTable(khachHangBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblKhachHang, txtTimKiem);
+        headerColor(14,142,233,tblKhachHang);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -244,37 +245,37 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-//        int rowindex = tblNhanVien.getSelectedRow();
-//        Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-//        if (this.popUp == null) {
-//            popUp = new popUpNhanVien("PUT", nhanVienBLL.findById(id));
-//        } else {
-//            this.popUp.toFront();
-//            this.popUp.center();
-//        }
-//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                popUp = null;
-//                loadTableData();
-//            }
-//        });
+        int rowindex = tblKhachHang.getSelectedRow();
+        Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+        popUp = new popUpKhachHang("PUT", khachHangBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-//        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-//        if(response == JOptionPane.YES_OPTION) {
-//            int rowindex = tblNhanVien.getSelectedRow();
-//            Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-//            try {
-//                nhanVienBLL.delete(id);
-//                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//            } catch(Exception e) {
-//                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-//                e.printStackTrace();
-//            }
-//        }
-//        loadTableData();
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+        if(response == JOptionPane.YES_OPTION) {
+            int rowindex = tblKhachHang.getSelectedRow();
+            Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
+            try {
+                khachHangBLL.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+        loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
 
     private void tblKhachHangMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseReleased
@@ -290,7 +291,7 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         int rowindex = tblKhachHang.getSelectedRow();
         Vector currentRow = new Vector();
         for (int i = 0; i < tblKhachHang.getColumnCount(); i++)
-        currentRow.add(tblKhachHang.getValueAt(rowindex,i).toString()); 
+        currentRow.add(tblKhachHang.getValueAt(rowindex,i).toString());
        
         if (rowindex < 0)
             return;
