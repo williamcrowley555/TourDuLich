@@ -5,6 +5,10 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.IDoanBLL;
+import com.tourdulich.bll.ITourBLL;
+import com.tourdulich.bll.impl.DoanBLL;
+import com.tourdulich.bll.impl.TourBLL;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -12,6 +16,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.util.DoanTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -22,34 +30,48 @@ public class QuanLyDoan extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
-    public QuanLyDoan() {
-        initComponents();
-        
-        String[] columnNames = {
+    String[] columnNames = {
                             "Id",
                             "Tên Đoàn",
                             "Ngày Khởi Hành",
                             "Ngày Kết Thúc",
                             "Id Tour",
-                            "Số Lượng"};
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblDoan.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Đoàn NA01");
-        row.add("6/2/2021");
-        row.add("7/2/2021");
-        row.add("1");
-        row.add(30);
+                            "Số Lượng",
+                            "Giá tiền"};
     
+    private IDoanBLL doanBLL;
+    private ITourBLL tourBLL;
+   // private popUpDoan popUp = null;
+    TableRowSorter<TableModel> rowSorter = null;
+    
+    public QuanLyDoan() {
+        initComponents();
+        doanBLL = new DoanBLL();
+        tourBLL = new TourBLL();
+//        Vector header = createHeader(columnNames);
+//        DefaultTableModel model = (DefaultTableModel) tblDoan.getModel();
+//        model = new DefaultTableModel(header, 0);
+//       
+//        Vector row = new Vector();
+//        row.add("1");
+//        row.add("Đoàn NA01");
+//        row.add("6/2/2021");
+//        row.add("7/2/2021");
+//        row.add("1");
+//        row.add(30);
+
+//        model.addRow(row);
+//        tblDoan.setModel(model);
+        loadTableData();
         
-         
-        model.addRow(row);
-        tblDoan.setModel(model);
         headerColor(14,142,233,tblDoan);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+    }
+    
+    public void loadTableData() {
+        tblDoan.setModel(new DoanTableLoaderUtil().setTable(doanBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblDoan, txtTimKiem);
+        headerColor(14,142,233,tblDoan);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -103,6 +125,14 @@ public class QuanLyDoan extends javax.swing.JPanel {
         btnThem.setText("Thêm");
         btnThem.setContentAreaFilled(false);
         btnThem.setOpaque(true);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnThemMouseReleased(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -196,6 +226,14 @@ public class QuanLyDoan extends javax.swing.JPanel {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void btnThemMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemMouseReleased
+
+    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

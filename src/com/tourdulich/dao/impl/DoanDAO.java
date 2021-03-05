@@ -30,14 +30,14 @@ public class DoanDAO extends AbstractDAO<DoanDTO> implements IDoanDAO {
 
     @Override
     public Long save(DoanDTO doan) {
-        String sql = "INSERT INTO doan(ten_doan, ngay_khoi_hanh, ngay_ket_thuc, id_tour, so_luong) VALUES(?, ?, ?, ?, ?)";
-        return insert(sql, doan.getTenDoan(), doan.getNgayKhoiHanh(), doan.getNgayKetThuc(), doan.getIdTour(), doan.getSoLuong());
+        String sql = "INSERT INTO doan(ten_doan, ngay_khoi_hanh, ngay_ket_thuc, id_tour, so_luong, gia_tien) VALUES(?, ?, ?, ?, ?, ?)";
+        return insert(sql, doan.getTenDoan(), doan.getNgayKhoiHanh(), doan.getNgayKetThuc(), doan.getIdTour(), doan.getSoLuong(), doan.getGiaTien());
     }
 
     @Override
     public void update(DoanDTO doan) {
-        String sql = "UPDATE doan SET ten_doan = ?, ngay_khoi_hanh = ?, ngay_ket_thuc = ?, id_tour = ?, so_luong = ? WHERE id = ?";
-        update(sql, doan.getTenDoan(), doan.getNgayKhoiHanh(), doan.getNgayKetThuc(), doan.getIdTour(), doan.getSoLuong(), doan.getId());
+        String sql = "UPDATE doan SET ten_doan = ?, ngay_khoi_hanh = ?, ngay_ket_thuc = ?, id_tour = ?, so_luong = ?, gia_tien = ? WHERE id = ?";
+        update(sql, doan.getTenDoan(), doan.getNgayKhoiHanh(), doan.getNgayKetThuc(), doan.getIdTour(), doan.getSoLuong(), doan.getGiaTien(), doan.getId());
     }
 
     @Override
