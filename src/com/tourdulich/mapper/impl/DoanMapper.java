@@ -25,6 +25,7 @@ public class DoanMapper implements RowMapper<DoanDTO> {
                 doan.setNgayKetThuc(rs.getDate("ngay_ket_thuc").toLocalDate());
                 doan.setIdTour(rs.getLong("id_tour"));
                 doan.setSoLuong(rs.getInt("so_luong"));
+                doan.setGiaTien(rs.getLong("gia_tien"));
                 
                 return doan;
             } catch(SQLException e) {
