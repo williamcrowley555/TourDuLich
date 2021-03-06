@@ -16,8 +16,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.gui.popup.popUpDoan;
 import com.tourdulich.util.DoanTableLoaderUtil;
 import com.tourdulich.util.TableSetupUtil;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -30,6 +32,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
+    private popUpDoan popUp = null;
     String[] columnNames = {
                             "Id",
                             "Tên Đoàn",
@@ -105,6 +108,9 @@ public class QuanLyDoan extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rightClickMenu = new javax.swing.JPopupMenu();
+        itemSua = new javax.swing.JMenuItem();
+        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -113,6 +119,27 @@ public class QuanLyDoan extends javax.swing.JPanel {
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblDoan = new javax.swing.JTable();
+
+        itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemSua.setText("Sửa");
+        itemSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSuaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemSua);
+
+        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
+        itemXoa.setText("Xóa");
+        itemXoa.setToolTipText("");
+        itemXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemXoaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -124,6 +151,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
         btnThem.setContentAreaFilled(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setOpaque(true);
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -198,6 +226,11 @@ public class QuanLyDoan extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblDoanMouseReleased(evt);
+            }
+        });
         scroll.setViewportView(tblDoan);
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
@@ -233,15 +266,83 @@ public class QuanLyDoan extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
+        if (this.popUp == null) {
+            this.popUp = new popUpDoan("POST");
+            
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+           loadTableData();
+        }
+    });
     }//GEN-LAST:event_btnThemMousePressed
+
+    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
+        int rowindex = tblDoan.getSelectedRow();
+        Long id = Long.parseLong(tblDoan.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+            popUp = new popUpDoan("PUT", doanBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                popUp = null;
+                loadTableData();
+            }
+        });
+    }//GEN-LAST:event_itemSuaActionPerformed
+
+    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+        if(response == JOptionPane.YES_OPTION) {
+            int rowindex = tblDoan.getSelectedRow();
+            Long id = Long.parseLong(tblDoan.getValueAt(rowindex,0).toString());
+            try {
+                doanBLL.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+        loadTableData();
+    }//GEN-LAST:event_itemXoaActionPerformed
+
+    private void tblDoanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoanMouseReleased
+        // TODO add your handling code here:
+        int r = tblDoan.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblDoan.getRowCount()) {
+            tblDoan.setRowSelectionInterval(r, r);
+        } else {
+           tblDoan.clearSelection();
+        }
+        int rowindex = tblDoan.getSelectedRow();
+        if (rowindex < 0)
+            return;
+        if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
+            
+            rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tblDoanMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JMenuItem itemSua;
+    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHead;
+    private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblDoan;
     private javax.swing.JTextField txtTimKiem;

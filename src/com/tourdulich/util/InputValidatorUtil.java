@@ -74,6 +74,21 @@ public class InputValidatorUtil {
            
     }
     
+    public static String isValidStartDate(LocalDate startDate) {     
+        if (startDate == null) return " không được để trống";
+        LocalDate toDay = LocalDate.now();
+            if (startDate.isBefore(toDay))
+            return "Ngày bắt đầu không hợp lệ";
+            else return "";         
+    }
+    
+    public static String isValidEndDate(LocalDate startDate, LocalDate endDate) {     
+        if (endDate == null) return " không được để trống";
+        if (endDate.isBefore(startDate))
+            return "Ngày kết thúc phải sau ngày khởi hành";
+            else return "";         
+    }
+    
     public static String isValidEmail(String email) {
         if (email.isEmpty()) return " không được để trống";
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
