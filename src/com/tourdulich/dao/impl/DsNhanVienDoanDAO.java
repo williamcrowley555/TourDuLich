@@ -7,7 +7,10 @@ package com.tourdulich.dao.impl;
 
 import com.tourdulich.dao.IDsNhanVienDoanDAO;
 import com.tourdulich.dto.DsNhanVienDoanDTO;
+import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.mapper.impl.DsNhanVienDoanMapper;
+import com.tourdulich.mapper.impl.IdMapper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -45,5 +48,15 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
     public void delete(Long id) {
         String sql = "DELETE FROM ds_nhan_vien_doan WHERE id = ?";
         update(sql, id);
+    }
+
+    @Override
+    public List<Long> getFreeNhanVien(LocalDate date, Long idTour) {
+        String sql = "SELECT DISTINCT ds_nhan_vien_doan.id_nhan_vien FROM doan\n" +
+                    "JOIN ds_nhan_vien_doan \n" +
+                    "ON ds_nhan_vien_doan.id_doan = doan.id\n" +
+                    "WHERE ? NOT BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc AND doan.id_tour = ?";
+       return query(sql, new IdMapper(), date, idTour);
+
     }
 }

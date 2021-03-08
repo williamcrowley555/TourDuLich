@@ -6,6 +6,8 @@
 package com.tourdulich.bll;
 
 import com.tourdulich.dto.DsNhanVienDoanDTO;
+import com.tourdulich.dto.NhanVienDTO;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ public interface IDsNhanVienDoanBLL {
     List<DsNhanVienDoanDTO> findAll();
     DsNhanVienDoanDTO findById(Long id);
     Long save(DsNhanVienDoanDTO dsNhanVienDoan);
+    List <NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour);
     void update(DsNhanVienDoanDTO dsNhanVienDoan);
     void delete(Long id);
 }
