@@ -67,7 +67,7 @@ public class popUpDoan extends javax.swing.JFrame {
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
-        //setComboBox(comboBoxTour, getTourItems());
+        setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));
         
@@ -82,7 +82,7 @@ public class popUpDoan extends javax.swing.JFrame {
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
-       // setComboBox(comboBoxTour, getTourItems());
+        setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));
         setLabelText(doan);
