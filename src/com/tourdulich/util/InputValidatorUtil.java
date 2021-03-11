@@ -20,6 +20,7 @@ public class InputValidatorUtil {
     
     public static String isValidName(String name, boolean whitespace) {
         name = RemoveAccentUtil.removeAccent(name);
+       
         name = name.trim();
         if (name.isEmpty()) return " không được để trống";
         
@@ -46,7 +47,7 @@ public class InputValidatorUtil {
         
         name = RemoveAccentUtil.removeAccent(name);
         name = name.trim();
-        String regex = "[^A-Za-z0-9.,\\s\\/]";
+        String regex = "[^A-Za-z0-9.,\\-\\s\\/]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(name);
         result = matcher.find();
@@ -74,6 +75,21 @@ public class InputValidatorUtil {
            
     }
     
+    public static String isValidStartDate(LocalDate startDate) {     
+        if (startDate == null) return " không được để trống";
+        LocalDate toDay = LocalDate.now();
+            if (startDate.isBefore(toDay))
+            return "Ngày bắt đầu không hợp lệ";
+            else return "";         
+    }
+    
+    public static String isValidEndDate(LocalDate startDate, LocalDate endDate) {     
+        if (endDate == null) return " không được để trống";
+        if (endDate.isBefore(startDate))
+            return "Ngày kết thúc phải sau ngày khởi hành";
+            else return "";         
+    }
+    
     public static String isValidEmail(String email) {
         if (email.isEmpty()) return " không được để trống";
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -83,6 +99,15 @@ public class InputValidatorUtil {
     public static String isInteger(String number) {
         try {
             Integer num = Integer.parseInt(number);
+        } catch(Exception e) {
+            return "Số nhập vào phải là số nguyên";
+        }
+        return "";
+    }
+    
+    public static String isLong(String number) {
+        try {
+            Long num = Long.parseLong(number);
         } catch(Exception e) {
             return "Số nhập vào phải là số nguyên";
         }
@@ -130,7 +155,7 @@ public class InputValidatorUtil {
     
     public static String isVailidPhoneNumber(String phoneNumber) {
         if (phoneNumber.isEmpty()) return " không được để trống";
-        String regex = "0{1}\\d{9}";
+        String regex = "0{1}\\d{9,10}";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);
         boolean result = matcher.find();
@@ -138,10 +163,33 @@ public class InputValidatorUtil {
             return "Số điện thoại không hợp lệ";
         }
         
-        String message = isInteger(phoneNumber);
+        String message = isLong(phoneNumber);
         if(!message.isEmpty()) return message;
         
         return "";
     }
-
+    
+    public static String isVailidIdentityID(String id) {
+        if (id.isEmpty()) return " không được để trống";
+        String regex = "^\\d{9}$|^\\d{12}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(id);
+        boolean result = matcher.find();
+        if(!result) {
+            return "CMND không hợp lệ";
+        }
+        
+        String message = isLong(id);
+        if(!message.isEmpty()) return message;
+        
+        return "";
+    }
+    
+    public static void main(String[] args)
+    {
+        String rs = "123456789121";
+        if (InputValidatorUtil.isVailidIdentityID(rs).isEmpty())
+            System.out.println("ok");
+        else System.out.println(InputValidatorUtil.isVailidIdentityID(rs));
+    }
 }

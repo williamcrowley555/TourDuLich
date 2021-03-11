@@ -22,6 +22,7 @@ import com.tourdulich.gui.menu.MyScrollBarUI;
 import com.tourdulich.util.NhanVienTableLoaderUtil;
 import com.tourdulich.util.TableSetupUtil;
 import java.util.List;
+import javax.swing.DropMode;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.TableModel;
@@ -45,12 +46,12 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     };
     private INhanVienBLL nhanVienBLL;
     private IVaiTroBLL vaiTroBLL;
-    popUpNhanVien popUp = null;
+    private popUpNhanVien popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyNhanVien() {
         initComponents();
-        
+        // Ghi chu
         nhanVienBLL = new NhanVienBLL();
         vaiTroBLL = new VaiTroBLL();
         
@@ -294,12 +295,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
         } else {
            tblNhanVien.clearSelection();
         }
-
-        int rowindex = tblNhanVien.getSelectedRow();
-        Vector currentRow = new Vector();
-        for (int i = 0; i < tblNhanVien.getColumnCount(); i++)
-        currentRow.add(tblNhanVien.getValueAt(rowindex,i).toString()); 
-       
+        int rowindex = tblNhanVien.getSelectedRow();         
         if (rowindex < 0)
             return;
         if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {

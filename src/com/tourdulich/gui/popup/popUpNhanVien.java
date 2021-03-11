@@ -110,7 +110,7 @@ public class popUpNhanVien extends javax.swing.JFrame {
     public boolean validateForm() 
     {   
         
-        boolean Ho, Ten, Sdt, DiaChi, NgaySinh; 
+        boolean Ho, Ten, Sdt = false, DiaChi, NgaySinh; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
         if (InputValidatorUtil.isValidName(txtHo.getText(), false).isEmpty())
@@ -139,15 +139,29 @@ public class popUpNhanVien extends javax.swing.JFrame {
             Sdt = false;
             lblValidateSDT.setIcon(iconError);
             lblValidateSDT.setToolTipText(InputValidatorUtil.isVailidPhoneNumber(txtSDT.getText()));
-        } else if (nhanVienBLL.findBySdt(txtSDT.getText().trim()) != null) {
-            Sdt = false;
-            lblValidateSDT.setIcon(iconError);
-            lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
         } else {
             Sdt = true;
             lblValidateSDT.setIcon(iconCheck);
             lblValidateSDT.setToolTipText(null);
-        }
+            
+            if (this.action.equals("POST")) {
+                if (nhanVienBLL.findBySdt(txtSDT.getText().trim()) != null) {
+                    Sdt = false;
+                    lblValidateSDT.setIcon(iconError);
+                    lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
+                }
+            } else if (this.action.equals("PUT")) {
+                NhanVienDTO newNhanVien = nhanVienBLL.findBySdt(txtSDT.getText().trim());
+                if (newNhanVien != null) {
+                    if (newNhanVien.getId() != this.nhanVien.getId()) {  
+                        Sdt = false;
+                        lblValidateSDT.setIcon(iconError);
+                        lblValidateSDT.setToolTipText("Số điện thoại này đã được sử dụng");
+                    }
+                }
+                       
+            }    
+        } 
         
         if (InputValidatorUtil.isValidBirthDate(DCNgaySinh.getDate(), 18).isEmpty())  
         {
@@ -181,12 +195,12 @@ public class popUpNhanVien extends javax.swing.JFrame {
         if(this.nhanVien != null) {
             nhanVien.setId(this.nhanVien.getId());
         }
-        nhanVien.setHo(txtHo.getText());
-        nhanVien.setTen(txtTen.getText());
+        nhanVien.setHo(txtHo.getText().trim());
+        nhanVien.setTen(txtTen.getText().trim());
         nhanVien.setGioiTinh(radioNam.isSelected() ? true : false);
         nhanVien.setNgaySinh(DCNgaySinh.getDate());
-        nhanVien.setDiaChi(txtDiaChi.getText());
-        nhanVien.setSdt(txtSDT.getText());
+        nhanVien.setDiaChi(txtDiaChi.getText().trim());
+        nhanVien.setSdt(txtSDT.getText().trim());
         if (this.selectedImg != null) {
             nhanVien.setHinhAnh(ImageUtil.getByteArray(this.selectedImg));
         } else {
@@ -656,39 +670,34 @@ public class popUpNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTenActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        NhanVienDTO newNhanVien = null;
-        try {
-            newNhanVien = getFormInfo();
-        } catch (IOException ex) {
-            Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if(this.action.equals("POST")) {
-            if (validateForm())
-            {
-                Long newNhanVienId = nhanVienBLL.save(newNhanVien);
-                if(newNhanVienId != null) {
+        if (validateForm())
+        {
+            NhanVienDTO newNhanVien = null;
+            try {
+                newNhanVien = getFormInfo();
+            } catch (IOException ex) {
+                Logger.getLogger(popUpNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
+            if(this.action.equals("POST")) {           
+                    Long newNhanVienId = nhanVienBLL.save(newNhanVien);
+                    if(newNhanVienId != null) {
+
+                        JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    }
+            } else if(this.action.equals("PUT")) {
+                try {    
+                    nhanVienBLL.update(newNhanVien);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
-
-                } else {
+                } catch(Exception e) {
                     JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
                 }
-            }
-        } else if(this.action.equals("PUT")) {
-            try {
-              
-                if(validateForm())
-                {
-                nhanVienBLL.update(newNhanVien);
-                JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                }
-                                
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
