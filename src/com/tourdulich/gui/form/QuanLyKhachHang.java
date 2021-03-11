@@ -37,10 +37,10 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
                             "Id",
                             "Họ",
                             "Tên",
+                            "Giới Tính",
                             "CMND",
                             "Ngày Sinh",
                             "Địa Chỉ",
-                            "Giới Tính",
                             "Sđt"};
     private IKhachHangBLL khachHangBLL;
     private popUpKhachHang popUp = null;

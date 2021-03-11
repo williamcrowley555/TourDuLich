@@ -9,18 +9,24 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDoanBLL;
+import com.tourdulich.bll.IKhachHangBLL;
 import com.tourdulich.bll.ITinhBLL;
 import com.tourdulich.bll.ITinhBLL;
 import com.tourdulich.bll.ITourBLL;
+import com.tourdulich.bll.IVaiTroBLL;
 import com.tourdulich.bll.impl.DiaDiemBLL;
 import com.tourdulich.bll.impl.DiaDiemBLL;
 import com.tourdulich.bll.impl.DoanBLL;
+import com.tourdulich.bll.impl.KhachHangBLL;
 import com.tourdulich.bll.impl.TinhBLL;
 import com.tourdulich.bll.impl.TinhBLL;
 import com.tourdulich.bll.impl.TourBLL;
+import com.tourdulich.bll.impl.VaiTroBLL;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DoanDTO;
+import com.tourdulich.dto.KhachHangDTO;
+import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.dto.TinhDTO;
 import com.tourdulich.dto.TinhDTO;
 import com.tourdulich.dto.TourDTO;
@@ -38,17 +44,26 @@ import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.plaf.basic.ComboPopup;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
+import com.tourdulich.gui.others.TableRowTransferHandler;
 import com.tourdulich.util.ImageUtil;
 import com.tourdulich.util.InputValidatorUtil;
+import com.tourdulich.util.KhachHangTableLoaderUtil;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,6 +75,9 @@ public class popUpDoan extends javax.swing.JFrame {
     private DoanDTO doan = null;
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+    private ArrayList<KhachHangDTO> listKhach = null;
+    private ArrayList<NhanVienDTO> listNhanVien = null;
+    private IVaiTroBLL vaiTroBLL;
     public popUpDoan(String action) {
         initComponents();
         
@@ -68,10 +86,9 @@ public class popUpDoan extends javax.swing.JFrame {
         tourBLL = new TourBLL();
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
+      
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
-        comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));
-        
-        
+        comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));  
         this.setVisible(true);    
     }
     
@@ -94,13 +111,12 @@ public class popUpDoan extends javax.swing.JFrame {
        // comboBoxTour.setSelectedItem(getTourItemName(tourBLL.findById(doan.getIdTour())));
         txtDoan.setText(doan.getTenDoan());
         DCNgayKhoiHanh.setDate(doan.getNgayKhoiHanh());
-        DCNgayKetThuc.setDate(doan.getNgayKetThuc());
-       
-        
-       
-        
+        DCNgayKetThuc.setDate(doan.getNgayKetThuc());     
     }
-    public boolean validateForm() 
+    
+    
+     
+     public boolean validateForm() 
     {   
         
         boolean TenDoan, StartDate, EndDate; 
@@ -146,6 +162,7 @@ public class popUpDoan extends javax.swing.JFrame {
         else return false;
        
     }
+    
     private DoanDTO getFormInfo() throws IOException {
         DoanDTO doan = new DoanDTO();
         if(this.doan != null) {
@@ -231,6 +248,22 @@ public class popUpDoan extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
     }
+    
+    public void headerColor(int r, int b, int g, JTable table)
+    {
+        Color color = new Color(r,b,g);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(color);
+        headerRenderer.setForeground(color.WHITE);
+        
+
+        for (int i = 0; i < table.getModel().getColumnCount(); i++) {
+        table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }       
+         
+        table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+    } 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -272,20 +305,20 @@ public class popUpDoan extends javax.swing.JFrame {
             }
         });
 
+        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.setBackground(new java.awt.Color(255, 255, 255));
         lblMinimize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMinimizeMouseClicked(evt);
             }
         });
 
+        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblExit.setForeground(new java.awt.Color(255, 255, 255));
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExitMouseClicked(evt);
@@ -310,30 +343,30 @@ public class popUpDoan extends javax.swing.JFrame {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtDoan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDoan.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtDoan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtDoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDoanActionPerformed(evt);
             }
         });
 
-        lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblChonTour.setText("Chọn Tour:");
+        lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblTenDoan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTenDoan.setText("Tên Đoàn:");
+        lblTenDoan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        comboBoxTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboBoxTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTourActionPerformed(evt);
             }
         });
 
-        lblGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblGiaTour.setText("Giá Tour:");
+        lblGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -367,19 +400,19 @@ public class popUpDoan extends javax.swing.JFrame {
 
         lblValidateNgayKetThuc.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        comboBoxGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxGiaTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboBoxGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         comboBoxGiaTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxGiaTourActionPerformed(evt);
             }
         });
 
-        lblNgayKetThuc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNgayKetThuc.setText("Ngày Kết Thúc");
+        lblNgayKetThuc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblNgayKhoiHanh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNgayKhoiHanh.setText("Ngày Khởi Hành:");
+        lblNgayKhoiHanh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -390,8 +423,6 @@ public class popUpDoan extends javax.swing.JFrame {
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtDoan, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxTour, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlBodyLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,17 +433,22 @@ public class popUpDoan extends javax.swing.JFrame {
                                         .addComponent(lblValidateNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(87, 87, 87)
                                         .addComponent(lblGiaTour))
-                                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(DCNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnHuy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(91, 91, 91)
+                                    .addComponent(DCNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(129, 129, 129))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                                            .addComponent(DCNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(61, 61, 61)
+                                            .addComponent(comboBoxGiaTour, 0, 139, Short.MAX_VALUE))
+                                        .addComponent(txtDoan, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comboBoxTour, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                                        .addGap(221, 221, 221)
                                         .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(15, 15, 15))
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(DCNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
-                                .addComponent(comboBoxGiaTour, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(305, 305, 305))
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -441,10 +477,10 @@ public class popUpDoan extends javax.swing.JFrame {
                     .addComponent(lblTenDoan)
                     .addComponent(lblValidateTenDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addComponent(txtDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -459,7 +495,7 @@ public class popUpDoan extends javax.swing.JFrame {
                     .addComponent(lblValidateNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addComponent(DCNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -470,16 +506,14 @@ public class popUpDoan extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-            .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+            .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -500,7 +534,7 @@ public class popUpDoan extends javax.swing.JFrame {
     private void txtDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDoanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDoanActionPerformed
-
+    
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {

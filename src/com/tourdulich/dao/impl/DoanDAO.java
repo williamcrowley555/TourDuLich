@@ -45,4 +45,10 @@ public class DoanDAO extends AbstractDAO<DoanDTO> implements IDoanDAO {
         String sql = "DELETE FROM doan WHERE id = ?";
         update(sql, id);
     }    
+
+    @Override
+    public List<DoanDTO> findByIdTour(Long id) {
+        String sql = "SELECT * FROM doan WHERE id_tour = ?";
+        return query(sql, new DoanMapper(), id);
+    }
 }

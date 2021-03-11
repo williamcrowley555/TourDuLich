@@ -5,10 +5,15 @@
  */
 package com.tourdulich.bll.impl;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.tourdulich.bll.IDsKhachDoanBLL;
 import com.tourdulich.dao.IDsKhachDoanDAO;
+import com.tourdulich.dao.IKhachHangDAO;
 import com.tourdulich.dao.impl.DsKhachDoanDAO;
+import com.tourdulich.dao.impl.KhachHangDAO;
 import com.tourdulich.dto.DsKhachDoanDTO;
+import com.tourdulich.dto.KhachHangDTO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,9 +22,10 @@ import java.util.List;
  */
 public class DsKhachDoanBLL implements IDsKhachDoanBLL {
     private IDsKhachDoanDAO dsKhachDoanDAO;
-    
+    private IKhachHangDAO khachHangDAO;
     public DsKhachDoanBLL() {
         this.dsKhachDoanDAO = new DsKhachDoanDAO();
+        this.khachHangDAO = new KhachHangDAO();
     }    
     
     @Override
@@ -40,5 +46,21 @@ public class DsKhachDoanBLL implements IDsKhachDoanBLL {
     @Override
     public void delete(Long id) {
         dsKhachDoanDAO.delete(id);
+    }
+
+    @Override
+    public ArrayList<KhachHangDTO> findByIdDoan(Long idDoan) {
+        List<Long> khachHangIds = dsKhachDoanDAO.findByIdDoan(idDoan);
+        ArrayList<KhachHangDTO> khachHangList = new ArrayList<KhachHangDTO>();
+        for (Long khachHangId : khachHangIds)
+        {
+            khachHangList.add(khachHangDAO.findById(khachHangId));
+        }
+        return khachHangList;
+    }
+
+    @Override
+    public void deleteByIdDoan(Long idDoan) {
+       dsKhachDoanDAO.deleteByIdDoan(idDoan);
     }
 }

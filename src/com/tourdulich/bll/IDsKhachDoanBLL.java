@@ -6,6 +6,8 @@
 package com.tourdulich.bll;
 
 import com.tourdulich.dto.DsKhachDoanDTO;
+import com.tourdulich.dto.KhachHangDTO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +17,8 @@ import java.util.List;
 public interface IDsKhachDoanBLL {
     List<DsKhachDoanDTO> findAll();
     DsKhachDoanDTO findById(Long id);
+    ArrayList<KhachHangDTO> findByIdDoan(Long idDoan);
     Long save(DsKhachDoanDTO dsKhachDoan);
     void delete(Long id);     
+    void deleteByIdDoan(Long idDoan);
 }

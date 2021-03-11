@@ -6,8 +6,10 @@
 package com.tourdulich.bll;
 
 import com.tourdulich.dto.DsNhanVienDoanDTO;
+import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.dto.NhanVienDTO;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,11 +17,12 @@ import java.util.List;
  * @author HP
  */
 public interface IDsNhanVienDoanBLL {
-    
     List<DsNhanVienDoanDTO> findAll();
     DsNhanVienDoanDTO findById(Long id);
     Long save(DsNhanVienDoanDTO dsNhanVienDoan);
     List <NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour);
+    ArrayList<NhanVienDTO> findByIdDoan(Long idDoan);
     void update(DsNhanVienDoanDTO dsNhanVienDoan);
     void delete(Long id);
+    void deleteByIdDoan(Long idDoan);
 }

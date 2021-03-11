@@ -33,7 +33,7 @@ public class QuanLyDiaDiem extends javax.swing.JPanel {
         String[] columnNames = {
                             "Id",
                             "Tên Địa Điểm",
-                            "Id Tỉnh",
+                            "Tên Tỉnh",
                             "Địa Chỉ",
                             "Giới Thiệu"};
                           

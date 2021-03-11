@@ -15,6 +15,8 @@ import java.util.List;
 public interface IDsKhachDoanDAO {
     List<DsKhachDoanDTO> findAll();
     DsKhachDoanDTO findById(Long id);
+    List<Long> findByIdDoan(Long idDoan);
     Long save(DsKhachDoanDTO dsKhachDoan);
-    void delete(Long id);    
+    void delete(Long id); 
+    void deleteByIdDoan(Long idDoan);
 }
