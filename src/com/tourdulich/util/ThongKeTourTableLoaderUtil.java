@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author kossp
  */
-public class ThongKeTableLoaderUtil implements ITableLoaderUtil<ThongKeTourDTO>{
+public class ThongKeTourTableLoaderUtil implements ITableLoaderUtil<ThongKeTourDTO>{
 @Override
     public DefaultTableModel setTable(List<ThongKeTourDTO> listItems, String[] listColumns) {
         
