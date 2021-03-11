@@ -107,7 +107,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnTaoDSNguoiDi" min="-2" pref="151" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnThem2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCapVaiTro" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="131" max="32767" attributes="0"/>
                   <Component id="txtTimKiem" min="-2" pref="162" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -125,7 +125,7 @@
                       <Component id="btnThem" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="txtTimKiem" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="btnTaoDSNguoiDi" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="btnThem2" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="btnCapVaiTro" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
@@ -195,7 +195,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaoDSNguoiDiActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnThem2">
+        <Component class="javax.swing.JButton" name="btnCapVaiTro">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="e9" green="8e" red="e" type="rgb"/>
@@ -214,9 +214,9 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnThem2MousePressed"/>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnThem2MouseReleased"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem2ActionPerformed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCapVaiTroMousePressed"/>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCapVaiTroMouseReleased"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCapVaiTroActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

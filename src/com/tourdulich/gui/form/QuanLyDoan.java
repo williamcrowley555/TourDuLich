@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.gui.popup.popUpCapVaiTro;
 import com.tourdulich.gui.popup.popUpDoan;
 import com.tourdulich.gui.popup.popUpDsNguoiDi;
 import com.tourdulich.util.DoanTableLoaderUtil;
@@ -33,6 +34,8 @@ public class QuanLyDoan extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
+    private popUpDsNguoiDi popUpNguoiDi;
+    private popUpCapVaiTro popUpCapVaiTro;
     private popUpDoan popUp = null;
     String[] columnNames = {
                             "Id",
@@ -119,7 +122,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
         btnTaoDSNguoiDi = new javax.swing.JButton();
-        btnThem2 = new javax.swing.JButton();
+        btnCapVaiTro = new javax.swing.JButton();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblDoan = new javax.swing.JTable();
@@ -222,24 +225,24 @@ public class QuanLyDoan extends javax.swing.JPanel {
             }
         });
 
-        btnThem2.setBackground(new java.awt.Color(14, 142, 233));
-        btnThem2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnThem2.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem2.setText("Cấp Vai Trò Nhân Viên");
-        btnThem2.setContentAreaFilled(false);
-        btnThem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnThem2.setOpaque(true);
-        btnThem2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCapVaiTro.setBackground(new java.awt.Color(14, 142, 233));
+        btnCapVaiTro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCapVaiTro.setForeground(new java.awt.Color(255, 255, 255));
+        btnCapVaiTro.setText("Cấp Vai Trò Nhân Viên");
+        btnCapVaiTro.setContentAreaFilled(false);
+        btnCapVaiTro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCapVaiTro.setOpaque(true);
+        btnCapVaiTro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnThem2MousePressed(evt);
+                btnCapVaiTroMousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnThem2MouseReleased(evt);
+                btnCapVaiTroMouseReleased(evt);
             }
         });
-        btnThem2.addActionListener(new java.awt.event.ActionListener() {
+        btnCapVaiTro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem2ActionPerformed(evt);
+                btnCapVaiTroActionPerformed(evt);
             }
         });
 
@@ -253,7 +256,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnThem2)
+                .addComponent(btnCapVaiTro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
@@ -269,7 +272,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThem2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCapVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
@@ -412,28 +415,55 @@ public class QuanLyDoan extends javax.swing.JPanel {
     }//GEN-LAST:event_btnTaoDSNguoiDiMouseReleased
 
     private void btnTaoDSNguoiDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoDSNguoiDiActionPerformed
-        // TODO add your handling code here:
-        popUpDsNguoiDi popUpNguoiDi = new popUpDsNguoiDi("POST");
-        popUpNguoiDi.setVisible(true);
+        // TODO add your handling code here:    
+        if (this.popUpNguoiDi == null) {
+             popUpNguoiDi = new popUpDsNguoiDi("POST");
+             popUpNguoiDi.setVisible(true);
+            
+        } else {
+            this.popUpNguoiDi.toFront();
+            this.popUpNguoiDi.center();
+        }
+        popUpNguoiDi.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUpNguoiDi = null;
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_btnTaoDSNguoiDiActionPerformed
 
-    private void btnThem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem2MousePressed
+    private void btnCapVaiTroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCapVaiTroMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem2MousePressed
+    }//GEN-LAST:event_btnCapVaiTroMousePressed
 
-    private void btnThem2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem2MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem2MouseReleased
+    private void btnCapVaiTroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCapVaiTroMouseReleased
+     
+    }//GEN-LAST:event_btnCapVaiTroMouseReleased
 
-    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem2ActionPerformed
+    private void btnCapVaiTroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapVaiTroActionPerformed
+         if (this.popUpCapVaiTro == null) {
+             popUpCapVaiTro = new popUpCapVaiTro("POST");
+             popUpCapVaiTro.setVisible(true);
+            
+        } else {
+            this.popUpCapVaiTro.toFront();
+            this.popUpCapVaiTro.center();
+        }
+        popUpCapVaiTro.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUpCapVaiTro = null;
+            loadTableData();
+        }
+    });
+    }//GEN-LAST:event_btnCapVaiTroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCapVaiTro;
     private javax.swing.JButton btnTaoDSNguoiDi;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnThem2;
     private javax.swing.JMenuItem itemQuanLyKhachTrongDoan;
     private javax.swing.JMenuItem itemQuanLyNhanVienTrongDoan;
     private javax.swing.JMenuItem itemSua;
