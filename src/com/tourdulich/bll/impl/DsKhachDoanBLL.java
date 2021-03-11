@@ -58,4 +58,9 @@ public class DsKhachDoanBLL implements IDsKhachDoanBLL {
         }
         return khachHangList;
     }
+
+    @Override
+    public void deleteByIdDoan(Long idDoan) {
+       dsKhachDoanDAO.deleteByIdDoan(idDoan);
+    }
 }

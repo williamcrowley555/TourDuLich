@@ -16,6 +16,8 @@ public class RemoveAccentUtil {
      public static String removeAccent(String s) { 
          String temp = Normalizer.normalize(s, Normalizer.Form.NFD); 
          Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); 
-         temp = pattern.matcher(temp).replaceAll(""); 
-     return temp.replaceAll("đ", "d"); }  
+         temp = pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replaceAll("đ", "d");;
+        
+     return temp;
+     }  
 }

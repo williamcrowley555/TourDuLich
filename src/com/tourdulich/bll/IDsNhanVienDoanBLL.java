@@ -24,4 +24,5 @@ public interface IDsNhanVienDoanBLL {
     ArrayList<NhanVienDTO> findByIdDoan(Long idDoan);
     void update(DsNhanVienDoanDTO dsNhanVienDoan);
     void delete(Long id);
+    void deleteByIdDoan(Long idDoan);
 }

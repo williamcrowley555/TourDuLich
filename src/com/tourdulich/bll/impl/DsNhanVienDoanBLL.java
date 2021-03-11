@@ -77,4 +77,9 @@ public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
         }
         return nhanVienList;
     }
+
+    @Override
+    public void deleteByIdDoan(Long idDoan) {
+          dsNhanVienDoanDAO.deleteByIdDoan(idDoan);
+    }
 }

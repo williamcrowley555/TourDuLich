@@ -19,6 +19,7 @@ import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.bll.impl.VaiTroBLL;
 import com.tourdulich.dto.DoanDTO;
 import com.tourdulich.dto.DsKhachDoanDTO;
+import com.tourdulich.dto.DsNhanVienDoanDTO;
 import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.dto.TourDTO;
@@ -64,7 +65,8 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private IVaiTroBLL vaiTroBLL;
     public popUpDsNguoiDi(String action) {
         initComponents();
-        
+        dsKhachDoanBLL = new DsKhachDoanBLL();
+        dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
@@ -82,9 +84,11 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     }
     
     public popUpDsNguoiDi(String action, DoanDTO doan) {
-        initComponents();
+        initComponents(); 
         this.action = action;  
         this.doan = doan;
+        dsKhachDoanBLL = new DsKhachDoanBLL();
+        dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
@@ -132,18 +136,42 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
        
     }
     
-    private DoanDTO getFormInfo() throws IOException {
-        DoanDTO doan = new DoanDTO();
-        if(this.doan != null) {
-            doan.setId(this.doan.getId());
+    private boolean save() throws IOException {
+        DsKhachDoanDTO khachDoan;
+        DsNhanVienDoanDTO nhanVienDoan;
+        String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+        Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
+        Long id;
+        if(dsKhachDoanBLL.findByIdDoan(idDoan) != null)
+        dsKhachDoanBLL.deleteByIdDoan(idDoan);
+        if(dsNhanVienDoanBLL.findByIdDoan(idDoan) != null)
+        dsNhanVienDoanBLL.deleteByIdDoan(idDoan);
+        
+        for (KhachHangDTO khach : this.listKhach)
+        {
+            khachDoan = new DsKhachDoanDTO(idDoan, khach.getId());
+            id = dsKhachDoanBLL.save(khachDoan);
+            if (id == null)
+            {
+                return false;
+            }
         }
-       
-       
-        String selectedTour = comboBoxTour.getSelectedItem().toString();
-        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        doan.setIdTour(idTour);
-        return doan;
+        
+      
+        for (NhanVienDTO nhanVien : this.listNhanVien)
+        {
+            nhanVienDoan = new DsNhanVienDoanDTO(idDoan, nhanVien.getId());
+            dsNhanVienDoanBLL.save(nhanVienDoan);
+            id = dsNhanVienDoanBLL.save(nhanVienDoan);
+            if (id == null)
+            {
+                return false;
+            }
+        }
+        return true;
     }
+    
+  
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
@@ -567,33 +595,27 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {
-            DoanDTO newDoan = null;
-            try {
-                newDoan = getFormInfo();
-            } catch (IOException ex) {
-                Logger.getLogger(popUpDsNguoiDi.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
 
             if(this.action.equals("POST")) {
-                Long newDoanId = doanBLL.save(newDoan);
-                if(newDoanId != null) {
-
-                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                }
-            } else if(this.action.equals("PUT")) {
                 try {
-                    doanBLL.update(newDoan);
-                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } catch(Exception e) {
-                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                    e.printStackTrace();
+                    save();
+                } catch (IOException ex) {
+                    Logger.getLogger(popUpDsNguoiDi.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+                try {
+                    if(save()) {
+                        
+                        JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(popUpDsNguoiDi.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 
