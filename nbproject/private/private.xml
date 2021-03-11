@@ -3,27 +3,23 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/dto/DoanDTO.java</file>
-        </group>
-        <group>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/dto/DoanDTO.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/bll/impl/DoanBLL.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/bll/IDoanBLL.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/dao/IDoanDAO.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/mapper/impl/DoanMapper.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/dao/impl/DoanDAO.java</file>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyNhanVien.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDiaDiem.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDiaDiem.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/impl/DsNhanVienDoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/impl/DsKhachDoanBLL.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDoan.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpKhachHang.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/util/InputValidatorUtil.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/IDoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableKhach.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/impl/DsNhanVienDoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/impl/DsKhachDoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDoan.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableKhach.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
         </group>
     </open-files>
 </project-private>

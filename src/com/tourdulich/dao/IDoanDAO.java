@@ -15,6 +15,7 @@ import java.util.List;
 public interface IDoanDAO {
     List<DoanDTO> findAll();
     DoanDTO findById(Long id);
+    List<DoanDTO> findByIdTour(Long id);
     Long save(DoanDTO doan);
     void update(DoanDTO doan);
     void delete(Long id);    

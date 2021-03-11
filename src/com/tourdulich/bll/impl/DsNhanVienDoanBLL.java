@@ -11,6 +11,7 @@ import com.tourdulich.dao.INhanVienDAO;
 import com.tourdulich.dao.impl.DsNhanVienDoanDAO;
 import com.tourdulich.dao.impl.NhanVienDAO;
 import com.tourdulich.dto.DsNhanVienDoanDTO;
+import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.dto.NhanVienDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -55,13 +56,25 @@ public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
     }
 
     @Override
-    public List<NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour) {
+    public ArrayList<NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour) {
          List<Long> nhanVienIds = dsNhanVienDoanDAO.getFreeNhanVien(date, idTour);
-         List<NhanVienDTO> nhanVienList = new ArrayList<NhanVienDTO>();
+         ArrayList<NhanVienDTO> nhanVienList = new ArrayList<NhanVienDTO>();
          for (Long nhanVienId : nhanVienIds)
          {
             nhanVienList.add(nhanVienDAO.findById(nhanVienId));     
          }
          return nhanVienList;
+    }
+
+    @Override
+    public ArrayList<NhanVienDTO> findByIdDoan(Long idDoan) {
+        
+        List<Long> nhanVienIds = dsNhanVienDoanDAO.findByIdDoan(idDoan);
+        ArrayList<NhanVienDTO> nhanVienList = new ArrayList<NhanVienDTO>();
+        for (Long nhanVienId : nhanVienIds)
+        {
+            nhanVienList.add(nhanVienDAO.findById(nhanVienId));
+        }
+        return nhanVienList;
     }
 }

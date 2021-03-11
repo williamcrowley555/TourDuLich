@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.tourdulich.gui.menu.MyScrollBarUI;
 import com.tourdulich.gui.popup.popUpDoan;
+import com.tourdulich.gui.popup.popUpDsNguoiDi;
 import com.tourdulich.util.DoanTableLoaderUtil;
 import com.tourdulich.util.TableSetupUtil;
 import javax.swing.JOptionPane;
@@ -111,11 +112,14 @@ public class QuanLyDoan extends javax.swing.JPanel {
         rightClickMenu = new javax.swing.JPopupMenu();
         itemSua = new javax.swing.JMenuItem();
         itemXoa = new javax.swing.JMenuItem();
+        itemQuanLyKhachTrongDoan = new javax.swing.JMenuItem();
+        itemQuanLyNhanVienTrongDoan = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
-        btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        btnTaoDSNguoiDi = new javax.swing.JButton();
+        btnThem2 = new javax.swing.JButton();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblDoan = new javax.swing.JTable();
@@ -140,6 +144,26 @@ public class QuanLyDoan extends javax.swing.JPanel {
             }
         });
         rightClickMenu.add(itemXoa);
+
+        itemQuanLyKhachTrongDoan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemQuanLyKhachTrongDoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemQuanLyKhachTrongDoan.setText("Quản Lý Khách Trong Đoàn");
+        itemQuanLyKhachTrongDoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemQuanLyKhachTrongDoanActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemQuanLyKhachTrongDoan);
+
+        itemQuanLyNhanVienTrongDoan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemQuanLyNhanVienTrongDoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemQuanLyNhanVienTrongDoan.setText("Quản Lý Nhân Viên Trong Đoàn");
+        itemQuanLyNhanVienTrongDoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemQuanLyNhanVienTrongDoanActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemQuanLyNhanVienTrongDoan);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -173,16 +197,51 @@ public class QuanLyDoan extends javax.swing.JPanel {
             }
         });
 
-        btnTimKiem.setBackground(new java.awt.Color(14, 142, 233));
-        btnTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnTimKiem.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimKiem.setText("Tìm");
-        btnTimKiem.setContentAreaFilled(false);
-        btnTimKiem.setOpaque(true);
-
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Đoàn");
+
+        btnTaoDSNguoiDi.setBackground(new java.awt.Color(14, 142, 233));
+        btnTaoDSNguoiDi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnTaoDSNguoiDi.setForeground(new java.awt.Color(255, 255, 255));
+        btnTaoDSNguoiDi.setText("Tạo DS Người Đi");
+        btnTaoDSNguoiDi.setContentAreaFilled(false);
+        btnTaoDSNguoiDi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTaoDSNguoiDi.setOpaque(true);
+        btnTaoDSNguoiDi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnTaoDSNguoiDiMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnTaoDSNguoiDiMouseReleased(evt);
+            }
+        });
+        btnTaoDSNguoiDi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaoDSNguoiDiActionPerformed(evt);
+            }
+        });
+
+        btnThem2.setBackground(new java.awt.Color(14, 142, 233));
+        btnThem2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnThem2.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem2.setText("Cấp Vai Trò Nhân Viên");
+        btnThem2.setContentAreaFilled(false);
+        btnThem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem2.setOpaque(true);
+        btnThem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThem2MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnThem2MouseReleased(evt);
+            }
+        });
+        btnThem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlHeadLayout = new javax.swing.GroupLayout(pnlHead);
         pnlHead.setLayout(pnlHeadLayout);
@@ -191,11 +250,13 @@ public class QuanLyDoan extends javax.swing.JPanel {
             .addGroup(pnlHeadLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnThem2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(32, 32, 32))
             .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlHeadLayout.setVerticalGroup(
@@ -207,7 +268,8 @@ public class QuanLyDoan extends javax.swing.JPanel {
                 .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThem2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
@@ -333,10 +395,47 @@ public class QuanLyDoan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblDoanMouseReleased
 
+    private void itemQuanLyKhachTrongDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemQuanLyKhachTrongDoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemQuanLyKhachTrongDoanActionPerformed
+
+    private void itemQuanLyNhanVienTrongDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemQuanLyNhanVienTrongDoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemQuanLyNhanVienTrongDoanActionPerformed
+
+    private void btnTaoDSNguoiDiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDSNguoiDiMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTaoDSNguoiDiMousePressed
+
+    private void btnTaoDSNguoiDiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDSNguoiDiMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTaoDSNguoiDiMouseReleased
+
+    private void btnTaoDSNguoiDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoDSNguoiDiActionPerformed
+        // TODO add your handling code here:
+        popUpDsNguoiDi popUpNguoiDi = new popUpDsNguoiDi("POST");
+        popUpNguoiDi.setVisible(true);
+    }//GEN-LAST:event_btnTaoDSNguoiDiActionPerformed
+
+    private void btnThem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem2MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem2MousePressed
+
+    private void btnThem2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem2MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem2MouseReleased
+
+    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTaoDSNguoiDi;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnTimKiem;
+    private javax.swing.JButton btnThem2;
+    private javax.swing.JMenuItem itemQuanLyKhachTrongDoan;
+    private javax.swing.JMenuItem itemQuanLyNhanVienTrongDoan;
     private javax.swing.JMenuItem itemSua;
     private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTitle;

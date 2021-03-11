@@ -9,7 +9,9 @@ import com.tourdulich.dao.IDsNhanVienDoanDAO;
 import com.tourdulich.dto.DsNhanVienDoanDTO;
 import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.mapper.impl.DsNhanVienDoanMapper;
+import com.tourdulich.mapper.impl.IdKhachDoanMapper;
 import com.tourdulich.mapper.impl.IdMapper;
+import com.tourdulich.mapper.impl.IdNhanVienDoanMapper;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -58,5 +60,11 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
                     "WHERE ? NOT BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc AND doan.id_tour = ?";
        return query(sql, new IdMapper(), date, idTour);
 
+    }
+
+    @Override
+    public List<Long> findByIdDoan(Long idDoan) {
+       String sql = "SELECT * FROM ds_nhan_vien_doan WHERE id_doan = ?";
+       return query(sql, new IdNhanVienDoanMapper(), idDoan);
     }
 }

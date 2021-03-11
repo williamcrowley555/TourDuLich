@@ -47,4 +47,9 @@ public class DoanBLL implements IDoanBLL {
     public void delete(Long id) {
         doanDAO.delete(id);
     }
+
+    @Override
+    public List<DoanDTO> findByIdTour(Long id) {
+       return doanDAO.findByIdTour(id);
+    }
 }
