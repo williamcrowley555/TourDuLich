@@ -155,7 +155,7 @@ public class InputValidatorUtil {
     
     public static String isVailidPhoneNumber(String phoneNumber) {
         if (phoneNumber.isEmpty()) return " không được để trống";
-        String regex = "0{1}\\d{9}";
+        String regex = "0{1}\\d{9,10}";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);
         boolean result = matcher.find();
@@ -163,7 +163,7 @@ public class InputValidatorUtil {
             return "Số điện thoại không hợp lệ";
         }
         
-        String message = isInteger(phoneNumber);
+        String message = isLong(phoneNumber);
         if(!message.isEmpty()) return message;
         
         return "";

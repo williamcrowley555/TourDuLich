@@ -143,25 +143,21 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
         Long id;
         if(dsKhachDoanBLL.findByIdDoan(idDoan) != null)
-        dsKhachDoanBLL.deleteByIdDoan(idDoan);
+            dsKhachDoanBLL.deleteByIdDoan(idDoan);
         if(dsNhanVienDoanBLL.findByIdDoan(idDoan) != null)
-        dsNhanVienDoanBLL.deleteByIdDoan(idDoan);
+            dsNhanVienDoanBLL.deleteByIdDoan(idDoan);
         
         for (KhachHangDTO khach : this.listKhach)
         {
             khachDoan = new DsKhachDoanDTO(idDoan, khach.getId());
-            id = dsKhachDoanBLL.save(khachDoan);
-            if (id == null)
-            {
-                return false;
-            }
+            dsKhachDoanBLL.save(khachDoan);
         }
         
       
         for (NhanVienDTO nhanVien : this.listNhanVien)
         {
             nhanVienDoan = new DsNhanVienDoanDTO(idDoan, nhanVien.getId());
-            dsNhanVienDoanBLL.save(nhanVienDoan);
+            
             id = dsNhanVienDoanBLL.save(nhanVienDoan);
             if (id == null)
             {
@@ -219,7 +215,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     
     public void setListKhachDoan()
     {
-        dsKhachDoanBLL = new DsKhachDoanBLL();
+       
         String selectedDoan = comboBoxDoan.getSelectedItem().toString();
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
         listKhach = dsKhachDoanBLL.findByIdDoan(idDoan);
