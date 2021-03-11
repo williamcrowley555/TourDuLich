@@ -25,7 +25,45 @@ import javax.swing.table.TableRowSorter;
  * @author RavenPC
  */
 public class ThongKeTheoTour extends javax.swing.JPanel {
-   
+   String[] listColumns = {
+                            "Tour_Id",
+                            "Tên Tour",
+                            "Tổng Số Đoàn",
+                            "Tổng Doanh Thu",
+                            "Tổng Chi Phí",
+                            "Lãi"};
+    private IThongKeTourBLL thongKeBLL;
+    TableRowSorter<TableModel> rowSorter = null;
+    
+    public ThongKeTheoTour() {
+        initComponents();
+        thongKeBLL = new ThongKeTourBLL();
+        
+        loadTableData();
+        headerColor(14,142,233,tblThongKeTheoTour);
+        scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+        
+    }
+    
+    public void loadTableData() {
+        tblThongKeTheoTour.setModel(new ThongKeTourTableLoaderUtil().setTable(thongKeBLL.findAll(), this.listColumns));
+        this.rowSorter = TableSetupUtil.setTableFilter(tblThongKeTheoTour, txtTimKiem);
+        headerColor(14,142,233,tblThongKeTheoTour);
+    }
+    
+    public void headerColor(int r, int b, int g, JTable table)
+    {
+        Color color = new Color(r,b,g);
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
+        headerRenderer.setBackground(color);
+        headerRenderer.setForeground(color.WHITE);
+        
+        for (int i = 0; i < table.getModel().getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+        }       
+         
+        table.setFont(new Font("Tahoma", Font.PLAIN, 16));
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

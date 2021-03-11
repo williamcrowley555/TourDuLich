@@ -3,13 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyTour.java</file>
-        </group>
-        <group>
-            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyTour.java</file>
-        </group>
-        <group>
             <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyVaiTro.java</file>
             <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/util/DichVuTableLoaderUtil.java</file>
             <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/NEW/IThongKeTourBLL.java</file>
@@ -18,7 +11,6 @@
         <group>
             <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyVaiTro.java</file>
             <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/ThongKeTheoTour.java</file>
-
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpChiPhi.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyNhanVien.java</file>
@@ -26,7 +18,14 @@
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/util/NhanVienTableLoaderUtil.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/ThongKeTheoDoan.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
-
+        </group>
+        <group>
+            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyVaiTro.java</file>
+            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/ThongKeTheoTour.java</file>
+        </group>
+        <group>
+            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyVaiTro.java</file>
+            <file>file:/D:/XDMHPL/TourDuLich/src/com/tourdulich/gui/form/ThongKeTheoTour.java</file>
         </group>
     </open-files>
 </project-private>
