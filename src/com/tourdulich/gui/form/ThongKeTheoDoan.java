@@ -5,8 +5,14 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.ITourBLL;
+import com.tourdulich.bll.impl.TourBLL;
+import com.tourdulich.dto.TourDTO;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +24,7 @@ import javax.swing.table.JTableHeader;
  */
 public class ThongKeTheoDoan extends javax.swing.JPanel {
     DefaultTableModel model;
+    private ITourBLL tourBLL;
     String[] columnNames = {
                             "Id",
                             "Đoàn Đi",
@@ -31,8 +38,10 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
      */
     public ThongKeTheoDoan() {
         initComponents();
+        tourBLL = new TourBLL();
         model = new DefaultTableModel(columnNames,0);
         tblThongKeTheoDoan.setModel(model);
+        setComboBox(comboBoxTour, getTourItems());
         headerColor(14,142,233,tblThongKeTheoDoan);
         
     }
@@ -51,6 +60,21 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
          
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
+    
+     public String[] getTourItems() {
+        List<TourDTO> tourLists = tourBLL.findAll();
+        String[] tourItems = new String[tourLists.size()];
+        int index = 0;
+        for(TourDTO vt : tourLists) {
+            tourItems[index] = vt.getId() + " - " + vt.getTenTour();
+            ++ index;
+        }
+        return tourItems;
+    }
+     
+     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
+        comboBox.setModel(new DefaultComboBoxModel<>(listItems));
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +88,8 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        lblChonTour = new javax.swing.JLabel();
+        comboBoxTour = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblThongKeTheoDoan = new javax.swing.JTable();
@@ -90,13 +116,34 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText(" Thống Kê Theo Đoàn");
 
+        lblChonTour.setText("Tên Tour:");
+        lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboBoxTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboBoxTour.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboBoxTourItemStateChanged(evt);
+            }
+        });
+        comboBoxTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTourActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 530, Short.MAX_VALUE)
-                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(comboBoxTour, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -106,12 +153,15 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxTour, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGap(16, 16, 16))
         );
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -154,12 +204,23 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void comboBoxTourItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxTourItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxTourItemStateChanged
+
+    private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_comboBoxTourActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JComboBox<String> comboBoxTour;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblChonTour;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTable tblThongKeTheoDoan;
     private javax.swing.JTextField txtTimKiem;
