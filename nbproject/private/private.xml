@@ -2,6 +2,21 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dto/DsDiaDiemTourDTO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/impl/DsKhachDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/impl/DsNhanVienDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dto/DsNhanVienDoanDTO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/mapper/impl/DsNhanVienDoanMapper.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/util/InputValidatorUtil.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dto/DsKhachDoanDTO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/util/RemoveAccentUtil.java</file>
+        </group>
+>>>>>>> 7463c2bc6d8f2b97d88ec033af4307b5e84823de
     </open-files>
 </project-private>

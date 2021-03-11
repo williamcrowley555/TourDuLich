@@ -20,6 +20,7 @@ public class InputValidatorUtil {
     
     public static String isValidName(String name, boolean whitespace) {
         name = RemoveAccentUtil.removeAccent(name);
+       
         name = name.trim();
         if (name.isEmpty()) return " không được để trống";
         
@@ -46,7 +47,7 @@ public class InputValidatorUtil {
         
         name = RemoveAccentUtil.removeAccent(name);
         name = name.trim();
-        String regex = "[^A-Za-z0-9.,\\s\\/]";
+        String regex = "[^A-Za-z0-9.,\\-\\s\\/]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(name);
         result = matcher.find();

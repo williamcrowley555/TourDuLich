@@ -20,4 +20,5 @@ public interface IDsKhachDoanBLL {
     ArrayList<KhachHangDTO> findByIdDoan(Long idDoan);
     Long save(DsKhachDoanDTO dsKhachDoan);
     void delete(Long id);     
+    void deleteByIdDoan(Long idDoan);
 }

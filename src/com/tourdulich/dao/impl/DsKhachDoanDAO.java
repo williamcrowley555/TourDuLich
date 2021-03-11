@@ -48,4 +48,10 @@ public class DsKhachDoanDAO extends AbstractDAO<DsKhachDoanDTO> implements IDsKh
         String sql = "SELECT * FROM ds_Khach_Doan WHERE id_doan = ?";
         return query(sql, new IdKhachDoanMapper(), idDoan);
     }
+
+    @Override
+    public void deleteByIdDoan(Long idDoan) {
+        String sql = "DELETE FROM ds_Khach_Doan WHERE id_doan = ?";
+        update(sql, idDoan);
+    }
 }

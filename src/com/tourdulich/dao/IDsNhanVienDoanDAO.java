@@ -23,5 +23,6 @@ public interface IDsNhanVienDoanDAO extends GenericDAO<DsNhanVienDoanDTO> {
     List<Long> findByIdDoan(Long idDoan);
     void update(DsNhanVienDoanDTO dsNhanVienDoan);
     void delete(Long id);
+    void deleteByIdDoan(Long idDoan);
     
 }

@@ -18,8 +18,7 @@ public class DsNhanVienDoanDTO {
     public DsNhanVienDoanDTO() {
     }
 
-    public DsNhanVienDoanDTO(Long id, Long idDoan, Long idNhanVien) {
-        this.id = id;
+    public DsNhanVienDoanDTO(Long idDoan, Long idNhanVien) {     
         this.idDoan = idDoan;
         this.idNhanVien = idNhanVien;
     }
