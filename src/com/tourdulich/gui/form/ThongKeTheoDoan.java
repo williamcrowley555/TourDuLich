@@ -8,12 +8,20 @@ package com.tourdulich.gui.form;
 import com.tourdulich.bll.ITourBLL;
 import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.dto.TourDTO;
+import com.tourdulich.gui.menu.MyComboBoxEditor;
+import com.tourdulich.gui.menu.MyComboBoxRenderer;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import javax.swing.border.MatteBorder;
+import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -42,6 +50,7 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
         model = new DefaultTableModel(columnNames,0);
         tblThongKeTheoDoan.setModel(model);
         setComboBox(comboBoxTour, getTourItems());
+        comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         headerColor(14,142,233,tblThongKeTheoDoan);
         
     }
@@ -75,6 +84,37 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
      public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
+     
+    public JComboBox myComboBox(JComboBox box, Color color)
+    {   
+        box.setRenderer(new MyComboBoxRenderer());
+        box.setEditor(new MyComboBoxEditor());
+        
+        box.setUI(new BasicComboBoxUI() 
+        {
+            @Override
+            protected ComboPopup createPopup() 
+            {
+                BasicComboPopup basicComboPopup = new BasicComboPopup(comboBox);
+                basicComboPopup.setBorder(new MatteBorder(2,2,2,2,color));
+                return basicComboPopup;
+            }
+            
+            @Override 
+            protected JButton createArrowButton() 
+            {
+                Color matteGrey = new Color(223,230,233);
+                Color flatBlue = new Color(14,142,233);
+        
+                BasicArrowButton custom = new BasicArrowButton(
+                BasicArrowButton.SOUTH, null, null, Color.WHITE, null);
+                custom.setBorder(new MatteBorder(0,0,0,0,flatBlue));
+                return custom;
+            }
+        }); 
+
+       return box;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
