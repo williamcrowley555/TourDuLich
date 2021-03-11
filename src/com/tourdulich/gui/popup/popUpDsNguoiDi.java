@@ -72,9 +72,9 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         tourBLL = new TourBLL();
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
-        String selectedTour = comboBoxTour.getSelectedItem().toString();
-        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        setComboBox(comboBoxDoan, getDoanItems(idTour));
+//        String selectedTour = comboBoxTour.getSelectedItem().toString();
+//        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+        //setComboBox(comboBoxDoan, getDoanItems(idTour));
         setComboBoxDoan();
         setListKhachDoan();
         setListNhanVienDoan();
@@ -379,20 +379,20 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
 
         pnlBody.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblChonTour.setText("Tên Tour");
         lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblChonTour.setText("Tên Tour");
 
-        lblTenDoan.setText("Tên Đoàn:");
         lblTenDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblTenDoan.setText("Tên Đoàn:");
 
+        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
+        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/save_icon.png"))); // NOI18N
         btnLuu.setText(" Lưu");
-        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setBorder(null);
         btnLuu.setContentAreaFilled(false);
         btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setOpaque(true);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -400,14 +400,14 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/cancel_icon.png"))); // NOI18N
         btnHuy.setText(" Hủy");
-        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
         btnHuy.setBorder(null);
         btnHuy.setContentAreaFilled(false);
         btnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setOpaque(true);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -439,8 +439,8 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
             }
         });
 
-        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxTour.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboBoxTourItemStateChanged(evt);
@@ -551,6 +551,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

@@ -15,6 +15,10 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+<<<<<<< HEAD
+=======
+import javax.swing.table.DefaultTableModel;
+>>>>>>> 4fc002803aeebd59a9e6d6ca1121c76d04041060
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -24,6 +28,7 @@ import javax.swing.table.TableRowSorter;
  * @author RavenPC
  */
 public class ThongKeTheoTour extends javax.swing.JPanel {
+<<<<<<< HEAD
     String[] listColumns = {
                             "Tour_Id",
                             "TÊn Tour",
@@ -50,14 +55,42 @@ public class ThongKeTheoTour extends javax.swing.JPanel {
     }
     
     public void headerColor(int r, int b, int g, JTable table)
+=======
+
+    /**
+     * Creates new form Panel1
+     */
+    DefaultTableModel model;
+    String[] columnNames = {
+                            "Id",
+                            "Tên Tour",
+                            "Tổng số đoàn đi",
+                            "Tổng Doanh Thu",
+                            "Tổng Chi Phí",
+                            "Lãi"};
+    public ThongKeTheoTour() {
+        initComponents();
+        model = new DefaultTableModel(columnNames,0);
+        tblThongKeTheoTour.setModel(model);
+        headerColor(14,142,233,tblThongKeTheoTour);
+    }
+    
+     public void headerColor(int r, int b, int g, JTable table)
+>>>>>>> 4fc002803aeebd59a9e6d6ca1121c76d04041060
     {
         Color color = new Color(r,b,g);
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer();
         headerRenderer.setBackground(color);
         headerRenderer.setForeground(color.WHITE);
         
+<<<<<<< HEAD
         for (int i = 0; i < table.getModel().getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+=======
+
+        for (int i = 0; i < table.getModel().getColumnCount(); i++) {
+        table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
+>>>>>>> 4fc002803aeebd59a9e6d6ca1121c76d04041060
         }       
          
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -72,7 +105,6 @@ public class ThongKeTheoTour extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
@@ -84,18 +116,6 @@ public class ThongKeTheoTour extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(808, 150));
-
-        btnThem.setBackground(new java.awt.Color(14, 142, 233));
-        btnThem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm");
-        btnThem.setContentAreaFilled(false);
-        btnThem.setOpaque(true);
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
 
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +139,7 @@ public class ThongKeTheoTour extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                .addGap(30, 530, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,7 +153,6 @@ public class ThongKeTheoTour extends javax.swing.JPanel {
                 .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
@@ -177,17 +194,12 @@ public class ThongKeTheoTour extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemActionPerformed
-
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
