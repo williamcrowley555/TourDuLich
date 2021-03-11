@@ -8,6 +8,7 @@ package com.tourdulich.gui.main;
 import com.tourdulich.bll.INhanVienBLL;
 import com.tourdulich.bll.impl.NhanVienBLL;
 import com.tourdulich.dto.NhanVienDTO;
+import com.tourdulich.gui.form.QuanLyChiPhi;
 import com.tourdulich.gui.others.ComponentResizer;
 import com.tourdulich.gui.form.QuanLyDiaDiem;
 import com.tourdulich.gui.form.QuanLyDichVu;
@@ -56,6 +57,7 @@ public class Main extends javax.swing.JFrame {
     ImageIcon iconTour = new ImageIcon(getClass().getResource("/com/tourdulich/img/tour_icon.png"));
     ImageIcon iconLoaiDuLich = new ImageIcon(getClass().getResource("/com/tourdulich/img/loai_du_lich_icon.png"));
     ImageIcon iconDoan = new ImageIcon(getClass().getResource("/com/tourdulich/img/doan_icon.png"));
+    ImageIcon iconChiPhi = new ImageIcon(getClass().getResource("/com/tourdulich/img/chi_phi_icon.png"));
     ImageIcon iconDichVu = new ImageIcon(getClass().getResource("/com/tourdulich/img/dich_vu_icon.png"));
     ImageIcon iconLoaiDichVu = new ImageIcon(getClass().getResource("/com/tourdulich/img/loai_dich_vu_icon.png"));
     ImageIcon iconDiaDiem = new ImageIcon(getClass().getResource("/com/tourdulich/img/dia_diem_icon.png"));
@@ -93,7 +95,19 @@ public class Main extends javax.swing.JFrame {
             }
         }, menuLoaiDuLich);
      
-       
+        
+        //--submenu doan--
+                MenuItem menuChiPhi = new MenuItem(iconChiPhi, "Quản Lý Chi Phí", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {     
+                        panelBody.removeAll();
+                        panelBody.add(new QuanLyChiPhi());
+                        panelBody.repaint();
+                        panelBody.revalidate();
+                        Selected(menuDoan);
+                    }
+                });
+                
         MenuItem menuDoan = new MenuItem(iconDoan, "Quản Lý Đoàn", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -103,7 +117,7 @@ public class Main extends javax.swing.JFrame {
                 panelBody.revalidate();
                 Selected(menuDoan);
             }
-        });
+        }, menuChiPhi);
              
         
         MenuItem menuDichVu = new MenuItem(iconDichVu, "Quản Lý Dịch Vụ", new ActionListener() {
