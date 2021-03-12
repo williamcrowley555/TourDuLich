@@ -357,7 +357,7 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
 
     private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
         // TODO add your handling code here:
-        setComboBoxDoan();
+        
     }//GEN-LAST:event_comboBoxTourActionPerformed
 
     private void comboBoxDoanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxDoanItemStateChanged
