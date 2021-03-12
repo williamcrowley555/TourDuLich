@@ -64,6 +64,7 @@ public class popUpDichVu extends javax.swing.JFrame {
     public void setLabelText(DichVuDTO dichVu)
     {
         txtTenDichVu.setText(dichVu.getTenDichVu());
+        txtMoTa.setText(dichVu.getMoTa());
     }
     public void myTextArea()
     {
@@ -75,8 +76,8 @@ public class popUpDichVu extends javax.swing.JFrame {
         if(this.dichVu != null) {
             dichVu.setId(this.dichVu.getId());
         }
-        dichVu.setTenDichVu(txtTenDichVu.getText().trim());
-        dichVu.setMoTa(this.dichVu.getMoTa().trim());
+      dichVu.setTenDichVu(txtTenDichVu.getText().trim());
+      dichVu.setMoTa(this.dichVu.getMoTa());
         return dichVu;
     }
  
