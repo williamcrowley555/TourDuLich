@@ -7,6 +7,7 @@ package com.tourdulich.gui.form;
 
 import com.tourdulich.bll.IChiPhiDoanBLL;
 import com.tourdulich.bll.IDiaDiemBLL;
+import com.tourdulich.bll.IDichVuBLL;
 import com.tourdulich.bll.IDoanBLL;
 import com.tourdulich.bll.ITinhBLL;
 import com.tourdulich.bll.ITourBLL;
@@ -66,6 +67,7 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
     private popUpChiPhi popUp = null;
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+//    private IDiaDiemBLL diaDiemBLL;
     private IChiPhiDoanBLL chiPhiDoanBLL;
     
     TableRowSorter<TableModel> rowSorter = null;
@@ -74,6 +76,7 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
         initComponents(); 
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
+//        diaDiemBLL = new DiaDiemBLL();
         chiPhiDoanBLL = new ChiPhiDoanBLL();
         setComboBox(comboBoxTour, getTourItems());
         setComboBoxDoan();
@@ -382,7 +385,16 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-       if (this.popUp == null) {
+       
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
+        // TODO add your handling code here:
+        if (this.popUp == null) {
             this.popUp = new popUpChiPhi("POST");
             
         } else {
@@ -396,19 +408,24 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
            loadTableData();
         }
     });
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemActionPerformed
-
-    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
-        // TODO add your handling code here:
-        
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-    
+        int rowindex = tblChiPhi.getSelectedRow();
+        Long id = Long.parseLong(tblChiPhi.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+        popUp = new popUpChiPhi("PUT", chiPhiDoanBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+            loadTableData();
+        }
+    });
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
