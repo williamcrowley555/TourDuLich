@@ -8,6 +8,7 @@ package com.tourdulich.dao.impl;
 import com.tourdulich.dao.IChiPhiDoanDAO;
 import com.tourdulich.dto.ChiPhiDoanDTO;
 import com.tourdulich.mapper.impl.ChiPhiDoanMapper;
+import com.tourdulich.mapper.impl.IdDoanMapper;
 import java.util.List;
 
 /**
@@ -44,5 +45,11 @@ public class ChiPhiDoanDAO extends AbstractDAO<ChiPhiDoanDTO> implements IChiPhi
     public void delete(Long id) {
         String sql = "DELETE FROM chi_phi_doan WHERE id = ?";
         update(sql, id);
+    }
+
+    @Override
+    public List<ChiPhiDoanDTO> findByIdDoan(Long idDoan) {
+        String sql = "SELECT * FROM chi_phi_doan WHERE id_doan = ?";
+        return query(sql, new ChiPhiDoanMapper(), idDoan);
     }
 }

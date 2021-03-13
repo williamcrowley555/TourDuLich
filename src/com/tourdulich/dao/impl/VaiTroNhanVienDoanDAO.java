@@ -39,4 +39,5 @@ public class VaiTroNhanVienDoanDAO extends AbstractDAO<VaiTroNhanVienDoanDTO> im
         String sql = "DELETE FROM vai_tro_nhan_vien_doan WHERE id = ?";
         update(sql, id);
     }            
+ 
 }

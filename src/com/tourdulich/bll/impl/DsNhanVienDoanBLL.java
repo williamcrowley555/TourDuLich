@@ -82,4 +82,9 @@ public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
     public void deleteByIdDoan(Long idDoan) {
           dsNhanVienDoanDAO.deleteByIdDoan(idDoan);
     }
+
+    @Override
+    public DsNhanVienDoanDTO findByIdNhanVienDoan(Long idDoan, Long idNhanVien) {
+         return dsNhanVienDoanDAO.findIdNhanVienDoan(idDoan, idNhanVien);
+    }
 }

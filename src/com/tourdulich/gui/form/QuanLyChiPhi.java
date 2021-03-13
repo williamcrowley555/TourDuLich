@@ -15,6 +15,8 @@ import com.tourdulich.bll.impl.TinhBLL;
 import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.dto.DoanDTO;
 import com.tourdulich.dto.TourDTO;
+import com.tourdulich.gui.menu.MyComboBoxEditor;
+import com.tourdulich.gui.menu.MyComboBoxRenderer;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -29,8 +31,14 @@ import com.tourdulich.util.DiaDiemTableLoaderUtil;
 import com.tourdulich.util.TableSetupUtil;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.border.MatteBorder;
+import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.plaf.basic.ComboPopup;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -53,33 +61,20 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
     private popUpChiPhi popUp = null;
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+    private I
     
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyChiPhi() {
-        initComponents();
-       
-      
-     
+        initComponents(); 
+        doanBLL = new DoanBLL();
+        tourBLL = new TourBLL();
+        setComboBox(comboBoxTour, getTourItems());
+        setComboBoxDoan();
         loadTableData();
-        
-        
-       /* Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblDiaDiem.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Vịnh Hạ Long");
-        row.add("4");
-        row.add("Quảng Ninh, Việt Nam");
-        row.add("1 trong 7 kì quan thế giới");
-        row.add("");
-    
-        
-        model.addRow(row);
-        tblDiaDiem.setModel(model);*/
         headerColor(14,142,233,tblHoaDon);
+        comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
+        comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
     }
 
@@ -115,7 +110,78 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     
-   
+      public JComboBox myComboBox(JComboBox box, Color color)
+    {   
+        box.setRenderer(new MyComboBoxRenderer());
+        box.setEditor(new MyComboBoxEditor());
+        
+        box.setUI(new BasicComboBoxUI() 
+        {
+            @Override
+            protected ComboPopup createPopup() 
+            {
+                BasicComboPopup basicComboPopup = new BasicComboPopup(comboBox);
+                basicComboPopup.setBorder(new MatteBorder(2,2,2,2,color));
+                return basicComboPopup;
+            }
+            
+            @Override 
+            protected JButton createArrowButton() 
+            {
+                Color matteGrey = new Color(223,230,233);
+                Color flatBlue = new Color(14,142,233);
+        
+                BasicArrowButton custom = new BasicArrowButton(
+                BasicArrowButton.SOUTH, null, null, Color.WHITE, null);
+                custom.setBorder(new MatteBorder(0,0,0,0,flatBlue));
+                return custom;
+            }
+        }); 
+
+       return box;
+    }
+    
+    public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
+        comboBox.setModel(new DefaultComboBoxModel<>(listItems));
+    } 
+    
+     public void setComboBoxDoan()
+    {
+        doanBLL = new DoanBLL();
+        String selectedTour = comboBoxTour.getSelectedItem().toString();
+        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+        setComboBox(comboBoxDoan, getDoanItems(idTour));
+    }
+     
+    public String[] getTourItems() {
+        List<TourDTO> tourLists = tourBLL.findAll();
+        String[] tourItems = new String[tourLists.size()];
+        int index = 0;
+        for(TourDTO vt : tourLists) {
+            tourItems[index] = vt.getId() + " - " + vt.getTenTour();
+            ++ index;
+        }
+        return tourItems;
+    }
+    
+    public String getTourItemName(TourDTO tour) {
+        return tour.getId() + " - " + tour.getTenTour();
+    }
+    
+    public String[] getDoanItems(Long idTour) {
+        List<DoanDTO> doanLists = doanBLL.findByIdTour(idTour);
+        String[] doanItems = new String[doanLists.size()];
+        int index = 0;
+        for(DoanDTO vt : doanLists) {
+            doanItems[index] = vt.getId() + " - " + vt.getTenDoan();
+            ++ index;
+        }
+        return doanItems;
+    }
+    
+    public String getDoanItemName(DoanDTO doan) {
+        return doan.getId() + " - " + doan.getTenDoan();
+    }
     
    
     @SuppressWarnings("unchecked")
@@ -128,13 +194,14 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
         pnlHead = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         comboBoxTour = new javax.swing.JComboBox<>();
-        btnThem = new javax.swing.JButton();
         lblChonTour = new javax.swing.JLabel();
+        comboBoxDoan = new javax.swing.JComboBox<>();
+        lblChonDoan = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblHoaDon = new javax.swing.JTable();
-        comboBoxDoan = new javax.swing.JComboBox<>();
         txtTimKiem = new javax.swing.JTextField();
+        btnThem = new javax.swing.JButton();
 
         itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
@@ -160,14 +227,14 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         pnlHead.setBackground(new java.awt.Color(255, 255, 255));
-        pnlHead.setPreferredSize(new java.awt.Dimension(808, 150));
+        pnlHead.setPreferredSize(new java.awt.Dimension(808, 250));
 
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Chi Phí");
 
-        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxTour.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboBoxTourItemStateChanged(evt);
@@ -179,52 +246,53 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
             }
         });
 
-        btnThem.setBackground(new java.awt.Color(14, 142, 233));
-        btnThem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(255, 255, 255));
-        btnThem.setText("Thêm");
-        btnThem.setContentAreaFilled(false);
-        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnThem.setOpaque(true);
-        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnThemMousePressed(evt);
+        lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblChonTour.setText("Tour:");
+
+        comboBoxDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboBoxDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboBoxDoan.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboBoxDoanItemStateChanged(evt);
             }
         });
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
+        comboBoxDoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
+                comboBoxDoanActionPerformed(evt);
             }
         });
 
-        lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lblChonTour.setText("Tour:");
+        lblChonDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblChonDoan.setText("Đoàn:");
 
         javax.swing.GroupLayout pnlHeadLayout = new javax.swing.GroupLayout(pnlHead);
         pnlHead.setLayout(pnlHeadLayout);
         pnlHeadLayout.setHorizontalGroup(
             pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 808, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeadLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(comboBoxTour, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
-                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+            .addGroup(pnlHeadLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxTour, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblChonDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlHeadLayout.setVerticalGroup(
             pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeadLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(64, 64, 64)
-                .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxTour, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboBoxTour, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblChonDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboBoxDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(191, 191, 191))
         );
 
         add(pnlHead, java.awt.BorderLayout.PAGE_START);
@@ -249,22 +317,27 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
         });
         scroll.setViewportView(tblHoaDon);
 
-        comboBoxDoan.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        comboBoxDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        comboBoxDoan.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboBoxDoanItemStateChanged(evt);
-            }
-        });
-        comboBoxDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxDoanActionPerformed(evt);
-            }
-        });
-
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
+            }
+        });
+
+        btnThem.setBackground(new java.awt.Color(14, 142, 233));
+        btnThem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
+        btnThem.setText("Thêm");
+        btnThem.setContentAreaFilled(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem.setOpaque(true);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemMousePressed(evt);
+            }
+        });
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
             }
         });
 
@@ -272,16 +345,14 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
         pnlBody.setLayout(pnlBodyLayout);
         pnlBodyLayout.setHorizontalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBoxDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
         );
         pnlBodyLayout.setVerticalGroup(
@@ -289,10 +360,10 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -356,8 +427,7 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
     }//GEN-LAST:event_comboBoxTourItemStateChanged
 
     private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
-        // TODO add your handling code here:
-        
+       setComboBoxDoan();      
     }//GEN-LAST:event_comboBoxTourActionPerformed
 
     private void comboBoxDoanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxDoanItemStateChanged
@@ -375,6 +445,7 @@ public class QuanLyChiPhi extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxTour;
     private javax.swing.JMenuItem itemSua;
     private javax.swing.JMenuItem itemXoa;
+    private javax.swing.JLabel lblChonDoan;
     private javax.swing.JLabel lblChonTour;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;

@@ -5,20 +5,6 @@
         <group>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpChiPhi.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyNhanVien.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpChiPhi.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyChiPhi.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpChiPhi.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyChiPhi.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
@@ -36,6 +22,23 @@
         <group>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDiaDiem.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDichVu.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/IVaiTroNhanVienDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableCapVaiTroNhanVien.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyChiPhi.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/IChiPhiDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableCapVaiTroNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/impl/ChiPhiDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/impl/VaiTroNhanVienDoanDAO.java</file>
         </group>
     </open-files>
 </project-private>

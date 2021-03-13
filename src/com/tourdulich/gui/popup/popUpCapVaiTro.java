@@ -76,6 +76,7 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
+    private popUpTableCapVaiTroNhanVien popUp;
     public popUpCapVaiTro(String action) {
         initComponents();
        
@@ -429,6 +430,9 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
             }
         ));
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNhanVienMouseClicked(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tblNhanVienMouseReleased(evt);
             }
@@ -603,7 +607,32 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
 
     private void btnLuu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu1ActionPerformed
         // TODO add your handling code here:
+        if (this.popUp == null) {
+             int rowindex = tblNhanVien.getSelectedRow();
+            Long idNhanVien = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
+            String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+            Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));         
+            this.popUp = new popUpTableCapVaiTroNhanVien(dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, idNhanVien));
+           
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+           loadTableData();
+        }
+    });
+      
+       
     }//GEN-LAST:event_btnLuu1ActionPerformed
+
+    private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_tblNhanVienMouseClicked
 
     /**
      * @param args the command line arguments
