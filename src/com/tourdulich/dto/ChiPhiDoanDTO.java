@@ -15,13 +15,13 @@ public class ChiPhiDoanDTO {
     private Long id;
     private Long idDoan;
     private Long idDichVu;
-    private int chiPhi;
+    private Integer chiPhi;
     private String hoaDon;
     private LocalDate ngayHoaDon;
     
     public ChiPhiDoanDTO(){}
 
-    public ChiPhiDoanDTO(Long id, Long idDoan, Long idDichVu, int chiPhi, String hoaDon, LocalDate ngayHoaDon) {
+    public ChiPhiDoanDTO(Long id, Long idDoan, Long idDichVu, Integer chiPhi, String hoaDon, LocalDate ngayHoaDon) {
         this.id = id;
         this.idDoan = idDoan;
         this.idDichVu = idDichVu;
@@ -54,11 +54,11 @@ public class ChiPhiDoanDTO {
         this.idDichVu = idDichVu;
     }
 
-    public int getChiPhi() {
+    public Integer getChiPhi() {
         return chiPhi;
     }
 
-    public void setChiPhi(int chiPhi) {
+    public void setChiPhi(Integer chiPhi) {
         this.chiPhi = chiPhi;
     }
     

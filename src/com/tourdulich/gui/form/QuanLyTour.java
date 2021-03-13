@@ -13,6 +13,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.bll.ITourBLL;
+import com.tourdulich.bll.ILoaiDuLichBLL;
+import com.tourdulich.bll.impl.TourBLL;
+import com.tourdulich.bll.impl.LoaiDuLichBLL;
+import com.tourdulich.gui.popup.popUpTableDiaDiem;
+import com.tourdulich.gui.popup.popUpTour;
+import com.tourdulich.util.TableSetupUtil;
+import com.tourdulich.util.TourTableLoaderUtil;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,30 +34,40 @@ public class QuanLyTour extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
+    String[] columnNames = {
+        "Id",
+        "Tên Tour",
+        "Tên Loại Du Lịch",
+        "Đặc Điểm"
+        };
+    
+    private ITourBLL tourBLL;
+    private ILoaiDuLichBLL loaiDuLichBLL;
+    private popUpTour popUp;
+    private popUpTableDiaDiem popUpDiaDiem;
+    TableRowSorter<TableModel> rowSorter = null;
+    
     public QuanLyTour() {
         initComponents();
-     
+        tourBLL = new TourBLL();
+        loaiDuLichBLL = new LoaiDuLichBLL();
         
-        String[] columnNames = {
-                            "Id",
-                            "Tên Tour",
-                            "Id Loại Du Lịch",
-                            "Đặc Điểm"
-                            };
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblTour.getModel();
-        model = new DefaultTableModel(header, 0);
+        loadTableData();
+        
+//        Vector header = createHeader(columnNames);
+//        DefaultTableModel model = (DefaultTableModel) tblTour.getModel();
+//        model = new DefaultTableModel(header, 0);
        
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Tour Miền Nam");
-        row.add("1");
-        row.add("7 ngày");
+//        Vector row = new Vector();
+//        row.add("1");
+//        row.add("Tour Miền Nam");
+//        row.add("1");
+//        row.add("7 ngày");
     
         
          
-        model.addRow(row);
-        tblTour.setModel(model);
+//        model.addRow(row);
+//        tblTour.setModel(model);
         headerColor(14,142,233,tblTour);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
         
@@ -75,6 +96,11 @@ public class QuanLyTour extends javax.swing.JPanel {
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     
+    public void loadTableData() {
+        tblTour.setModel(new TourTableLoaderUtil().setTable(tourBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblTour, txtTimKiem);
+        headerColor(14,142,233,tblTour);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,14 +110,34 @@ public class QuanLyTour extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rightClickMenu = new javax.swing.JPopupMenu();
+        itemSua = new javax.swing.JMenuItem();
+        itemXoa = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        btnDanhSachDiaDiem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblTour = new javax.swing.JTable();
+
+        itemSua.setText("jMenuItem1");
+        itemSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSuaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemSua);
+
+        itemXoa.setText("jMenuItem2");
+        itemXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemXoaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -103,7 +149,13 @@ public class QuanLyTour extends javax.swing.JPanel {
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
         btnThem.setContentAreaFilled(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setOpaque(true);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemMousePressed(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -127,6 +179,24 @@ public class QuanLyTour extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Tour");
 
+        btnDanhSachDiaDiem.setBackground(new java.awt.Color(14, 142, 233));
+        btnDanhSachDiaDiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDanhSachDiaDiem.setForeground(new java.awt.Color(255, 255, 255));
+        btnDanhSachDiaDiem.setText("Danh sách địa điểm");
+        btnDanhSachDiaDiem.setContentAreaFilled(false);
+        btnDanhSachDiaDiem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDanhSachDiaDiem.setOpaque(true);
+        btnDanhSachDiaDiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnDanhSachDiaDiemMousePressed(evt);
+            }
+        });
+        btnDanhSachDiaDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachDiaDiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,7 +204,9 @@ public class QuanLyTour extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDanhSachDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +222,8 @@ public class QuanLyTour extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDanhSachDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
@@ -169,6 +242,11 @@ public class QuanLyTour extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblTour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblTourMousePressed(evt);
+            }
+        });
         scroll.setViewportView(tblTour);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -198,13 +276,117 @@ public class QuanLyTour extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
+           if (this.popUp == null) {
+            this.popUp = new popUpTour("POST");
+            
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+           loadTableData();
+        }
+    });
+    }//GEN-LAST:event_btnThemMousePressed
+
+    private void tblTourMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTourMousePressed
+        // TODO add your handling code here:
+        int r = tblTour.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblTour.getRowCount()) {
+            tblTour.setRowSelectionInterval(r, r);
+        } else {
+           tblTour.clearSelection();
+        }
+        int rowindex = tblTour.getSelectedRow();
+        if (rowindex < 0)
+            return;
+        if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
+            
+            rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tblTourMousePressed
+
+    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
+        // TODO add your handling code here:
+//        int rowindex = tblTour.getSelectedRow();
+//        Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
+//        if (this.popUp == null) {
+//        popUp = new popUpTour("PUT", tourBLL.findById(id));
+//        } else {
+//            this.popUp.toFront();
+//            this.popUp.center();
+//        }
+//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+//        @Override
+//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//            popUp = null;
+//            loadTableData();
+//        }
+//    });
+    }//GEN-LAST:event_itemSuaActionPerformed
+
+    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
+        // TODO add your handling code here:
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+        if(response == JOptionPane.YES_OPTION) {
+            int rowindex = tblTour.getSelectedRow();
+            Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
+            try {
+                tourBLL.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+        loadTableData();
+    }//GEN-LAST:event_itemXoaActionPerformed
+
+    private void btnDanhSachDiaDiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDanhSachDiaDiemMousePressed
+
+    private void btnDanhSachDiaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemActionPerformed
+        // TODO add your handling code here:
+           int selectedRow = tblTour.getSelectedRow();
+           if (this.popUpDiaDiem == null) {
+            if(selectedRow >=0)
+            {
+            this.popUpDiaDiem = new popUpTableDiaDiem(tblTour.getModel().getValueAt( tblTour.getSelectedRow(), 0).toString());
+            popUpDiaDiem.center();
+            popUpDiaDiem.setVisible(true);
+            popUpDiaDiem.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                       popUpDiaDiem = null;
+                       loadTableData();
+                    }
+                    });
+            }
+            
+        } else {
+            this.popUpDiaDiem.toFront();
+            this.popUpDiaDiem.center();
+        }
+       
+       
+    }//GEN-LAST:event_btnDanhSachDiaDiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDanhSachDiaDiem;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JMenuItem itemSua;
+    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblTour;
     private javax.swing.JTextField txtTimKiem;

@@ -5,11 +5,17 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.IThongKeDoanBLL;
 import com.tourdulich.bll.ITourBLL;
+import com.tourdulich.bll.impl.ThongKeDoanBLL;
 import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.dto.TourDTO;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
+import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.util.DoanTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
+import com.tourdulich.util.ThongKeDoanTableLoaderUtil;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
@@ -25,6 +31,8 @@ import javax.swing.plaf.basic.ComboPopup;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -33,9 +41,11 @@ import javax.swing.table.JTableHeader;
 public class ThongKeTheoDoan extends javax.swing.JPanel {
     DefaultTableModel model;
     private ITourBLL tourBLL;
+    private IThongKeDoanBLL thongKeDoanBLL;
+    TableRowSorter<TableModel> rowSorter = null;
     String[] columnNames = {
                             "Id",
-                            "Đoàn Đi",
+                            "Tên Đoàn",
                             "Số Khách",
                             "Giá Tour",
                             "Doanh Thu",
@@ -46,13 +56,27 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
      */
     public ThongKeTheoDoan() {
         initComponents();
+        thongKeDoanBLL = new ThongKeDoanBLL();
         tourBLL = new TourBLL();
         model = new DefaultTableModel(columnNames,0);
-        tblThongKeTheoDoan.setModel(model);
+        tblThongKeDoan.setModel(model);
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
-        headerColor(14,142,233,tblThongKeTheoDoan);
-        
+        headerColor(14,142,233,tblThongKeDoan);
+//        String selectedTour = comboBoxTour.getSelectedItem().toString();
+//        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+//        loadTableData(idTour);
+        loadTableData();
+        headerColor(14,142,233,tblThongKeDoan);
+        scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+    }
+    
+    public void loadTableData() {
+        String selectedTour = comboBoxTour.getSelectedItem().toString();
+        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+        tblThongKeDoan.setModel(new ThongKeDoanTableLoaderUtil().setTable(thongKeDoanBLL.findByIdTour(idTour), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblThongKeDoan, txtTimKiem);
+        headerColor(14,142,233,tblThongKeDoan);
     }
     
     public void headerColor(int r, int b, int g, JTable table)
@@ -115,6 +139,8 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
 
        return box;
     }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,8 +157,8 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
         lblChonTour = new javax.swing.JLabel();
         comboBoxTour = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblThongKeTheoDoan = new javax.swing.JTable();
+        scroll = new javax.swing.JScrollPane();
+        tblThongKeDoan = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -156,11 +182,11 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText(" Thống Kê Theo Đoàn");
 
-        lblChonTour.setText("Tên Tour:");
         lblChonTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        lblChonTour.setText("Tên Tour:");
 
-        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxTour.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        comboBoxTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxTour.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboBoxTourItemStateChanged(evt);
@@ -208,7 +234,7 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblThongKeTheoDoan.setModel(new javax.swing.table.DefaultTableModel(
+        tblThongKeDoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -219,7 +245,7 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblThongKeTheoDoan);
+        scroll.setViewportView(tblThongKeDoan);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -227,13 +253,13 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -250,7 +276,7 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
 
     private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
         // TODO add your handling code here:
-     
+        loadTableData();
     }//GEN-LAST:event_comboBoxTourActionPerformed
 
 
@@ -259,10 +285,10 @@ public class ThongKeTheoDoan extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxTour;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblChonTour;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTable tblThongKeTheoDoan;
+    private javax.swing.JScrollPane scroll;
+    private javax.swing.JTable tblThongKeDoan;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

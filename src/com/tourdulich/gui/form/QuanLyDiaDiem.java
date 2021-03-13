@@ -276,7 +276,7 @@ public class QuanLyDiaDiem extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemMousePressed
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-    int rowindex = tblDiaDiem.getSelectedRow();
+        int rowindex = tblDiaDiem.getSelectedRow();
         Long id = Long.parseLong(tblDiaDiem.getValueAt(rowindex,0).toString());
         if (this.popUp == null) {
         popUp = new popUpDiaDiem("PUT", diaDiemBLL.findById(id));
@@ -311,7 +311,7 @@ public class QuanLyDiaDiem extends javax.swing.JPanel {
 
     private void tblDiaDiemMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiaDiemMouseReleased
         // TODO add your handling code here:
-         int r = tblDiaDiem.rowAtPoint(evt.getPoint());
+        int r = tblDiaDiem.rowAtPoint(evt.getPoint());
         if (r >= 0 && r < tblDiaDiem.getRowCount()) {
             tblDiaDiem.setRowSelectionInterval(r, r);
         } else {

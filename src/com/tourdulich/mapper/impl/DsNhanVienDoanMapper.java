@@ -21,8 +21,8 @@ public class DsNhanVienDoanMapper implements RowMapper<DsNhanVienDoanDTO>{
         try {
             DsNhanVienDoanDTO dsNhanVienDoan = new DsNhanVienDoanDTO();
             dsNhanVienDoan.setId(rs.getLong("id"));
-            dsNhanVienDoan.setIdDoan(rs.getLong("idDoan"));
-            dsNhanVienDoan.setIdNhanVien(rs.getLong("idNhanVien"));
+            dsNhanVienDoan.setIdDoan(rs.getLong("id_Doan"));
+            dsNhanVienDoan.setIdNhanVien(rs.getLong("id_Nhan_Vien"));
             
             return dsNhanVienDoan;
         } catch(SQLException e) {

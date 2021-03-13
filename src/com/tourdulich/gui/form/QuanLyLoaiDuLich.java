@@ -5,6 +5,8 @@
  */
 package com.tourdulich.gui.form;
 
+import com.tourdulich.bll.ILoaiDuLichBLL;
+import com.tourdulich.bll.impl.LoaiDuLichBLL;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Vector;
@@ -12,6 +14,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import com.tourdulich.gui.menu.MyScrollBarUI;
+import com.tourdulich.util.LoaiDuLichTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -22,26 +29,40 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
     /**
      * Creates new form Panel1
      */
-    public QuanLyLoaiDuLich() {
-        initComponents();
-        
+    
          String[] columnNames = {
                             "Id",
                             "Tên Loại Du Lịch",
                             };
-        Vector header = createHeader(columnNames);
-        DefaultTableModel model = (DefaultTableModel) tblLoaiDuLich.getModel();
-        model = new DefaultTableModel(header, 0);
-       
-        Vector row = new Vector();
-        row.add("1");
-        row.add("Du Lịch Sông Nước");
-       
-   
-        model.addRow(row);
-        tblLoaiDuLich.setModel(model);
+         
+    private ILoaiDuLichBLL loaiDuLichBLL;
+   // private popUpLoaiDuLich popUp = null;
+    TableRowSorter<TableModel> rowSorter = null;
+    
+    public QuanLyLoaiDuLich() {
+        initComponents();
+        loaiDuLichBLL = new LoaiDuLichBLL();
+        
+        loadTableData();
+//        Vector header = createHeader(columnNames);
+//        DefaultTableModel model = (DefaultTableModel) tblLoaiDuLich.getModel();
+//        model = new DefaultTableModel(header, 0);
+//       
+//        Vector row = new Vector();
+//        row.add("1");
+//        row.add("Du Lịch Sông Nước");
+//       
+//   
+//        model.addRow(row);
+//        tblLoaiDuLich.setModel(model);
         headerColor(14,142,233,tblLoaiDuLich);
         scroll.getVerticalScrollBar().setUI(new MyScrollBarUI());
+    }
+    
+    public void loadTableData() {
+        tblLoaiDuLich.setModel(new LoaiDuLichTableLoaderUtil().setTable(loaiDuLichBLL.findAll(), this.columnNames)) ;
+        this.rowSorter = TableSetupUtil.setTableFilter(tblLoaiDuLich, txtTimKiem);
+        headerColor(14,142,233,tblLoaiDuLich);
     }
     
     public Vector createHeader(Object[] columnNames){
@@ -76,6 +97,9 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rightClickMenu = new javax.swing.JPopupMenu();
+        itemSua = new javax.swing.JMenuItem();
+        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -84,6 +108,22 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblLoaiDuLich = new javax.swing.JTable();
+
+        itemSua.setText("jMenuItem1");
+        itemSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSuaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemSua);
+
+        itemXoa.setText("jMenuItem2");
+        itemXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemXoaActionPerformed(evt);
+            }
+        });
+        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -96,6 +136,11 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
         btnThem.setText("Thêm");
         btnThem.setContentAreaFilled(false);
         btnThem.setOpaque(true);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnThemMousePressed(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -190,13 +235,70 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
+        // TODO add your handling code here:
+//          if (this.popUp == null) {
+//            this.popUp = new popUpLoaiDuLich("POST");
+//            
+//        } else {
+//            this.popUp.toFront();
+//            this.popUp.center();
+//        }
+//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+//        @Override
+//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//            popUp = null;
+//           loadTableData();
+//        }
+//    });
+    }//GEN-LAST:event_btnThemMousePressed
+
+    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
+        // TODO add your handling code here:
+//        int rowindex = tblLoaiDuLich.getSelectedRow();
+//        Long id = Long.parseLong(tblLoaiDuLich.getValueAt(rowindex,0).toString());
+//        if (this.popUp == null) {
+//        popUp = new popUpLoaiDuLich("PUT", loaiDuLichBLL.findById(id));
+//        } else {
+//            this.popUp.toFront();
+//            this.popUp.center();
+//        }
+//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+//        @Override
+//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+//            popUp = null;
+//            loadTableData();
+//        }
+//    });
+    }//GEN-LAST:event_itemSuaActionPerformed
+
+    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
+//        // TODO add your handling code here:
+//         int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+//        if(response == JOptionPane.YES_OPTION) {
+//            int rowindex = tblLoaiDuLich.getSelectedRow();
+//            Long id = Long.parseLong(tblLoaiDuLich.getValueAt(rowindex,0).toString());
+//            try {
+//                loaiDuLichBLL.delete(id);
+//                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            } catch(Exception e) {
+//                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+//                e.printStackTrace();
+//            }
+//        }
+//        loadTableData();
+    }//GEN-LAST:event_itemXoaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JMenuItem itemSua;
+    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHead;
+    private javax.swing.JPopupMenu rightClickMenu;
     private javax.swing.JScrollPane scroll;
     private javax.swing.JTable tblLoaiDuLich;
     private javax.swing.JTextField txtTimKiem;

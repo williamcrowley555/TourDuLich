@@ -73,4 +73,17 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
         String sql = "DELETE FROM ds_nhan_vien_doan WHERE id_doan = ?";
         update(sql, idDoan);
     }
+
+    @Override
+    public DsNhanVienDoanDTO findIdNhanVienDoan(Long idDoan, Long idNhanVien) {
+        String sql = "SELECT * FROM ds_nhan_vien_doan WHERE id_doan = ? AND id_nhan_vien = ?";
+        List<DsNhanVienDoanDTO> dsNhanVienDoan = query(sql, new DsNhanVienDoanMapper(), idDoan, idNhanVien);
+        return dsNhanVienDoan.isEmpty() ? null : dsNhanVienDoan.get(0);
+    }
+
+    
+
+   
+
+   
 }

@@ -45,4 +45,10 @@ public class DiaDiemDAO extends AbstractDAO<DiaDiemDTO> implements IDiaDiemDAO {
         String sql = "DELETE FROM dia_diem WHERE id = ?";
         update(sql, id);
     }    
+
+    @Override
+    public List<DiaDiemDTO> findByIdTinh(Long idTinh) {
+        String sql = "SELECT * FROM dia_diem WHERE id_tinh = ?";
+        return query(sql, new DiaDiemMapper(), idTinh);
+    }
 }

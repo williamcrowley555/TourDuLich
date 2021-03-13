@@ -19,6 +19,7 @@ import java.util.List;
 public interface IDsNhanVienDoanBLL {
     List<DsNhanVienDoanDTO> findAll();
     DsNhanVienDoanDTO findById(Long id);
+    DsNhanVienDoanDTO findByIdNhanVienDoan(Long idDoan,Long idNhanVien);
     Long save(DsNhanVienDoanDTO dsNhanVienDoan);
     List <NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour);
     ArrayList<NhanVienDTO> findByIdDoan(Long idDoan);

@@ -6,9 +6,13 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IDsDiaDiemTourBLL;
+import com.tourdulich.dao.IDiaDiemDAO;
 import com.tourdulich.dao.IDsDiaDiemTourDAO;
+import com.tourdulich.dao.impl.DiaDiemDAO;
 import com.tourdulich.dao.impl.DsDiaDiemTourDAO;
+import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DsDiaDiemTourDTO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,9 +22,10 @@ import java.util.List;
 public class DsDiaDiemTourBLL implements IDsDiaDiemTourBLL {
 
     private IDsDiaDiemTourDAO dsDiaDiemTourDAO;
-
+    private IDiaDiemDAO diaDiemDAO;
     public DsDiaDiemTourBLL() {
         this.dsDiaDiemTourDAO = new DsDiaDiemTourDAO();
+        this.diaDiemDAO = new DiaDiemDAO();
     }
     
     @Override
@@ -44,7 +49,23 @@ public class DsDiaDiemTourBLL implements IDsDiaDiemTourBLL {
     }
 
     @Override
-    public void delete(Long idTour) {
-        dsDiaDiemTourDAO.delete(idTour);
+    public void delete(Long id) {
+        dsDiaDiemTourDAO.delete(id);
+    }
+
+    @Override
+    public List<DiaDiemDTO> findByIdTour(Long idTour) {   
+        List<Long> diaDiemIds = dsDiaDiemTourDAO.findByIdTour(idTour);
+        List<DiaDiemDTO> diaDiemList = new ArrayList<>();
+        for (Long diaDiemId : diaDiemIds)
+        {   
+            diaDiemList.add(diaDiemDAO.findById(diaDiemId));      
+        }
+        return diaDiemList;
+    }
+
+    @Override
+    public void deleteByIdTour(Long idTour) {
+          dsDiaDiemTourDAO.deleteByIdTour(idTour);
     }
 }

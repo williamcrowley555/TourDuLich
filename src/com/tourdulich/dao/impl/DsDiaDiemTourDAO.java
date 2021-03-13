@@ -8,6 +8,7 @@ package com.tourdulich.dao.impl;
 import com.tourdulich.dao.IDsDiaDiemTourDAO;
 import com.tourdulich.dto.DsDiaDiemTourDTO;
 import com.tourdulich.mapper.impl.DsDiaDiemTourMapper;
+import com.tourdulich.mapper.impl.IdDiaDiemTourMapper;
 import java.util.List;
 
 /**
@@ -44,6 +45,18 @@ public class DsDiaDiemTourDAO extends AbstractDAO<DsDiaDiemTourDTO> implements I
     @Override
     public void delete(Long idTour) {
         String sql = "DELETE FROM ds_dia_diem_tour WHERE idTour = ?";
+        update(sql, idTour);
+    }
+
+    @Override
+    public List<Long> findByIdTour(Long idTour) {
+        String sql = "SELECT * FROM ds_dia_diem_tour WHERE id_tour = ?";
+        return query(sql, new  IdDiaDiemTourMapper(), idTour);
+    }
+
+    @Override
+    public void deleteByIdTour(Long idTour) {
+        String sql = "DELETE FROM ds_dia_diem_tour WHERE id_tour = ?";
         update(sql, idTour);
     }
 }

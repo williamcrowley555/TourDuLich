@@ -47,4 +47,9 @@ public class ChiPhiDoanBLL implements IChiPhiDoanBLL {
     public void delete(Long id) {
         chiPhiDoanDAO.delete(id);
     }
+
+    @Override
+    public List<ChiPhiDoanDTO> findByIdDoan(Long idDoan) {
+         return chiPhiDoanDAO.findByIdDoan(idDoan);
+    }
 }

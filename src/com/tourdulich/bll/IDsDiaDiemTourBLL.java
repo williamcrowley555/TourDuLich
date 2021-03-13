@@ -5,6 +5,7 @@
  */
 package com.tourdulich.bll;
 
+import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DsDiaDiemTourDTO;
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface IDsDiaDiemTourBLL {
     
     List<DsDiaDiemTourDTO> findAll();
     DsDiaDiemTourDTO findById(Long idTour);
+    List<DiaDiemDTO> findByIdTour(Long idTour);
     Long save(DsDiaDiemTourDTO dsDiaDiemTour);
     void update(DsDiaDiemTourDTO dsDiaDiemTour);
-    void delete(Long idTour);
+    void delete(Long id);
+    void deleteByIdTour(Long idTour);
 }

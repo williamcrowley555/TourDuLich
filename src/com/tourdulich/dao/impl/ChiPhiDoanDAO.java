@@ -45,4 +45,10 @@ public class ChiPhiDoanDAO extends AbstractDAO<ChiPhiDoanDTO> implements IChiPhi
         String sql = "DELETE FROM chi_phi_doan WHERE id = ?";
         update(sql, id);
     }
+
+    @Override
+    public List<ChiPhiDoanDTO> findByIdDoan(Long idDoan) {
+        String sql = "SELECT * FROM chi_phi_doan WHERE id_doan = ?";
+        return query(sql, new ChiPhiDoanMapper(), idDoan);
+    }
 }

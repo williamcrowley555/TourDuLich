@@ -16,7 +16,9 @@ public interface IDsDiaDiemTourDAO extends GenericDAO<DsDiaDiemTourDTO> {
     
     List<DsDiaDiemTourDTO> findAll();
     DsDiaDiemTourDTO findById(Long id);
+    List<Long> findByIdTour(Long idTour);
     Long save(DsDiaDiemTourDTO dsDiaDiemTour);
     void update(DsDiaDiemTourDTO dsDiaDiemTour);
     void delete(Long id);
+    void deleteByIdTour(Long idTour);
 }
