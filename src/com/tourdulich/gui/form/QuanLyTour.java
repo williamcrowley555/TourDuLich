@@ -17,6 +17,7 @@ import com.tourdulich.bll.ITourBLL;
 import com.tourdulich.bll.ILoaiDuLichBLL;
 import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.bll.impl.LoaiDuLichBLL;
+import com.tourdulich.gui.popup.popUpTableDiaDiem;
 import com.tourdulich.gui.popup.popUpTour;
 import com.tourdulich.util.TableSetupUtil;
 import com.tourdulich.util.TourTableLoaderUtil;
@@ -42,7 +43,8 @@ public class QuanLyTour extends javax.swing.JPanel {
     
     private ITourBLL tourBLL;
     private ILoaiDuLichBLL loaiDuLichBLL;
-    private popUpTour popUp = null;
+    private popUpTour popUp;
+    private popUpTableDiaDiem popUpDiaDiem;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyTour() {
@@ -116,6 +118,7 @@ public class QuanLyTour extends javax.swing.JPanel {
         txtTimKiem = new javax.swing.JTextField();
         btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        btnDanhSachDiaDiem = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblTour = new javax.swing.JTable();
@@ -176,6 +179,24 @@ public class QuanLyTour extends javax.swing.JPanel {
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Tour");
 
+        btnDanhSachDiaDiem.setBackground(new java.awt.Color(14, 142, 233));
+        btnDanhSachDiaDiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnDanhSachDiaDiem.setForeground(new java.awt.Color(255, 255, 255));
+        btnDanhSachDiaDiem.setText("Danh sách địa điểm");
+        btnDanhSachDiaDiem.setContentAreaFilled(false);
+        btnDanhSachDiaDiem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDanhSachDiaDiem.setOpaque(true);
+        btnDanhSachDiaDiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnDanhSachDiaDiemMousePressed(evt);
+            }
+        });
+        btnDanhSachDiaDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDanhSachDiaDiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,7 +204,9 @@ public class QuanLyTour extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDanhSachDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,7 +222,8 @@ public class QuanLyTour extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDanhSachDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
 
@@ -322,8 +346,39 @@ public class QuanLyTour extends javax.swing.JPanel {
         loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
 
+    private void btnDanhSachDiaDiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDanhSachDiaDiemMousePressed
+
+    private void btnDanhSachDiaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemActionPerformed
+        // TODO add your handling code here:
+           int selectedRow = tblTour.getSelectedRow();
+           if (this.popUpDiaDiem == null) {
+            if(selectedRow >=0)
+            {
+            this.popUpDiaDiem = new popUpTableDiaDiem(tblTour.getModel().getValueAt( tblTour.getSelectedRow(), 0).toString());
+            popUpDiaDiem.center();
+            popUpDiaDiem.setVisible(true);
+            popUpDiaDiem.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                       popUpDiaDiem = null;
+                       loadTableData();
+                    }
+                    });
+            }
+            
+        } else {
+            this.popUpDiaDiem.toFront();
+            this.popUpDiaDiem.center();
+        }
+       
+       
+    }//GEN-LAST:event_btnDanhSachDiaDiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDanhSachDiaDiem;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JMenuItem itemSua;

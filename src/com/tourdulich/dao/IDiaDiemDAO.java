@@ -15,6 +15,7 @@ import java.util.List;
 public interface IDiaDiemDAO {    
     List<DiaDiemDTO> findAll();
     DiaDiemDTO findById(Long id);
+    List<DiaDiemDTO> findByIdTinh(Long idTinh);
     Long save(DiaDiemDTO diaDiem);
     void update(DiaDiemDTO diaDiem);
     void delete(Long id);   

@@ -47,4 +47,9 @@ public class DiaDiemBLL implements IDiaDiemBLL {
     public void delete(Long id) {
         diaDiemDAO.delete(id);
     }
+
+    @Override
+    public List<DiaDiemDTO> findByIdTinh(Long idTinh) {
+        return diaDiemDAO.findByIdTinh(idTinh);
+    }
 }
