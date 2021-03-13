@@ -612,7 +612,9 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
             Long idNhanVien = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
             String selectedDoan = comboBoxDoan.getSelectedItem().toString();
             Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));         
+            System.out.println(dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, idNhanVien));
             this.popUp = new popUpTableCapVaiTroNhanVien(dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, idNhanVien));
+            popUp.setVisible(true);
            
         } else {
             this.popUp.toFront();

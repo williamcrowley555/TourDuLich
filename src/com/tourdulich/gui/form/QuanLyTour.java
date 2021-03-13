@@ -17,6 +17,7 @@ import com.tourdulich.bll.ITourBLL;
 import com.tourdulich.bll.ILoaiDuLichBLL;
 import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.bll.impl.LoaiDuLichBLL;
+import com.tourdulich.gui.popup.popUpTour;
 import com.tourdulich.util.TableSetupUtil;
 import com.tourdulich.util.TourTableLoaderUtil;
 import javax.swing.JOptionPane;
@@ -41,7 +42,7 @@ public class QuanLyTour extends javax.swing.JPanel {
     
     private ITourBLL tourBLL;
     private ILoaiDuLichBLL loaiDuLichBLL;
-//    private popUpTour popUp = null;
+    private popUpTour popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyTour() {
@@ -145,6 +146,7 @@ public class QuanLyTour extends javax.swing.JPanel {
         btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setText("Thêm");
         btnThem.setContentAreaFilled(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.setOpaque(true);
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -251,21 +253,20 @@ public class QuanLyTour extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
-        // TODO add your handling code here:
-//        if (this.popUp == null) {
-//            this.popUp = new popUpTour("POST");
-//            
-//        } else {
-//            this.popUp.toFront();
-//            this.popUp.center();
-//        }
-//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-//        @Override
-//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//            popUp = null;
-//           loadTableData();
-//        }
-//    });
+           if (this.popUp == null) {
+            this.popUp = new popUpTour("POST");
+            
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+            popUp = null;
+           loadTableData();
+        }
+    });
     }//GEN-LAST:event_btnThemMousePressed
 
     private void tblTourMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTourMousePressed
