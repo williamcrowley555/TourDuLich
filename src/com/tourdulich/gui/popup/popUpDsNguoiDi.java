@@ -11,12 +11,14 @@ import com.tourdulich.bll.IDsNhanVienDoanBLL;
 import com.tourdulich.bll.IKhachHangBLL;
 import com.tourdulich.bll.ITourBLL;
 import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.IVaiTroNhanVienDoanBLL;
 import com.tourdulich.bll.impl.DoanBLL;
 import com.tourdulich.bll.impl.DsKhachDoanBLL;
 import com.tourdulich.bll.impl.DsNhanVienDoanBLL;
 import com.tourdulich.bll.impl.KhachHangBLL;
 import com.tourdulich.bll.impl.TourBLL;
 import com.tourdulich.bll.impl.VaiTroBLL;
+import com.tourdulich.bll.impl.VaiTroNhanVienDoanBLL;
 import com.tourdulich.dto.DoanDTO;
 import com.tourdulich.dto.DsKhachDoanDTO;
 import com.tourdulich.dto.DsNhanVienDoanDTO;
@@ -41,13 +43,14 @@ import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-
 /**
  *
  * @author Hi
@@ -60,6 +63,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private IKhachHangBLL khachHangBLL;
     private IDsKhachDoanBLL dsKhachDoanBLL;
     private IDsNhanVienDoanBLL dsNhanVienDoanBLL;
+    private IVaiTroNhanVienDoanBLL vaiTroNhanVienDoanBLL;
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
@@ -67,6 +71,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         initComponents();
         dsKhachDoanBLL = new DsKhachDoanBLL();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
+        vaiTroNhanVienDoanBLL = new VaiTroNhanVienDoanBLL();
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
@@ -142,11 +147,27 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         String selectedDoan = comboBoxDoan.getSelectedItem().toString();
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
         Long id;
+        
+         modifyNhanVienList(dsNhanVienDoanBLL.findByIdDoan(idDoan), listNhanVien);
         if(dsKhachDoanBLL.findByIdDoan(idDoan) != null)
             dsKhachDoanBLL.deleteByIdDoan(idDoan);
-        if(dsNhanVienDoanBLL.findByIdDoan(idDoan) != null)
-            dsNhanVienDoanBLL.deleteByIdDoan(idDoan);
         
+        if(dsNhanVienDoanBLL.findByIdDoan(idDoan) != null)
+        {    
+            
+             for (NhanVienDTO nhanVien : this.listNhanVien)
+            {   
+                
+                Long idNhanVienDoan = dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, nhanVien.getId()).getId();
+                vaiTroNhanVienDoanBLL.deleteByIdDsNhanVienDoan(idNhanVienDoan);     
+            }
+             
+             dsNhanVienDoanBLL.deleteByIdDoan(idDoan);
+             System.out.println("deleted");
+        }
+        
+         
+           
         for (KhachHangDTO khach : this.listKhach)
         {
             khachDoan = new DsKhachDoanDTO(idDoan, khach.getId());
@@ -167,6 +188,34 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         return true;
     }
     
+    public boolean modifyNhanVienList(List<NhanVienDTO> originalList, List<NhanVienDTO> modifiedList) {
+        boolean result = false;
+        List<NhanVienDTO> newNhanVienList = new ArrayList<>();
+        List<NhanVienDTO> deletedNhanVienList = originalList;
+        
+        
+        for(NhanVienDTO nhanVien : modifiedList) {
+            NhanVienDTO newNhanVien = null;
+            for(NhanVienDTO originalNhanVien : originalList) {
+                if (!nhanVien.getId().equals(originalNhanVien.getId())) {
+                    newNhanVien = nhanVien;
+                } else {
+                   newNhanVien = null;
+                   deletedNhanVienList.remove(originalNhanVien);
+                }
+            }
+            if (newNhanVien != null) {
+                newNhanVienList.add(newNhanVien);
+            }
+        }
+          System.out.println(newNhanVienList);
+          System.out.println(deletedNhanVienList);
+ 
+        
+        return result;
+    }
+    
+  
   
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
@@ -594,25 +643,20 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {
-            
-
+            boolean result = false;
             if(this.action.equals("POST")) {
                 try {
-                    save();
+                    result = save();
                 } catch (IOException ex) {
                     Logger.getLogger(popUpDsNguoiDi.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                try {
-                    if(save()) {
-                        
-                        JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                        
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(popUpDsNguoiDi.class.getName()).log(Level.SEVERE, null, ex);
+                if(result) {
+
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 }
             } 
         }

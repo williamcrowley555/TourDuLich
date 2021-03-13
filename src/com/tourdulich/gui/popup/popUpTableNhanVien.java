@@ -53,8 +53,8 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         this.frame = frame;
         initEmptyTableNhanVienDoan();
         setTableNhanVienDoan(this.nhanVienList);
-        INhanVienBLL nhanVienBLL = new NhanVienBLL();
-        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(dsNhanVienDoanBLL.getFreeNhanVien(LocalDate.now(), idTour), columnNames));
+        nhanVienBLL = new NhanVienBLL();
+        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), columnNames));
         headerColor(14,142,233,tblNhanVien);
         
     }
