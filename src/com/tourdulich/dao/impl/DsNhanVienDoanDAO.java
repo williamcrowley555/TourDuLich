@@ -36,6 +36,13 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
     }
 
     @Override
+    public DsNhanVienDoanDTO findByIdDoanAndIdNhanVien(Long idDoan, Long idNhanVien) {
+        String sql = "SELECT * FROM ds_nhan_vien_doan WHERE id_doan = ? AND id_nhan_vien = ?";
+        List<DsNhanVienDoanDTO> dsNhanVienDoan = query(sql, new DsNhanVienDoanMapper(), idDoan, idNhanVien);
+        return dsNhanVienDoan.isEmpty() ? null : dsNhanVienDoan.get(0);
+    }
+
+    @Override
     public Long save(DsNhanVienDoanDTO dsNhanVienDoan) {
         String sql = "INSERT INTO ds_nhan_vien_doan(id_doan, id_nhan_vien) VALUES(?,?)";
         return insert(sql, dsNhanVienDoan.getIdDoan(), dsNhanVienDoan.getIdNhanVien());
@@ -70,9 +77,9 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
     }
 
     @Override
-    public void deleteByIdDoan(Long idDoan) {
-        String sql = "DELETE FROM ds_nhan_vien_doan WHERE id_doan = ?";
-        update(sql, idDoan);
+    public void deleteByIdDoanAndIdNhanVien(Long idDoan, Long idNhanVien) {
+        String sql = "DELETE FROM ds_nhan_vien_doan WHERE id_doan = ? AND id_nhan_vien = ?";
+        update(sql, idDoan, idNhanVien);
     }
 
     @Override
@@ -81,10 +88,4 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
         List<DsNhanVienDoanDTO> dsNhanVienDoan = query(sql, new DsNhanVienDoanMapper(), idDoan, idNhanVien);
         return dsNhanVienDoan.isEmpty() ? null : dsNhanVienDoan.get(0);
     }
-
-    
-
-   
-
-   
 }

@@ -60,7 +60,7 @@ public class DsKhachDoanBLL implements IDsKhachDoanBLL {
     }
 
     @Override
-    public void deleteByIdDoan(Long idDoan) {
-       dsKhachDoanDAO.deleteByIdDoan(idDoan);
+    public void deleteByIdDoanAndIdKhachHang(Long idDoan, Long idKhachHang) {
+       dsKhachDoanDAO.deleteByIdDoanAndIdKhachHang(idDoan, idKhachHang);
     }
 }

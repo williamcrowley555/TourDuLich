@@ -141,82 +141,95 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
        
     }
     
-    private boolean save() throws IOException {
+    private boolean save() {
+        boolean result;
         DsKhachDoanDTO khachDoan;
         DsNhanVienDoanDTO nhanVienDoan;
         String selectedDoan = comboBoxDoan.getSelectedItem().toString();
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
         Long id;
         
-         modifyNhanVienList(dsNhanVienDoanBLL.findByIdDoan(idDoan), listNhanVien);
-        if(dsKhachDoanBLL.findByIdDoan(idDoan) != null)
-            dsKhachDoanBLL.deleteByIdDoan(idDoan);
-        
-        if(dsNhanVienDoanBLL.findByIdDoan(idDoan) != null)
-        {    
-            
-             for (NhanVienDTO nhanVien : this.listNhanVien)
-            {   
-                
-                Long idNhanVienDoan = dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, nhanVien.getId()).getId();
-                vaiTroNhanVienDoanBLL.deleteByIdDsNhanVienDoan(idNhanVienDoan);     
-            }
-             
-             dsNhanVienDoanBLL.deleteByIdDoan(idDoan);
-             System.out.println("deleted");
-        }
-        
-         
-           
-        for (KhachHangDTO khach : this.listKhach)
-        {
-            khachDoan = new DsKhachDoanDTO(idDoan, khach.getId());
-            dsKhachDoanBLL.save(khachDoan);
-        }
-        
-      
-        for (NhanVienDTO nhanVien : this.listNhanVien)
-        {
-            nhanVienDoan = new DsNhanVienDoanDTO(idDoan, nhanVien.getId());
-            
-            id = dsNhanVienDoanBLL.save(nhanVienDoan);
-            if (id == null)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public boolean modifyNhanVienList(List<NhanVienDTO> originalList, List<NhanVienDTO> modifiedList) {
-        boolean result = false;
-        List<NhanVienDTO> newNhanVienList = new ArrayList<>();
-        List<NhanVienDTO> deletedNhanVienList = originalList;
-        
-        
-        for(NhanVienDTO nhanVien : modifiedList) {
-            NhanVienDTO newNhanVien = null;
-            for(NhanVienDTO originalNhanVien : originalList) {
-                if (!nhanVien.getId().equals(originalNhanVien.getId())) {
-                    newNhanVien = nhanVien;
-                } else {
-                   newNhanVien = null;
-                   deletedNhanVienList.remove(originalNhanVien);
-                }
-            }
-            if (newNhanVien != null) {
-                newNhanVienList.add(newNhanVien);
-            }
-        }
-          System.out.println(newNhanVienList);
-          System.out.println(deletedNhanVienList);
- 
+        result = modifyNhanVienList(dsNhanVienDoanBLL.findByIdDoan(idDoan), listNhanVien, idDoan);
+        if (result == false)
+            return false;
+        result = modifyKhachHangList(dsKhachDoanBLL.findByIdDoan(idDoan), listKhach, idDoan);
+        if (result == false)
+            return false;
         
         return result;
     }
     
-  
-  
+    public boolean modifyNhanVienList(List<NhanVienDTO> originalList, List<NhanVienDTO> modifiedList, Long idDoan) {
+        List<NhanVienDTO> newNhanVienList = new ArrayList<>();
+        List<NhanVienDTO> deletedNhanVienList = originalList;
+        
+//        Find new nhan vien and deleted nhan vien to list
+        for(NhanVienDTO nhanVien : modifiedList) {
+            if (originalList.contains(nhanVien)) {
+                deletedNhanVienList.remove(nhanVien);
+            } else {
+                newNhanVienList.add(nhanVien);
+            }
+        }
+        
+//        Save and delete nhan vien into dsNhanVienDoan
+        if (!newNhanVienList.isEmpty()) {
+            for (NhanVienDTO nhanVien : newNhanVienList) {
+                Long savedId = dsNhanVienDoanBLL.save(new DsNhanVienDoanDTO(idDoan, nhanVien.getId()));
+                if (savedId == null) 
+                    return false;
+            }
+        }
+        
+        if (!deletedNhanVienList.isEmpty()) {
+            for (NhanVienDTO nhanVien : deletedNhanVienList) {
+                try {
+                    dsNhanVienDoanBLL.deleteByIdDoanAndIdNhanVien(idDoan, nhanVien.getId());
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }  
+            }
+        }
+        
+        return true;
+    }
+    
+    public boolean modifyKhachHangList(List<KhachHangDTO> originalList, List<KhachHangDTO> modifiedList, Long idDoan) {
+        List<KhachHangDTO> newKhachHangList = new ArrayList<>();
+        List<KhachHangDTO> deletedKhachHangList = originalList;
+        
+//        Find new khach hang and deleted khach hang to list
+        for(KhachHangDTO khachHang : modifiedList) {
+            if (originalList.contains(khachHang)) {
+                deletedKhachHangList.remove(khachHang);
+            } else {
+                newKhachHangList.add(khachHang);
+            }
+        }
+        
+//        Save and delete khach hang into dsKhachDoan
+        if (!newKhachHangList.isEmpty()) {
+            for (KhachHangDTO khachHang : newKhachHangList) {
+                Long savedId = dsKhachDoanBLL.save(new DsKhachDoanDTO(idDoan, khachHang.getId()));
+                if (savedId == null) 
+                    return false;
+            }
+        }
+        
+        if (!deletedKhachHangList.isEmpty()) {
+            for (KhachHangDTO khachHang : deletedKhachHangList) {
+                try {
+                    dsKhachDoanBLL.deleteByIdDoanAndIdKhachHang(idDoan, khachHang.getId());
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }  
+            }
+        }
+        
+        return true;
+    }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
@@ -251,8 +264,6 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     public String getDoanItemName(DoanDTO doan) {
         return doan.getId() + " - " + doan.getTenDoan();
     }
-    
-  
     
     public void setComboBoxDoan()
     {
@@ -645,11 +656,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         {
             boolean result = false;
             if(this.action.equals("POST")) {
-                try {
-                    result = save();
-                } catch (IOException ex) {
-                    Logger.getLogger(popUpDsNguoiDi.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                result = save();
                 if(result) {
 
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);

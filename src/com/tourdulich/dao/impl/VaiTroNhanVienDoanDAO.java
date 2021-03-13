@@ -33,13 +33,7 @@ public class VaiTroNhanVienDoanDAO extends AbstractDAO<VaiTroNhanVienDoanDTO> im
     public Long save(VaiTroNhanVienDoanDTO vaiTroNhanVienDoan) {
         String sql = "INSERT INTO vai_tro_nhan_vien_doan(id_ds_nv_doan, id_vai_tro) VALUES(?, ?)";
         return insert(sql, vaiTroNhanVienDoan.getIdDsNvDoan(), vaiTroNhanVienDoan.getIdVaiTro());
-    }
-
-    @Override
-    public void delete(Long id) {
-        String sql = "DELETE FROM vai_tro_nhan_vien_doan WHERE id = ?";
-        update(sql, id);
-    }            
+    }          
 
     @Override
     public List<Long> findByIdDsNhanVienDoan(Long idDsNhanVienDoan) {

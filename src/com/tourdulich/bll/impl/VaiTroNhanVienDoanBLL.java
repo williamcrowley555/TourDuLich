@@ -44,11 +44,6 @@ public class VaiTroNhanVienDoanBLL implements IVaiTroNhanVienDoanBLL {
     }
 
     @Override
-    public void delete(Long id) {
-        vaiTroNhanVienDoanDAO.delete(id);
-    }
-
-    @Override
     public List<Long> findByIdNhanVien(Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

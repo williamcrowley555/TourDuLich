@@ -18,5 +18,5 @@ public interface IDsKhachDoanDAO {
     List<Long> findByIdDoan(Long idDoan);
     Long save(DsKhachDoanDTO dsKhachDoan);
     void delete(Long id); 
-    void deleteByIdDoan(Long idDoan);
+    void deleteByIdDoanAndIdKhachHang(Long idDoan, Long idKhachHang);
 }

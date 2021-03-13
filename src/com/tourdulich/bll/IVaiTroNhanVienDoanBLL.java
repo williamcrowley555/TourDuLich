@@ -16,9 +16,8 @@ import java.util.List;
 public interface IVaiTroNhanVienDoanBLL {
     List<VaiTroNhanVienDoanDTO> findAll();
     VaiTroNhanVienDoanDTO findById(Long id);
-    Long save(VaiTroNhanVienDoanDTO vaiTroNhanVienDoan);
     List<VaiTroDTO> findByIdVaiTroNhanVienDoan(Long idVaiTroNhanVienDoan);
     List<Long> findByIdNhanVien(Long id);
-    void delete(Long id);   
+    Long save(VaiTroNhanVienDoanDTO vaiTroNhanVienDoan);
     void deleteByIdDsNhanVienDoan(Long idDsNhanVienDoan);
 }

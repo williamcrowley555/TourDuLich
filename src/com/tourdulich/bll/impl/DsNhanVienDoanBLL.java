@@ -8,8 +8,10 @@ package com.tourdulich.bll.impl;
 import com.tourdulich.bll.IDsNhanVienDoanBLL;
 import com.tourdulich.dao.IDsNhanVienDoanDAO;
 import com.tourdulich.dao.INhanVienDAO;
+import com.tourdulich.dao.IVaiTroNhanVienDoanDAO;
 import com.tourdulich.dao.impl.DsNhanVienDoanDAO;
 import com.tourdulich.dao.impl.NhanVienDAO;
+import com.tourdulich.dao.impl.VaiTroNhanVienDoanDAO;
 import com.tourdulich.dto.DsNhanVienDoanDTO;
 import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.dto.NhanVienDTO;
@@ -24,10 +26,12 @@ import java.util.List;
 public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
     private INhanVienDAO nhanVienDAO; 
     private IDsNhanVienDoanDAO dsNhanVienDoanDAO;
+    private IVaiTroNhanVienDoanDAO vaiTroNhanVienDoanDAO;
 
     public DsNhanVienDoanBLL() {
-        this.dsNhanVienDoanDAO = new DsNhanVienDoanDAO();
         this.nhanVienDAO = new NhanVienDAO();
+        this.dsNhanVienDoanDAO = new DsNhanVienDoanDAO();
+        this.vaiTroNhanVienDoanDAO = new VaiTroNhanVienDoanDAO();
     }
     
     @Override
@@ -41,8 +45,8 @@ public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
     }
 
     @Override
-    public Long save(DsNhanVienDoanDTO dsNhanVienDoan) {
-        return dsNhanVienDoanDAO.save(dsNhanVienDoan);
+    public Long save(DsNhanVienDoanDTO NhanVienDoan) {
+        return dsNhanVienDoanDAO.save(NhanVienDoan);
     }
 
     @Override
@@ -79,12 +83,14 @@ public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
     }
 
     @Override
-    public void deleteByIdDoan(Long idDoan) {
-          dsNhanVienDoanDAO.deleteByIdDoan(idDoan);
+    public DsNhanVienDoanDTO findByIdNhanVienDoan(Long idDoan, Long idNhanVien) {
+        return dsNhanVienDoanDAO.findIdNhanVienDoan(idDoan, idNhanVien);
     }
 
     @Override
-    public DsNhanVienDoanDTO findByIdNhanVienDoan(Long idDoan, Long idNhanVien) {
-         return dsNhanVienDoanDAO.findIdNhanVienDoan(idDoan, idNhanVien);
+    public void deleteByIdDoanAndIdNhanVien(Long idDoan, Long idNhanVien) {
+        Long idDsNhanVienDoan = dsNhanVienDoanDAO.findByIdDoanAndIdNhanVien(idDoan, idNhanVien).getId();
+        vaiTroNhanVienDoanDAO.deleteByIdDsNhanVienDoan(idDsNhanVienDoan);
+        dsNhanVienDoanDAO.deleteByIdDoanAndIdNhanVien(idDoan, idNhanVien);
     }
 }

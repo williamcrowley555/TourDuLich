@@ -20,10 +20,10 @@ public interface IDsNhanVienDoanBLL {
     List<DsNhanVienDoanDTO> findAll();
     DsNhanVienDoanDTO findById(Long id);
     DsNhanVienDoanDTO findByIdNhanVienDoan(Long idDoan,Long idNhanVien);
-    Long save(DsNhanVienDoanDTO dsNhanVienDoan);
     List <NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour);
     ArrayList<NhanVienDTO> findByIdDoan(Long idDoan);
+    Long save(DsNhanVienDoanDTO NhanVienDoan);
     void update(DsNhanVienDoanDTO dsNhanVienDoan);
     void delete(Long id);
-    void deleteByIdDoan(Long idDoan);
+    void deleteByIdDoanAndIdNhanVien(Long idDoan, Long idNhanVien);
 }

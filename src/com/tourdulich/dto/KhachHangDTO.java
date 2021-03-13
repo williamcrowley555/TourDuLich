@@ -6,7 +6,9 @@
 package com.tourdulich.dto;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 
 
@@ -117,5 +119,60 @@ public class KhachHangDTO {
         return "NhanVienDTO{" + "id=" + id + ", ho=" + ho + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", cmnd=" + cmnd + ", sdt=" + sdt + ", diaChi=" + diaChi + ", hinhAnh=" + hinhAnh + ", ngaySinh=" + ngaySinh + '}';
     }
 
-    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.ho);
+        hash = 79 * hash + Objects.hashCode(this.ten);
+        hash = 79 * hash + Objects.hashCode(this.gioiTinh);
+        hash = 79 * hash + Objects.hashCode(this.cmnd);
+        hash = 79 * hash + Objects.hashCode(this.sdt);
+        hash = 79 * hash + Objects.hashCode(this.diaChi);
+        hash = 79 * hash + Arrays.hashCode(this.hinhAnh);
+        hash = 79 * hash + Objects.hashCode(this.ngaySinh);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final KhachHangDTO other = (KhachHangDTO) obj;
+        if (!Objects.equals(this.ho, other.ho)) {
+            return false;
+        }
+        if (!Objects.equals(this.ten, other.ten)) {
+            return false;
+        }
+        if (!Objects.equals(this.cmnd, other.cmnd)) {
+            return false;
+        }
+        if (!Objects.equals(this.sdt, other.sdt)) {
+            return false;
+        }
+        if (!Objects.equals(this.diaChi, other.diaChi)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.gioiTinh, other.gioiTinh)) {
+            return false;
+        }
+        if (!Arrays.equals(this.hinhAnh, other.hinhAnh)) {
+            return false;
+        }
+        if (!Objects.equals(this.ngaySinh, other.ngaySinh)) {
+            return false;
+        }
+        return true;
+    }
 }
