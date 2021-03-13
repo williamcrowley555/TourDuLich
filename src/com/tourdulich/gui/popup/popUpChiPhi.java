@@ -97,8 +97,13 @@ public class popUpChiPhi extends javax.swing.JFrame {
         tourBLL = new TourBLL();
         dichVuBLL = new DichVuBLL();
         chiPhiDoanBLL = new ChiPhiDoanBLL();
+        
         setComboBox(comboBoxTour, getTourItems());
         setComboBox(comboBoxDoan, getDoanItems());
+        
+        comboBoxTour.setEnabled(false);
+        comboBoxDoan.setEnabled(false);
+        
         setComboBox(comboBoxDichVu, getDichVuItems());
         CustomWindow();
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
