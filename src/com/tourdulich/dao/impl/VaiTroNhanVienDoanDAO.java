@@ -7,6 +7,7 @@ package com.tourdulich.dao.impl;
 
 import com.tourdulich.dao.IVaiTroNhanVienDoanDAO;
 import com.tourdulich.dto.VaiTroNhanVienDoanDTO;
+import com.tourdulich.mapper.impl.IdVaiTroMapper;
 import com.tourdulich.mapper.impl.VaiTroNhanVienDoanMapper;
 import java.util.List;
 
@@ -39,5 +40,17 @@ public class VaiTroNhanVienDoanDAO extends AbstractDAO<VaiTroNhanVienDoanDTO> im
         String sql = "DELETE FROM vai_tro_nhan_vien_doan WHERE id = ?";
         update(sql, id);
     }            
+
+    @Override
+    public List<Long> findByIdDsNhanVienDoan(Long idDsNhanVienDoan) {
+         String sql = "SELECT * FROM vai_tro_nhan_vien_doan WHERE id_ds_nv_doan = ?";
+        return query(sql, new IdVaiTroMapper(), idDsNhanVienDoan);
+    }
+
+    @Override
+    public void deleteByIdDsNhanVienDoan(Long idDsNhanVienDoan) {
+        String sql = "DELETE FROM vai_tro_nhan_vien_doan WHERE id_ds_nv_doan = ?";
+        update(sql, idDsNhanVienDoan);
+    }
  
 }
