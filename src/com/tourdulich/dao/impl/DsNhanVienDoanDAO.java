@@ -12,6 +12,7 @@ import com.tourdulich.mapper.impl.DsNhanVienDoanMapper;
 import com.tourdulich.mapper.impl.IdKhachDoanMapper;
 import com.tourdulich.mapper.impl.IdMapper;
 import com.tourdulich.mapper.impl.IdNhanVienDoanMapper;
+import com.tourdulich.mapper.impl.IdNhanVienMapper;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
                     "JOIN ds_nhan_vien_doan \n" +
                     "ON ds_nhan_vien_doan.id_doan = doan.id\n" +
                     "WHERE ? NOT BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc AND doan.id_tour = ?";
-       return query(sql, new IdMapper(), date, idTour);
+       return query(sql, new IdNhanVienMapper(), date, idTour);
 
     }
 

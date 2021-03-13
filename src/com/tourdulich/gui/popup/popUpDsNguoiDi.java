@@ -580,7 +580,9 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
 
     private void btnChonNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonNhanVienActionPerformed
         // TODO add your handling code here:
-        popUpTableNhanVien popUpNhanVien = new popUpTableNhanVien(this, listNhanVien);
+        String selectedTour = comboBoxTour.getSelectedItem().toString();
+        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+        popUpTableNhanVien popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, idTour);
         popUpNhanVien.setVisible(true);
     }//GEN-LAST:event_btnChonNhanVienActionPerformed
 
