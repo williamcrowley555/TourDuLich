@@ -123,7 +123,9 @@ public class QuanLyTour extends javax.swing.JPanel {
         scroll = new javax.swing.JScrollPane();
         tblTour = new javax.swing.JTable();
 
-        itemSua.setText("jMenuItem1");
+        itemSua.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
+        itemSua.setText("Sửa");
         itemSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSuaActionPerformed(evt);
@@ -131,7 +133,10 @@ public class QuanLyTour extends javax.swing.JPanel {
         });
         rightClickMenu.add(itemSua);
 
-        itemXoa.setText("jMenuItem2");
+        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
+        itemXoa.setText("Xóa");
+        itemXoa.setToolTipText("");
         itemXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemXoaActionPerformed(evt);
@@ -246,6 +251,9 @@ public class QuanLyTour extends javax.swing.JPanel {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tblTourMousePressed(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblTourMouseReleased(evt);
+            }
         });
         scroll.setViewportView(tblTour);
 
@@ -310,42 +318,6 @@ public class QuanLyTour extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblTourMousePressed
 
-    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-        // TODO add your handling code here:
-//        int rowindex = tblTour.getSelectedRow();
-//        Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
-//        if (this.popUp == null) {
-//        popUp = new popUpTour("PUT", tourBLL.findById(id));
-//        } else {
-//            this.popUp.toFront();
-//            this.popUp.center();
-//        }
-//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-//        @Override
-//        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//            popUp = null;
-//            loadTableData();
-//        }
-//    });
-    }//GEN-LAST:event_itemSuaActionPerformed
-
-    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-        // TODO add your handling code here:
-        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-        if(response == JOptionPane.YES_OPTION) {
-            int rowindex = tblTour.getSelectedRow();
-            Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
-            try {
-                tourBLL.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        }
-        loadTableData();
-    }//GEN-LAST:event_itemXoaActionPerformed
-
     private void btnDanhSachDiaDiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDanhSachDiaDiemMousePressed
@@ -375,6 +347,57 @@ public class QuanLyTour extends javax.swing.JPanel {
        
        
     }//GEN-LAST:event_btnDanhSachDiaDiemActionPerformed
+
+    private void tblTourMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTourMouseReleased
+        // TODO add your handling code here:
+        int r = tblTour.rowAtPoint(evt.getPoint());
+        if (r >= 0 && r < tblTour.getRowCount()) {
+            tblTour.setRowSelectionInterval(r, r);
+        } else {
+           tblTour.clearSelection();
+        }
+        int rowindex = tblTour.getSelectedRow();
+        if (rowindex < 0)
+            return;
+        if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable ) {
+            
+            rightClickMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_tblTourMouseReleased
+
+    private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
+        int rowindex = tblTour.getSelectedRow();
+        Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+            popUp = new popUpTour("PUT", tourBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                popUp = null;
+                loadTableData();
+            }
+        });
+    }//GEN-LAST:event_itemSuaActionPerformed
+
+    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+        if(response == JOptionPane.YES_OPTION) {
+            int rowindex = tblTour.getSelectedRow();
+            Long id = Long.parseLong(tblTour.getValueAt(rowindex,0).toString());
+            try {
+                tourBLL.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
+        loadTableData();
+    }//GEN-LAST:event_itemXoaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
