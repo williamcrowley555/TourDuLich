@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -47,10 +48,10 @@ public class popUpTableCapVaiTroNhanVien extends javax.swing.JFrame {
     public popUpTableCapVaiTroNhanVien(DsNhanVienDoanDTO nhanVienDoan) {
         initComponents();
         this.nhanVienDoan = nhanVienDoan;
-        loadTableVaiTro();
+        loadTableNhanVien();
        
-        INhanVienBLL nhanVienBLL = new NhanVienBLL();
-        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), columnNames));
+        //INhanVienBLL nhanVienBLL = new NhanVienBLL();
+        //tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), columnNames));
         headerColor(14,142,233,tblNhanVien);
         
     }
@@ -59,12 +60,14 @@ public class popUpTableCapVaiTroNhanVien extends javax.swing.JFrame {
         initComponents();     
  
     }
-    public void loadTableVaiTro()
+    public void loadTableNhanVien()
     {
-          
-          
-          tblNhanVien_VaiTro.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), columnNames));
-          headerColor(14,142,233,tblNhanVien_VaiTro);
+          model = new DefaultTableModel(columnNames,0);
+             
+          //NhanVienDTO nhanVien = nhanVienBLL.findById(nhanVienDoan.getIdNhanVien());
+//          
+//          tblNhanVien_VaiTro.setModel(new NhanVienTableLoaderUtil().setTable(nhanVien, columnNames), columnNames));
+          headerColor(14,142,233,tblNhanVien);
     }
     
     public void setTableNhanVienDoan(ArrayList<NhanVienDTO> list)
