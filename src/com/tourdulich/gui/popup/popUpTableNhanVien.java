@@ -18,6 +18,7 @@ import com.tourdulich.util.KhachHangTableLoaderUtil;
 import com.tourdulich.util.NhanVienTableLoaderUtil;
 import java.awt.Color;
 import java.awt.Font;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -43,7 +44,7 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
                             "Id",
                             "Họ",
                             "Tên"};
-    public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList) {
+    public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList, Long idTour) {
         initComponents();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         if (nhanVienList == null)
@@ -52,7 +53,7 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         this.frame = frame;
         initEmptyTableNhanVienDoan();
         setTableNhanVienDoan(this.nhanVienList);
-        INhanVienBLL nhanVienBLL = new NhanVienBLL();
+        nhanVienBLL = new NhanVienBLL();
         tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), columnNames));
         headerColor(14,142,233,tblNhanVien);
         

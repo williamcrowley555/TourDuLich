@@ -18,5 +18,5 @@ public interface IVaiTroNhanVienDoanDAO {
     List<Long> findByIdDsNhanVienDoan(Long idDsNhanVienDoan);
     Long save(VaiTroNhanVienDoanDTO vaiTroNhanVienDoan);
     void delete(Long id);    
-    void deleteByIdDsNhanVienDoan(Long idDsNhanVienDoan);    
+    void deleteByIdDsNhanVienDoan(Long idDsNhanVienDoan); 
 }
