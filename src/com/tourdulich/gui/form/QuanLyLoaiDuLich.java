@@ -273,20 +273,20 @@ public class QuanLyLoaiDuLich extends javax.swing.JPanel {
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-        // TODO add your handling code here:
-         int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-        if(response == JOptionPane.YES_OPTION) {
-            int rowindex = tblLoaiDuLich.getSelectedRow();
-            Long id = Long.parseLong(tblLoaiDuLich.getValueAt(rowindex,0).toString());
-            try {
-                loaiDuLichBLL.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        }
-        loadTableData();
+//        // TODO add your handling code here:
+//         int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
+//        if(response == JOptionPane.YES_OPTION) {
+//            int rowindex = tblLoaiDuLich.getSelectedRow();
+//            Long id = Long.parseLong(tblLoaiDuLich.getValueAt(rowindex,0).toString());
+//            try {
+//                loaiDuLichBLL.delete(id);
+//                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            } catch(Exception e) {
+//                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+//                e.printStackTrace();
+//            }
+//        }
+//        loadTableData();
     }//GEN-LAST:event_itemXoaActionPerformed
 
 

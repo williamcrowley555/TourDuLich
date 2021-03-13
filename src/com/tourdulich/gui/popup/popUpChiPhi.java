@@ -6,6 +6,7 @@
 package com.tourdulich.gui.popup;
 
 import com.toedter.calendar.JTextFieldDateEditor;
+import com.tourdulich.bll.IChiPhiDoanBLL;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDichVuBLL;
@@ -13,6 +14,7 @@ import com.tourdulich.bll.IDoanBLL;
 import com.tourdulich.bll.ITinhBLL;
 import com.tourdulich.bll.ITinhBLL;
 import com.tourdulich.bll.ITourBLL;
+import com.tourdulich.bll.impl.ChiPhiDoanBLL;
 import com.tourdulich.bll.impl.DiaDiemBLL;
 import com.tourdulich.bll.impl.DiaDiemBLL;
 import com.tourdulich.bll.impl.DichVuBLL;
@@ -20,6 +22,7 @@ import com.tourdulich.bll.impl.DoanBLL;
 import com.tourdulich.bll.impl.TinhBLL;
 import com.tourdulich.bll.impl.TinhBLL;
 import com.tourdulich.bll.impl.TourBLL;
+import com.tourdulich.dto.ChiPhiDoanDTO;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DichVuDTO;
@@ -64,12 +67,16 @@ public class popUpChiPhi extends javax.swing.JFrame {
     private IDichVuBLL dichVuBLL;
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+    private ChiPhiDoanDTO chiPhiDoan;
+    private IChiPhiDoanBLL chiPhiDoanBLL;
     public popUpChiPhi(String action) {
         initComponents();        
         this.action = action;   
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         dichVuBLL = new DichVuBLL();
+        chiPhiDoan = new ChiPhiDoanDTO();
+        chiPhiDoanBLL = new ChiPhiDoanBLL();
         setComboBox(comboBoxTour, getTourItems());
         setComboBox(comboBoxDichVu, getDichVuItems());
         setComboBoxDoan(); 
@@ -81,24 +88,35 @@ public class popUpChiPhi extends javax.swing.JFrame {
         
     }
     
-    public popUpChiPhi(String action, DiaDiemDTO diaDiem) {
+    public popUpChiPhi(String action, ChiPhiDoanDTO chiPhiDoan) {
         initComponents();
         this.action = action;  
-        this.diaDiem = diaDiem;
+        this.chiPhiDoan = chiPhiDoan;
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
+        dichVuBLL = new DichVuBLL();
+        chiPhiDoanBLL = new ChiPhiDoanBLL();
+        //chiPhiDoan = new ChiPhiDoanDTO();
         setComboBox(comboBoxTour, getTourItems());
         setComboBox(comboBoxDichVu, getDichVuItems());
         setComboBoxDoan();
         CustomWindow();
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
+        setLabelText(chiPhiDoan);
         this.setVisible(true);    
     }
-     
-    public void setLabelText(DiaDiemDTO diaDiem)
+
+//    public popUpChiPhi(String put, DiaDiemDTO findById) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+    public void setLabelText(ChiPhiDoanDTO chiPhiDoan)
     {
-        
+        txtHoaDon.setText(chiPhiDoan.getHoaDon());
+        DCNgayHoaDon.setDate(chiPhiDoan.getNgayHoaDon());
+        txtSoTien.setText(chiPhiDoan.getChiPhi().toString());
+        comboBoxDichVu.setSelectedItem(getDichVuItemName(dichVuBLL.findById(chiPhiDoan.getIdDichVu())));
     }
     public boolean validateForm() 
     {   
@@ -106,17 +124,24 @@ public class popUpChiPhi extends javax.swing.JFrame {
       return true;
        
     }
-    private DiaDiemDTO getFormInfo() throws IOException {
-        DiaDiemDTO diaDiem = new DiaDiemDTO();
-       
-        return diaDiem;
+    private ChiPhiDoanDTO getFormInfo() throws IOException {
+        ChiPhiDoanDTO chiPhiDoan = new ChiPhiDoanDTO();
+        String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+        Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
+        chiPhiDoan.setIdDoan(idDoan);
+        String selectedDichVu = comboBoxDichVu.getSelectedItem().toString();
+        Long idDichVu = Long.parseLong(selectedDichVu.substring(0, selectedDichVu.indexOf(" - ")));
+        chiPhiDoan.setIdDoan(idDichVu);
+        chiPhiDoan.setHoaDon(txtHoaDon.getText());
+        chiPhiDoan.setNgayHoaDon(DCNgayHoaDon.getDate());
+        chiPhiDoan.setChiPhi(Integer.valueOf(txtSoTien.getText()));
+        
+        return chiPhiDoan;
     }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
-    
-  
     
     public popUpChiPhi() {
         initComponents();
@@ -201,7 +226,10 @@ public class popUpChiPhi extends javax.swing.JFrame {
         }
         return dichVuItems;
     }
-   
+    
+    public String getDichVuItemName(DichVuDTO dichVu) {
+        return dichVu.getId() + " - " + dichVu.getTenDichVu();
+    }
     
     public String getTourItemName(TourDTO tour) {
         return tour.getId() + " - " + tour.getTenTour();
@@ -541,36 +569,36 @@ public class popUpChiPhi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-//        if (validateForm())
-//        {
-//            DiaDiemDTO newDiaDiem = null;
-//            try {
-//                newDiaDiem = getFormInfo();
-//            } catch (IOException ex) {
-//                Logger.getLogger(popUpChiPhi.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//            if(this.action.equals("POST")) {
-//                Long newDiaDiemId = diaDiemBLL.save(newDiaDiem);
-//                if(newDiaDiemId != null) {
-//
-//                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//                    dispose();
-//
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-//                }
-//            } else if(this.action.equals("PUT")) {
-//                try {
-//                    diaDiemBLL.update(newDiaDiem);
-//                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//                    dispose();
-//                } catch(Exception e) {
-//                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+        if (validateForm())
+        {
+            ChiPhiDoanDTO newChiPhi = null;
+            try {
+                newChiPhi = getFormInfo();
+            } catch (IOException ex) {
+                Logger.getLogger(popUpChiPhi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if(this.action.equals("POST")) {
+                Long newChiPhiId = chiPhiDoanBLL.save(newChiPhi);
+                if(newChiPhiId != null) {
+
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if(this.action.equals("PUT")) {
+                try {
+                    chiPhiDoanBLL.update(newChiPhi);
+                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                } catch(Exception e) {
+                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
+                }
+            }
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void comboBoxTourItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxTourItemStateChanged
