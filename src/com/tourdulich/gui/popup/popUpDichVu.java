@@ -92,13 +92,13 @@ public class popUpDichVu extends javax.swing.JFrame {
        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));  
        if(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true).isEmpty())
        {
-           lblValidateTenVaiTro.setIcon(iconCheck);
-           lblValidateTenVaiTro.setToolTipText(null);
+           lblValidateTenDichVu.setIcon(iconCheck);
+           lblValidateTenDichVu.setToolTipText(null);
            return true;
        }
        else {
-           lblValidateTenVaiTro.setIcon(iconError);
-           lblValidateTenVaiTro.setToolTipText(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true));
+           lblValidateTenDichVu.setIcon(iconError);
+           lblValidateTenDichVu.setToolTipText(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true));
           return false;
        }
     }
@@ -134,7 +134,7 @@ public class popUpDichVu extends javax.swing.JFrame {
         txtTenDichVu = new javax.swing.JTextField();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        lblValidateTenVaiTro = new javax.swing.JLabel();
+        lblValidateTenDichVu = new javax.swing.JLabel();
         lblMoTa = new javax.swing.JLabel();
         AreaScrollPane = new javax.swing.JScrollPane();
         txtMoTa = new javax.swing.JTextArea();
@@ -241,39 +241,39 @@ public class popUpDichVu extends javax.swing.JFrame {
         pnlBody.setLayout(pnlBodyLayout);
         pnlBodyLayout.setHorizontalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(lblTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                    .addComponent(lblMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblValidateTenVaiTro, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBodyLayout.createSequentialGroup()
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addComponent(lblTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValidateTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTenDichVu, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                            .addComponent(lblMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTenDichVu)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTenDichVu)
+                    .addComponent(lblValidateTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(14, 14, 14)
                 .addComponent(lblMoTa)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(lblValidateTenVaiTro))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addComponent(AreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,7 +393,7 @@ public class popUpDichVu extends javax.swing.JFrame {
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblMoTa;
     private javax.swing.JLabel lblTenDichVu;
-    private javax.swing.JLabel lblValidateTenVaiTro;
+    private javax.swing.JLabel lblValidateTenDichVu;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JTextArea txtMoTa;

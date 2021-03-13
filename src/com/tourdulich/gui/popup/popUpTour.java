@@ -14,6 +14,7 @@ import com.tourdulich.dto.LoaiDuLichDTO;
 import com.tourdulich.dto.TourDTO;
 import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
+import com.tourdulich.util.InputValidatorUtil;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -100,9 +101,49 @@ public class popUpTour extends javax.swing.JFrame {
         return loaiDuLichItems;
     }
     
+    
     public String getLoaiDuLichItemName(LoaiDuLichDTO loaiDuLich) {
         return loaiDuLich.getId() + " - " + loaiDuLich.getTenLoaiDuLich();
     }
+    
+      public boolean validateForm() 
+    {   
+        
+        boolean Ten, DacDiem; 
+        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
+        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
+         
+        
+        if (InputValidatorUtil.isValidAddress(txtTenTour.getText()).isEmpty())  
+        {
+            Ten = true;
+            lblValidateTenTour.setIcon(iconCheck);
+            lblValidateTenTour.setToolTipText(null);
+        } else {
+            Ten = false;
+            lblValidateTenTour.setIcon(iconError);
+            lblValidateTenTour.setToolTipText(InputValidatorUtil.isValidName(txtTenTour.getText(), true));
+        } 
+        
+        if (InputValidatorUtil.isValidAddress(txtDacDiem.getText()).isEmpty())  
+        {
+            DacDiem = true;
+            lblValidateDacDiem.setIcon(iconCheck);
+            lblValidateDacDiem.setToolTipText(null);
+        } else {
+            DacDiem = false;
+            lblValidateDacDiem.setIcon(iconError);
+            lblValidateDacDiem.setToolTipText(InputValidatorUtil.isValidName(txtDacDiem.getText(), true));
+        } 
+        
+       
+        
+        if (DacDiem && Ten)
+        return true;
+        else return false;
+       
+    }
+      
     public void CustomWindow()
     {   
         Color flatBlue = new Color(14,142,233);  
@@ -178,9 +219,8 @@ public class popUpTour extends javax.swing.JFrame {
         lblGioiThieu = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
-        lblValidateTen = new javax.swing.JLabel();
-        lblValidateDiaChi = new javax.swing.JLabel();
-        lblValidateGioiThieu = new javax.swing.JLabel();
+        lblValidateTenTour = new javax.swing.JLabel();
+        lblValidateDacDiem = new javax.swing.JLabel();
         AreaScrollPane1 = new javax.swing.JScrollPane();
         txtDacDiem = new javax.swing.JTextArea();
         comboBoxLoaiDuLich = new javax.swing.JComboBox<>();
@@ -279,7 +319,7 @@ public class popUpTour extends javax.swing.JFrame {
             }
         });
 
-        lblValidateTen.setPreferredSize(new java.awt.Dimension(24, 24));
+        lblValidateTenTour.setPreferredSize(new java.awt.Dimension(24, 24));
 
         AreaScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         AreaScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -309,58 +349,43 @@ public class popUpTour extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(509, 509, 509)
-                        .addComponent(lblValidateDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblGioiThieu)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblValidateDacDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblGioiThieu)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(96, 96, 96)
-                                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0)
-                                .addComponent(lblValidateTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtTenTour, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboBoxLoaiDuLich, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(AreaScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
-                                .addGap(140, 140, 140)
-                                .addComponent(lblValidateGioiThieu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblLoaiDuLich, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBodyLayout.createSequentialGroup()
+                        .addComponent(lblTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValidateTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtTenTour, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(comboBoxLoaiDuLich, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AreaScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
+                    .addComponent(lblLoaiDuLich, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pnlBodyLayout.createSequentialGroup()
-                            .addComponent(lblValidateDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(143, 143, 143))
-                        .addGroup(pnlBodyLayout.createSequentialGroup()
-                            .addComponent(lblValidateTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(233, 233, 233)))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(lblTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblLoaiDuLich)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboBoxLoaiDuLich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(lblGioiThieu)
-                        .addGap(18, 18, 18)))
+                .addGap(30, 30, 30)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblValidateGioiThieu, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AreaScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValidateTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(lblLoaiDuLich)
+                .addGap(18, 18, 18)
+                .addComponent(comboBoxLoaiDuLich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblGioiThieu)
+                    .addComponent(lblValidateDacDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(AreaScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,7 +398,7 @@ public class popUpTour extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
-            .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,9 +530,8 @@ public class popUpTour extends javax.swing.JFrame {
     private javax.swing.JLabel lblLoaiDuLich;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblTenTour;
-    private javax.swing.JLabel lblValidateDiaChi;
-    private javax.swing.JLabel lblValidateGioiThieu;
-    private javax.swing.JLabel lblValidateTen;
+    private javax.swing.JLabel lblValidateDacDiem;
+    private javax.swing.JLabel lblValidateTenTour;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JTextArea txtDacDiem;
