@@ -311,7 +311,7 @@ public class QuanLyDiaDiem extends javax.swing.JPanel {
 
     private void tblDiaDiemMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiaDiemMouseReleased
         // TODO add your handling code here:
-         int r = tblDiaDiem.rowAtPoint(evt.getPoint());
+        int r = tblDiaDiem.rowAtPoint(evt.getPoint());
         if (r >= 0 && r < tblDiaDiem.getRowCount()) {
             tblDiaDiem.setRowSelectionInterval(r, r);
         } else {
