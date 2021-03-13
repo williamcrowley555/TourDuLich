@@ -54,7 +54,7 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
 
     @Override
     public List<Long> getFreeNhanVien(LocalDate date, Long idTour) {
-        String sql = "SELECT DISTINCT ds_nhan_vien_doan.id_nhan_vien FROM doan\n" +
+        String sql ="SELECT DISTINCT ds_nhan_vien_doan.id_nhan_vien FROM doan\n" +
                     "JOIN ds_nhan_vien_doan \n" +
                     "ON ds_nhan_vien_doan.id_doan = doan.id\n" +
                     "WHERE ? NOT BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc AND doan.id_tour = ?";

@@ -5,9 +5,11 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.tourdulich.bll.IDsNhanVienDoanBLL;
 import com.tourdulich.bll.IKhachHangBLL;
 import com.tourdulich.bll.INhanVienBLL;
 import com.tourdulich.bll.IVaiTroBLL;
+import com.tourdulich.bll.impl.DsNhanVienDoanBLL;
 import com.tourdulich.bll.impl.KhachHangBLL;
 import com.tourdulich.bll.impl.NhanVienBLL;
 import com.tourdulich.dto.KhachHangDTO;
@@ -33,6 +35,7 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
      */
     INhanVienBLL nhanVienBLL;
     IVaiTroBLL vaiTroBLL;
+    IDsNhanVienDoanBLL dsNhanVienDoanBLL;
     popUpDsNguoiDi frame;
     ArrayList<NhanVienDTO> nhanVienList = null;
     DefaultTableModel model;
@@ -42,6 +45,7 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
                             "Tên"};
     public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList) {
         initComponents();
+        dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         if (nhanVienList == null)
         nhanVienList = new ArrayList<>();
         this.nhanVienList = nhanVienList;

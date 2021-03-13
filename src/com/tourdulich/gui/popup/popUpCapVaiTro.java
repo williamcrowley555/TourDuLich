@@ -63,8 +63,8 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
                         "Giới Tính",
                         "Ngày Sinh",
                         "Địa Chỉ",
-                        "SĐT",
-                        "Vai Trò"
+                        "SĐT"
+                        
     };
     private String action;
     private DoanDTO doan = null;
@@ -607,26 +607,33 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
 
     private void btnLuu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuu1ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblNhanVien.getSelectedRow();
         if (this.popUp == null) {
-             int rowindex = tblNhanVien.getSelectedRow();
-            Long idNhanVien = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-            String selectedDoan = comboBoxDoan.getSelectedItem().toString();
-            Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));         
-            System.out.println(dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, idNhanVien));
-            this.popUp = new popUpTableCapVaiTroNhanVien(dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, idNhanVien));
-            popUp.setVisible(true);
+            if (selectedRow >=0)
+            {
+                int rowindex = tblNhanVien.getSelectedRow();
+                Long idNhanVien = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
+                String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+                Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));         
+
+                this.popUp = new popUpTableCapVaiTroNhanVien(dsNhanVienDoanBLL.findByIdNhanVienDoan(idDoan, idNhanVien).getId());
+                this.popUp.center();
+                popUp.setVisible(true);
+                
+                popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                   popUp = null;
+                   loadTableData();
+                }
+                });
+            } else JOptionPane.showMessageDialog(this, "Hãy Chọn 1 Nhân Viên Để Cấp Vai Trò", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
            
         } else {
             this.popUp.toFront();
             this.popUp.center();
         }
-        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-        @Override
-        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-            popUp = null;
-           loadTableData();
-        }
-    });
+        
       
        
     }//GEN-LAST:event_btnLuu1ActionPerformed
