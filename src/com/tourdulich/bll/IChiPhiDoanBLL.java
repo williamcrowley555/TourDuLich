@@ -15,6 +15,7 @@ import java.util.List;
 public interface IChiPhiDoanBLL {
     List<ChiPhiDoanDTO> findAll();
     ChiPhiDoanDTO findById(Long id);
+    List<ChiPhiDoanDTO> findByIdDoan(Long idDoan);
     Long save(ChiPhiDoanDTO chiPhiDoan);
     void update(ChiPhiDoanDTO chiPhiDoan);
     void delete(Long id);    
