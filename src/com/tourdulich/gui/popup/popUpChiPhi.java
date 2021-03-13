@@ -69,6 +69,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
     private ITourBLL tourBLL;
     private ChiPhiDoanDTO chiPhiDoan;
     private IChiPhiDoanBLL chiPhiDoanBLL;
+    
     public popUpChiPhi(String action) {
         initComponents();        
         this.action = action;   
@@ -78,8 +79,8 @@ public class popUpChiPhi extends javax.swing.JFrame {
         chiPhiDoan = new ChiPhiDoanDTO();
         chiPhiDoanBLL = new ChiPhiDoanBLL();
         setComboBox(comboBoxTour, getTourItems());
+        setComboBox(comboBoxDoan, getDoanItems());
         setComboBox(comboBoxDichVu, getDichVuItems());
-        setComboBoxDoan(); 
         CustomWindow();    
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
@@ -96,10 +97,9 @@ public class popUpChiPhi extends javax.swing.JFrame {
         tourBLL = new TourBLL();
         dichVuBLL = new DichVuBLL();
         chiPhiDoanBLL = new ChiPhiDoanBLL();
-        //chiPhiDoan = new ChiPhiDoanDTO();
         setComboBox(comboBoxTour, getTourItems());
+        setComboBox(comboBoxDoan, getDoanItems());
         setComboBox(comboBoxDichVu, getDichVuItems());
-        setComboBoxDoan();
         CustomWindow();
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
@@ -107,15 +107,12 @@ public class popUpChiPhi extends javax.swing.JFrame {
         this.setVisible(true);    
     }
 
-//    public popUpChiPhi(String put, DiaDiemDTO findById) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
     public void setLabelText(ChiPhiDoanDTO chiPhiDoan)
     {
         txtHoaDon.setText(chiPhiDoan.getHoaDon());
         DCNgayHoaDon.setDate(chiPhiDoan.getNgayHoaDon());
         txtSoTien.setText(chiPhiDoan.getChiPhi().toString());
+        comboBoxDoan.setSelectedItem(getDoanItemName(doanBLL.findById(chiPhiDoan.getIdDoan())));
         comboBoxDichVu.setSelectedItem(getDichVuItemName(dichVuBLL.findById(chiPhiDoan.getIdDichVu())));
     }
     public boolean validateForm() 
@@ -126,12 +123,17 @@ public class popUpChiPhi extends javax.swing.JFrame {
     }
     private ChiPhiDoanDTO getFormInfo() throws IOException {
         ChiPhiDoanDTO chiPhiDoan = new ChiPhiDoanDTO();
+        if(this.chiPhiDoan != null) {
+            chiPhiDoan.setId(this.chiPhiDoan.getId());
+        }
         String selectedDoan = comboBoxDoan.getSelectedItem().toString();
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
         chiPhiDoan.setIdDoan(idDoan);
+        
         String selectedDichVu = comboBoxDichVu.getSelectedItem().toString();
         Long idDichVu = Long.parseLong(selectedDichVu.substring(0, selectedDichVu.indexOf(" - ")));
-        chiPhiDoan.setIdDoan(idDichVu);
+        chiPhiDoan.setIdDichVu(idDichVu);
+        
         chiPhiDoan.setHoaDon(txtHoaDon.getText());
         chiPhiDoan.setNgayHoaDon(DCNgayHoaDon.getDate());
         chiPhiDoan.setChiPhi(Integer.valueOf(txtSoTien.getText()));
@@ -216,6 +218,17 @@ public class popUpChiPhi extends javax.swing.JFrame {
         return tourItems;
     }
      
+    public String[] getDoanItems() {
+        List<DoanDTO> doanLists = doanBLL.findAll();
+        String[] doanItems = new String[doanLists.size()];
+        int index = 0;
+        for(DoanDTO d : doanLists) {
+            doanItems[index] = d.getId() + " - " + d.getTenDoan();
+            ++ index;
+        }
+        return doanItems;
+    }
+     
     public String[] getDichVuItems() {
         List<DichVuDTO> dichVuLists = dichVuBLL.findAll();
         String[] dichVuItems = new String[dichVuLists.size()];
@@ -229,6 +242,10 @@ public class popUpChiPhi extends javax.swing.JFrame {
     
     public String getDichVuItemName(DichVuDTO dichVu) {
         return dichVu.getId() + " - " + dichVu.getTenDichVu();
+    }
+    
+    public String getDoanItemName(DoanDTO doan) {
+        return doan.getId() + " - " + doan.getTenDoan();
     }
     
     public String getTourItemName(TourDTO tour) {
