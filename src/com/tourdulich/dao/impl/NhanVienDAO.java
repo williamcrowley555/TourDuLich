@@ -23,6 +23,12 @@ public class NhanVienDAO extends AbstractDAO<NhanVienDTO> implements INhanVienDA
     }
 
     @Override
+    public List<NhanVienDTO> findByStatus(boolean status) {
+        String sql = "SELECT * FROM nhan_vien WHERE trang_thai = ?";
+        return query(sql, new NhanVienMapper(), status);
+    }
+
+    @Override
     public NhanVienDTO findById(Long id) {
         String sql = "SELECT * FROM nhan_vien WHERE id = ?";
         List<NhanVienDTO> nhanVien = query(sql, new NhanVienMapper(), id);
@@ -50,6 +56,12 @@ public class NhanVienDAO extends AbstractDAO<NhanVienDTO> implements INhanVienDA
                 + "hinh_anh = ?, id_vai_tro = ? WHERE id = ?";
         update(sql, nhanVien.getHo(), nhanVien.getTen(), nhanVien.getGioiTinh(), nhanVien.getNgaySinh(), nhanVien.getDiaChi(), 
                 nhanVien.getSdt(), nhanVien.getHinhAnh(), nhanVien.getIdVaiTro(), nhanVien.getId());
+    }
+
+    @Override
+    public void updateStatus(boolean status, Long id) {
+        String sql = "UPDATE nhan_vien SET trang_thai = ? WHERE id = ?";
+        update(sql, status, id);
     }
 
     @Override

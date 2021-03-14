@@ -15,10 +15,12 @@ import java.util.List;
 public interface INhanVienBLL {
     
     List<NhanVienDTO> findAll();
+    List<NhanVienDTO> findByStatus(boolean status);
     NhanVienDTO findById(Long id);
     NhanVienDTO findBySdt(String sdt);
     Long save(NhanVienDTO nhanVien);
     void update(NhanVienDTO nhanVien);
+    void updateStatus(boolean status, Long id);
     void delete(Long id);
     
 }
