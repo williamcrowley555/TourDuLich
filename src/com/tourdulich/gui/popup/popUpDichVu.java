@@ -66,11 +66,13 @@ public class popUpDichVu extends javax.swing.JFrame {
         txtTenDichVu.setText(dichVu.getTenDichVu());
         txtMoTa.setText(dichVu.getMoTa());
     }
+    
     public void myTextArea()
     {
         txtMoTa.setWrapStyleWord(true);
         txtMoTa.setLineWrap(true);
     }
+    
     private DichVuDTO getFormInfo() {
         DichVuDTO dichVu = new DichVuDTO();
         if(this.dichVu != null) {
@@ -88,19 +90,35 @@ public class popUpDichVu extends javax.swing.JFrame {
     
     public boolean validateForm() 
     {
-       ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
-       ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));  
-       if(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true).isEmpty())
-       {
-           lblValidateTenDichVu.setIcon(iconCheck);
-           lblValidateTenDichVu.setToolTipText(null);
-           return true;
-       }
-       else {
-           lblValidateTenDichVu.setIcon(iconError);
-           lblValidateTenDichVu.setToolTipText(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true));
-          return false;
-       }
+        boolean tenDichVu, moTa; 
+        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
+        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
+         
+        if (InputValidatorUtil.isValidName(txtTenDichVu.getText(), true).isEmpty())  
+        {
+            tenDichVu = true;
+            lblTenDichVu.setIcon(iconCheck);
+            lblTenDichVu.setToolTipText(null);
+        } else {
+            tenDichVu = false;
+            lblTenDichVu.setIcon(iconError);
+            lblTenDichVu.setToolTipText(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true));
+        } 
+        
+        if (InputValidatorUtil.isValidAddress(txtMoTa.getText()).isEmpty())  
+        {
+            moTa = true;
+            lblMoTa.setIcon(iconCheck);
+            lblMoTa.setToolTipText(null);
+        } else {
+            moTa = false;
+            lblMoTa.setIcon(iconError);
+            lblMoTa.setToolTipText(InputValidatorUtil.isValidName(txtMoTa.getText(), true));
+        } 
+        
+        if (tenDichVu && moTa)
+        return true;
+        else return false;
     }
     public void center()
     {
