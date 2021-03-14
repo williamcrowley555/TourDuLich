@@ -175,6 +175,16 @@ public class popUpDoan extends javax.swing.JFrame {
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
          
+//        if (InputValidatorUtil.isValidName(txtDoan.getText(), true).isEmpty())  
+//        {
+//            TenDoan = true;
+//            lblValidateTenDoan.setIcon(iconCheck);
+//            lblValidateTenDoan.setToolTipText(null);
+//        } else {
+//            TenDoan = false;
+//            lblValidateTenDoan.setIcon(iconError);
+//            lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidName(txtDoan.getText(), true));
+//        }
         
         if (InputValidatorUtil.isValidAddress(txtDoan.getText()).isEmpty())  
         {
@@ -185,7 +195,7 @@ public class popUpDoan extends javax.swing.JFrame {
             TenDoan = false;
             lblValidateTenDoan.setIcon(iconError);
             lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidAddress(txtDoan.getText()));
-        } 
+        }
         
         if (InputValidatorUtil.isValidStartDate(DCNgayKhoiHanh.getDate()).isEmpty())  
         {

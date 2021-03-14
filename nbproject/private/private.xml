@@ -73,6 +73,7 @@
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dao/impl/TourDAO.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/popUpDiaDiem.java</file>
         </group>
+<<<<<<< HEAD
         <group>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/IGiaTourBLL.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDoan.java</file>
@@ -80,5 +81,8 @@
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyKhachHang.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 37af6c3139cafd01da08aa2b611926c3bf2ee74a
     </open-files>
 </project-private>
