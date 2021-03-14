@@ -9,6 +9,7 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDoanBLL;
+import com.tourdulich.bll.IGiaTourBLL;
 import com.tourdulich.bll.IKhachHangBLL;
 import com.tourdulich.bll.ITinhBLL;
 import com.tourdulich.bll.ITinhBLL;
@@ -17,6 +18,7 @@ import com.tourdulich.bll.IVaiTroBLL;
 import com.tourdulich.bll.impl.DiaDiemBLL;
 import com.tourdulich.bll.impl.DiaDiemBLL;
 import com.tourdulich.bll.impl.DoanBLL;
+import com.tourdulich.bll.impl.GiaTourBLL;
 import com.tourdulich.bll.impl.KhachHangBLL;
 import com.tourdulich.bll.impl.TinhBLL;
 import com.tourdulich.bll.impl.TinhBLL;
@@ -25,6 +27,7 @@ import com.tourdulich.bll.impl.VaiTroBLL;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DoanDTO;
+import com.tourdulich.dto.GiaTourDTO;
 import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.dto.TinhDTO;
@@ -51,6 +54,7 @@ import com.tourdulich.util.KhachHangTableLoaderUtil;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -62,6 +66,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -75,18 +81,25 @@ public class popUpDoan extends javax.swing.JFrame {
     private DoanDTO doan = null;
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
+    private IGiaTourBLL giaTourBLL;
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
+    
+    
     public popUpDoan(String action) {
         initComponents();
         
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
+        giaTourBLL = new GiaTourBLL();
+        
+        
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
-      
+        
+        DCNgayKhoiHanh.getComponentDateTextField().getDocument().addDocumentListener(createDateChooserEvent());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));  
         this.setVisible(true);    
@@ -98,6 +111,7 @@ public class popUpDoan extends javax.swing.JFrame {
         this.doan = doan;
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
+        giaTourBLL = new GiaTourBLL();
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
@@ -115,7 +129,45 @@ public class popUpDoan extends javax.swing.JFrame {
     }
     
     
-     
+    
+    public DocumentListener createDateChooserEvent()
+    {   
+        
+        DocumentListener dl = new DocumentListener() {
+
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    updateFieldState();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                     updateFieldState();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    updateFieldState();
+                }
+
+                protected void updateFieldState() {
+                   setComboBoxGiaTour();
+                }
+            };
+        return dl;
+    }
+    
+    public void setComboBoxGiaTour()
+    {
+        String selectedTour = comboBoxTour.getSelectedItem().toString();
+        Long idTour;
+        if (this.action.equals("POST"))
+        idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+        else idTour = this.doan.getIdTour();
+        LocalDate startDate = DCNgayKhoiHanh.getDate();
+        setComboBox(comboBoxGiaTour, getGiaTienItems(idTour,startDate));
+        System.out.println(startDate);
+    }
      public boolean validateForm() 
     {   
         
@@ -195,6 +247,26 @@ public class popUpDoan extends javax.swing.JFrame {
     public String getTourItemName(TourDTO tour) {
         return tour.getId() + " - " + tour.getTenTour();
     }
+    
+    public String[] getGiaTienItems(Long idTour, LocalDate startDate) {
+        
+        List<GiaTourDTO> giaTourLists = giaTourBLL.findByIdTourAndStartDate(idTour, startDate);
+        String[] giaTourItems = null;
+       
+            giaTourItems = new String[giaTourLists.size()];
+            int index = 0;
+            for(GiaTourDTO vt : giaTourLists) {
+                giaTourItems[index] = vt.getGiaTien().toString();
+                ++ index;           
+            }
+        
+        return giaTourItems;
+    }
+    
+    public String getGiaTienItem(GiaTourDTO giaTour) {
+        return giaTour.getGiaTien().toString();
+    }
+    
     
     public popUpDoan() {
         initComponents();
@@ -368,14 +440,14 @@ public class popUpDoan extends javax.swing.JFrame {
         lblGiaTour.setText("Giá Tour:");
         lblGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
-        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/save_icon.png"))); // NOI18N
         btnLuu.setText(" Lưu");
+        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setBorder(null);
         btnLuu.setContentAreaFilled(false);
         btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setOpaque(true);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,14 +455,14 @@ public class popUpDoan extends javax.swing.JFrame {
             }
         });
 
-        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
-        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/cancel_icon.png"))); // NOI18N
         btnHuy.setText(" Hủy");
+        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
         btnHuy.setBorder(null);
         btnHuy.setContentAreaFilled(false);
         btnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setOpaque(true);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -399,6 +471,12 @@ public class popUpDoan extends javax.swing.JFrame {
         });
 
         lblValidateNgayKetThuc.setPreferredSize(new java.awt.Dimension(24, 24));
+
+        DCNgayKhoiHanh.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                DCNgayKhoiHanhPropertyChange(evt);
+            }
+        });
 
         comboBoxGiaTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         comboBoxGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -513,6 +591,7 @@ public class popUpDoan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -575,11 +654,25 @@ public class popUpDoan extends javax.swing.JFrame {
 
     private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
         // TODO add your handling code here:
+       // setGiaTour();
     }//GEN-LAST:event_comboBoxTourActionPerformed
 
     private void comboBoxGiaTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxGiaTourActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxGiaTourActionPerformed
+
+    private void DCNgayKhoiHanhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhPropertyChange
+        // TODO add your handling code here:
+       
+//       String selectedTour = comboBoxTour.getSelectedItem().toString();
+//       Long idTour;
+//       System.out.println(action);
+//       if (this.action.equals("POST"))
+//       idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+//       else idTour = this.doan.getIdTour();
+//       LocalDate startDate = DCNgayKhoiHanh.getDate();
+//       setComboBox(comboBoxGiaTour, getGiaTienItems(idTour,startDate));
+    }//GEN-LAST:event_DCNgayKhoiHanhPropertyChange
 
     /**
      * @param args the command line arguments

@@ -28,6 +28,7 @@ public class MyComboBoxRenderer extends JLabel implements ListCellRenderer {
     @Override
     public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
+        if (value!=null)
         setText(value.toString());
         return this;
     }

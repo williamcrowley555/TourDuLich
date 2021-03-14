@@ -8,6 +8,7 @@ package com.tourdulich.dao.impl;
 import com.tourdulich.dao.IGiaTourDAO;
 import com.tourdulich.dto.GiaTourDTO;
 import com.tourdulich.mapper.impl.GiaTourMapper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -45,4 +46,10 @@ public class GiaTourDAO extends AbstractDAO<GiaTourDTO> implements IGiaTourDAO {
         String sql = "DELETE FROM gia_tour WHERE id = ?";
         update(sql, id);
     }    
+
+    @Override
+    public List<GiaTourDTO> findByIdTourAndStartDate(Long idTour, LocalDate startDate) {
+        String sql = "SELECT * FROM gia_tour WHERE id_tour = ? AND ? BETWEEN ngay_bat_dau AND ngay_ket_thuc";
+        return query(sql, new GiaTourMapper(), idTour, startDate);
+    }
 }

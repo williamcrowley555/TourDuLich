@@ -9,6 +9,7 @@ import com.tourdulich.bll.IGiaTourBLL;
 import com.tourdulich.dao.IGiaTourDAO;
 import com.tourdulich.dao.impl.GiaTourDAO;
 import com.tourdulich.dto.GiaTourDTO;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -45,5 +46,10 @@ public class GiaTourBLL implements IGiaTourBLL {
     @Override
     public void delete(Long id) {
         giaTourDAO.delete(id);
+    }
+
+    @Override
+    public List<GiaTourDTO> findByIdTourAndStartDate(Long idTour, LocalDate startDate) {
+         return giaTourDAO.findByIdTourAndStartDate(idTour, startDate);
     }
 }
