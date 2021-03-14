@@ -6,6 +6,7 @@
 package com.tourdulich.bll;
 
 import com.tourdulich.dto.GiaTourDTO;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 public interface IGiaTourBLL {
     List<GiaTourDTO> findAll();
     GiaTourDTO findById(Long id);
+    List<GiaTourDTO> findByIdTourAndStartDate(Long idTour, LocalDate startDate);
     Long save(GiaTourDTO giaTour);
     void update(GiaTourDTO giaTour);
     void delete(Long id);     

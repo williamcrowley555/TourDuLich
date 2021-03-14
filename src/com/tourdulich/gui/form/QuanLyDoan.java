@@ -115,8 +115,6 @@ public class QuanLyDoan extends javax.swing.JPanel {
         rightClickMenu = new javax.swing.JPopupMenu();
         itemSua = new javax.swing.JMenuItem();
         itemXoa = new javax.swing.JMenuItem();
-        itemQuanLyKhachTrongDoan = new javax.swing.JMenuItem();
-        itemQuanLyNhanVienTrongDoan = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -147,26 +145,6 @@ public class QuanLyDoan extends javax.swing.JPanel {
             }
         });
         rightClickMenu.add(itemXoa);
-
-        itemQuanLyKhachTrongDoan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        itemQuanLyKhachTrongDoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
-        itemQuanLyKhachTrongDoan.setText("Quản Lý Khách Trong Đoàn");
-        itemQuanLyKhachTrongDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemQuanLyKhachTrongDoanActionPerformed(evt);
-            }
-        });
-        rightClickMenu.add(itemQuanLyKhachTrongDoan);
-
-        itemQuanLyNhanVienTrongDoan.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        itemQuanLyNhanVienTrongDoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/edit_icon.png"))); // NOI18N
-        itemQuanLyNhanVienTrongDoan.setText("Quản Lý Nhân Viên Trong Đoàn");
-        itemQuanLyNhanVienTrongDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemQuanLyNhanVienTrongDoanActionPerformed(evt);
-            }
-        });
-        rightClickMenu.add(itemQuanLyNhanVienTrongDoan);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -398,14 +376,6 @@ public class QuanLyDoan extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblDoanMouseReleased
 
-    private void itemQuanLyKhachTrongDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemQuanLyKhachTrongDoanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemQuanLyKhachTrongDoanActionPerformed
-
-    private void itemQuanLyNhanVienTrongDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemQuanLyNhanVienTrongDoanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemQuanLyNhanVienTrongDoanActionPerformed
-
     private void btnTaoDSNguoiDiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTaoDSNguoiDiMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTaoDSNguoiDiMousePressed
@@ -464,8 +434,6 @@ public class QuanLyDoan extends javax.swing.JPanel {
     private javax.swing.JButton btnCapVaiTro;
     private javax.swing.JButton btnTaoDSNguoiDi;
     private javax.swing.JButton btnThem;
-    private javax.swing.JMenuItem itemQuanLyKhachTrongDoan;
-    private javax.swing.JMenuItem itemQuanLyNhanVienTrongDoan;
     private javax.swing.JMenuItem itemSua;
     private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTitle;

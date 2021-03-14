@@ -572,6 +572,7 @@ public class popUpDiaDiem extends javax.swing.JFrame {
             } else if(this.action.equals("PUT")) {
                 try {    
                     diaDiemBLL.update(newDiaDiem);
+                    System.out.println(newDiaDiem);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(Exception e) {

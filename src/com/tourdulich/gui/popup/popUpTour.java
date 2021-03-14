@@ -67,12 +67,14 @@ public class popUpTour extends javax.swing.JFrame {
         initComponents();
         myTextArea();
         this.tour = tour;
+        System.out.println(tour.getId());
         this.action = action;    
         tourBLL = new TourBLL();
         loaiDuLichBLL = new LoaiDuLichBLL();
-        CustomWindow();
+        CustomWindow();  
         myTextArea();
         setComboBox(comboBoxLoaiDuLich, getLoaiDuLichItems());
+        setLabelText(this.tour);
         comboBoxLoaiDuLich = myComboBox(comboBoxLoaiDuLich, new Color(14,142,233));
         
         
@@ -106,6 +108,13 @@ public class popUpTour extends javax.swing.JFrame {
         return loaiDuLich.getId() + " - " + loaiDuLich.getTenLoaiDuLich();
     }
     
+    public void setLabelText(TourDTO tour)
+    {
+        txtTenTour.setText(tour.getTenTour());
+        comboBoxLoaiDuLich.setSelectedItem(getLoaiDuLichItemName(loaiDuLichBLL.findById(tour.getIdLoaiDuLich())));
+        txtDacDiem.setText(tour.getDacDiem());
+    }
+    
       public boolean validateForm() 
     {   
         
@@ -136,12 +145,22 @@ public class popUpTour extends javax.swing.JFrame {
             lblValidateDacDiem.setToolTipText(InputValidatorUtil.isValidName(txtDacDiem.getText(), true));
         } 
         
-       
-        
         if (DacDiem && Ten)
         return true;
         else return false;
-       
+    }
+      
+    private TourDTO getFormInfo() throws IOException {
+        TourDTO tour = new TourDTO();
+        if(this.tour != null) {
+            tour.setId(this.tour.getId());
+        }
+        tour.setTenTour(txtTenTour.getText().trim());
+        String selectedLoaiDuLich = comboBoxLoaiDuLich.getSelectedItem().toString();
+        Long idLoaiDuLich = Long.parseLong(selectedLoaiDuLich.substring(0, selectedLoaiDuLich.indexOf(" - ")));
+        tour.setIdLoaiDuLich(idLoaiDuLich);
+        tour.setDacDiem(txtDacDiem.getText().trim());
+        return tour;
     }
       
     public void CustomWindow()
@@ -433,36 +452,37 @@ public class popUpTour extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        //if (validateForm())
-        //        {
-            //            DiaDiemDTO newDiaDiem = null;
-            //            try {
-                //                newDiaDiem = getFormInfo();
-                //            } catch (IOException ex) {
-                //                Logger.getLogger(popUpTour.class.getName()).log(Level.SEVERE, null, ex);
-                //            }
-            //
-            //            if(this.action.equals("POST")) {
-                //                    Long newDiaDiemId = diaDiemBLL.save(newDiaDiem);
-                //                    if(newDiaDiemId != null) {
-                    //
-                    //                        JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    //                        dispose();
-                    //
-                    //                    } else {
-                    //                        JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                    //                    }
-                //            } else if(this.action.equals("PUT")) {
-                //                try {
-                    //                    diaDiemBLL.update(newDiaDiem);
-                    //                    JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    //                    dispose();
-                    //                } catch(Exception e) {
-                    //                    JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                    //                    e.printStackTrace();
-                    //                }
-                //            }
-            //        }
+        if (validateForm())
+                {
+                        TourDTO newTour = null;
+                        try {
+                                newTour = getFormInfo();
+                            } catch (IOException ex) {
+                                Logger.getLogger(popUpTour.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+            
+                        if(this.action.equals("POST")) {
+                                    Long newTourId = tourBLL.save(newTour);
+                                    if(newTourId != null) {
+                    
+                                            JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                                            dispose();
+                    
+                                        } else {
+                                            JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                                        }
+                            } else if(this.action.equals("PUT")) {
+                                try {
+                                        tourBLL.update(newTour);
+                                        System.out.println(newTour);
+                                        JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                                        dispose();
+                                    } catch(Exception e) {
+                                        JOptionPane.showMessageDialog(this, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                                        e.printStackTrace();
+                                    }
+                            }
+                    }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void txtTenTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenTourActionPerformed
