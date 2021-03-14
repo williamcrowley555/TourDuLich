@@ -79,7 +79,7 @@ public class popUpDichVu extends javax.swing.JFrame {
             dichVu.setId(this.dichVu.getId());
         }
       dichVu.setTenDichVu(txtTenDichVu.getText().trim());
-      dichVu.setMoTa(this.dichVu.getMoTa());
+      dichVu.setMoTa(txtMoTa.getText().trim());
         return dichVu;
     }
  
