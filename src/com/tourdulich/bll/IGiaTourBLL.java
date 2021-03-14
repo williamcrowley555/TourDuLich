@@ -16,7 +16,7 @@ import java.util.List;
 public interface IGiaTourBLL {
     List<GiaTourDTO> findAll();
     GiaTourDTO findById(Long id);
-    List<GiaTourDTO> findByIdTourAndStartDate(Long idTour, LocalDate startDate);
+    List<GiaTourDTO> findByIdTourAndDatesBetween(Long idTour, LocalDate startDate, LocalDate endDate);
     Long save(GiaTourDTO giaTour);
     void update(GiaTourDTO giaTour);
     void delete(Long id);     

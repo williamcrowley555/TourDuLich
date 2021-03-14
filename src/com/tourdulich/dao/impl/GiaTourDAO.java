@@ -30,6 +30,12 @@ public class GiaTourDAO extends AbstractDAO<GiaTourDTO> implements IGiaTourDAO {
     }
 
     @Override
+    public List<GiaTourDTO> findByIdTourAndDatesBetween(Long idTour, LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT * FROM gia_tour WHERE id_tour = ? AND ngay_bat_dau <= ? AND ngay_ket_thuc >= ?";
+        return query(sql, new GiaTourMapper(), idTour, startDate, endDate);
+    }
+
+    @Override
     public Long save(GiaTourDTO giaTour) {
         String sql = "INSERT INTO gia_tour(id_tour, ngay_bat_dau, ngay_ket_thuc, gia_tien) VALUES(?, ?, ?, ?)";
         return insert(sql, giaTour.getIdTour(), giaTour.getNgayBatDau(), giaTour.getNgayKetThuc(), giaTour.getGiaTien());
@@ -45,11 +51,5 @@ public class GiaTourDAO extends AbstractDAO<GiaTourDTO> implements IGiaTourDAO {
     public void delete(Long id) {
         String sql = "DELETE FROM gia_tour WHERE id = ?";
         update(sql, id);
-    }    
-
-    @Override
-    public List<GiaTourDTO> findByIdTourAndStartDate(Long idTour, LocalDate startDate) {
-        String sql = "SELECT * FROM gia_tour WHERE id_tour = ? AND ? BETWEEN ngay_bat_dau AND ngay_ket_thuc";
-        return query(sql, new GiaTourMapper(), idTour, startDate);
     }
 }
