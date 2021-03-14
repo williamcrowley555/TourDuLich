@@ -3,6 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/IDsDiaDiemTourBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyTour.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/IDsDiaDiemTourBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyTour.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+        </group>
+        <group>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/impl/DsNhanVienDoanDAO.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableNhanVien.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyTour.java</file>
@@ -59,6 +73,12 @@
         <group>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpChiPhi.java</file>
             <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/popUpTour.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/popUpVaiTro.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/popUpCapVaiTro.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/form/QuanLyTour.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dao/impl/TourDAO.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/popUpDiaDiem.java</file>
         </group>
     </open-files>
 </project-private>

@@ -122,8 +122,36 @@ public class popUpChiPhi extends javax.swing.JFrame {
     }
     public boolean validateForm() 
     {   
+        boolean hoaDon, chiPhi; 
+        ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
+        ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
+         
         
-      return true;
+        if (InputValidatorUtil.isValidAddress(txtHoaDon.getText()).isEmpty())  
+        {
+            hoaDon = true;
+            lblValidateHoaDon.setIcon(iconCheck);
+            lblValidateHoaDon.setToolTipText(null);
+        } else {
+            hoaDon = false;
+            lblValidateHoaDon.setIcon(iconError);
+            lblValidateHoaDon.setToolTipText(InputValidatorUtil.isValidAddress(txtHoaDon.getText()));
+        }   
+
+        if (InputValidatorUtil.isVailidNumber(txtSoTien.getText()).isEmpty())  
+        {
+            chiPhi = true;
+            lblValidateChiPhi.setIcon(iconCheck);
+            lblValidateChiPhi.setToolTipText(null);
+        } else {
+            chiPhi = false;
+            lblValidateChiPhi.setIcon(iconError);
+            lblValidateChiPhi.setToolTipText(InputValidatorUtil.isValidAddress(txtSoTien.getText()));
+        }
+        
+        if (hoaDon && chiPhi)
+        return true;
+        else return false;
        
     }
     private ChiPhiDoanDTO getFormInfo() throws IOException {
