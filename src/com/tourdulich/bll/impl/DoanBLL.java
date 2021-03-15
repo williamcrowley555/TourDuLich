@@ -44,6 +44,11 @@ public class DoanBLL implements IDoanBLL {
     }
 
     @Override
+    public void updateAmount(Long id, Integer amount) {
+        doanDAO.updateAmount(id, amount);
+    }
+
+    @Override
     public void delete(Long id) {
         doanDAO.delete(id);
     }

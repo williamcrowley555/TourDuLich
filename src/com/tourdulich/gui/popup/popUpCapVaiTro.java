@@ -132,10 +132,6 @@ public class popUpCapVaiTro extends javax.swing.JFrame {
        
     }
     
-    
-    
-  
-    
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
         comboBox.setModel(new DefaultComboBoxModel<>(listItems));
     } 
