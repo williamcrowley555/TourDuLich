@@ -13,6 +13,7 @@ import com.tourdulich.gui.others.ComponentResizer;
 import com.tourdulich.gui.form.QuanLyDiaDiem;
 import com.tourdulich.gui.form.QuanLyDichVu;
 import com.tourdulich.gui.form.QuanLyDoan;
+import com.tourdulich.gui.form.QuanLyGiaTour;
 import com.tourdulich.gui.form.QuanLyKhachHang;
 import com.tourdulich.gui.form.QuanLyLoaiDuLich;
 import com.tourdulich.gui.form.QuanLyNhanVien;
@@ -56,6 +57,7 @@ public class Main extends javax.swing.JFrame {
     ImageIcon iconRestoreDown = new ImageIcon(getClass().getResource("/com/tourdulich/img/restore_down.png"));
     ImageIcon iconTour = new ImageIcon(getClass().getResource("/com/tourdulich/img/tour_icon.png"));
     ImageIcon iconLoaiDuLich = new ImageIcon(getClass().getResource("/com/tourdulich/img/loai_du_lich_icon.png"));
+    ImageIcon iconGiaTour = new ImageIcon(getClass().getResource("/com/tourdulich/img/gia_tour_icon.png"));
     ImageIcon iconDoan = new ImageIcon(getClass().getResource("/com/tourdulich/img/doan_icon.png"));
     ImageIcon iconChiPhi = new ImageIcon(getClass().getResource("/com/tourdulich/img/chi_phi_icon.png"));
     ImageIcon iconDichVu = new ImageIcon(getClass().getResource("/com/tourdulich/img/dich_vu_icon.png"));
@@ -70,13 +72,25 @@ public class Main extends javax.swing.JFrame {
     ImageIcon iconThongKe = new ImageIcon(getClass().getResource("/com/tourdulich/img/thong_ke_icon.png"));
     
    
-    
+        
         //--submenu loai du lich--
                 MenuItem menuLoaiDuLich = new MenuItem(iconLoaiDuLich, "Quản Lý loại hình du lịch", new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {     
                         panelBody.removeAll();
                         panelBody.add(new QuanLyLoaiDuLich());
+                        panelBody.repaint();
+                        panelBody.revalidate();
+                        Selected(menuTour);
+                    }
+                });
+        
+        //--submenu gia tour--
+                MenuItem menuGiaTour = new MenuItem(iconGiaTour, "Quản Lý Giá Tour", new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {     
+                        panelBody.removeAll();
+                        panelBody.add(new QuanLyGiaTour());
                         panelBody.repaint();
                         panelBody.revalidate();
                         Selected(menuTour);
@@ -93,7 +107,7 @@ public class Main extends javax.swing.JFrame {
               
                 Selected(menuTour);
             }
-        }, menuLoaiDuLich);
+        }, menuLoaiDuLich, menuGiaTour);
      
         
         //--submenu doan--

@@ -52,4 +52,10 @@ public class GiaTourDAO extends AbstractDAO<GiaTourDTO> implements IGiaTourDAO {
         String sql = "DELETE FROM gia_tour WHERE id = ?";
         update(sql, id);
     }
+
+    @Override
+    public List<GiaTourDTO> findByIdTour(Long idTour) {
+        String sql = "SELECT * FROM gia_tour WHERE id_tour = ?";
+        return query(sql, new GiaTourMapper(), idTour);
+    }
 }

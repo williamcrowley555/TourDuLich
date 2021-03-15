@@ -52,4 +52,9 @@ public class GiaTourBLL implements IGiaTourBLL {
     public List<GiaTourDTO> findByIdTourAndDatesBetween(Long idTour, LocalDate startDate, LocalDate endDate) {
          return giaTourDAO.findByIdTourAndDatesBetween(idTour, startDate, endDate);
     }
+
+    @Override
+    public List<GiaTourDTO> findByIdTour(Long idTour) {
+        return giaTourDAO.findByIdTour(idTour);
+    }
 }
