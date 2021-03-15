@@ -215,6 +215,7 @@ public class popUpDoan extends javax.swing.JFrame {
         doan.setTenDoan(txtDoan.getText().trim());
         doan.setNgayKhoiHanh(DCNgayKhoiHanh.getDate());
         doan.setNgayKetThuc(DCNgayKetThuc.getDate());
+        doan.setGiaTien(Long.parseLong(txtGiaTour.getText()));
         String selectedTour = comboBoxTour.getSelectedItem().toString();
         Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
         doan.setIdTour(idTour);

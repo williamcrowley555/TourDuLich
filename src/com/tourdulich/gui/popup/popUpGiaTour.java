@@ -85,7 +85,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
-    
+    private GiaTourDTO giaTour = null;
     
     public popUpGiaTour(String action) {
         initComponents();
@@ -93,7 +93,8 @@ public class popUpGiaTour extends javax.swing.JFrame {
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
-        giaTourBLL = new GiaTourBLL();  
+        giaTourBLL = new GiaTourBLL();
+        giaTour = new GiaTourDTO();
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
@@ -101,27 +102,27 @@ public class popUpGiaTour extends javax.swing.JFrame {
         this.setVisible(true);    
     }
     
-    public popUpGiaTour(String action, DoanDTO doan) {
+    public popUpGiaTour(String action, GiaTourDTO giaTour) {
         initComponents();
         this.action = action;  
         this.doan = doan;
-        doanBLL = new DoanBLL();
+        this.giaTour = giaTour;
         tourBLL = new TourBLL();
         giaTourBLL = new GiaTourBLL();
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         disableEditorDateChooser();
-        setLabelText(doan);
+        setLabelText(giaTour);
         this.setVisible(true);    
     }
      
-    public void setLabelText(DoanDTO doan)
+    public void setLabelText(GiaTourDTO giaTour)
     {
        // comboBoxTour.setSelectedItem(getTourItemName(tourBLL.findById(doan.getIdTour())));
-        txtGiaTien.setText(doan.getTenDoan());
-        DCNgayBatDau.setDate(doan.getNgayKhoiHanh());
-        DCNgayKetThuc.setDate(doan.getNgayKetThuc());     
+        txtGiaTien.setText(giaTour.getGiaTien().toString());
+        DCNgayBatDau.setDate(giaTour.getNgayBatDau());
+        DCNgayKetThuc.setDate(giaTour.getNgayKetThuc());     
     }
     
       public void disableEditorDateChooser()
@@ -162,7 +163,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
 //            lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidName(txtDoan.getText(), true));
 //        }
         
-        if (InputValidatorUtil.isValidAddress(txtGiaTien.getText()).isEmpty())  
+        if (InputValidatorUtil.isValidMoney(txtGiaTien.getText()).isEmpty())  
         {
             TenDoan = true;
             lblValidateGiaTien.setIcon(iconCheck);
@@ -170,7 +171,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
         } else {
             TenDoan = false;
             lblValidateGiaTien.setIcon(iconError);
-            lblValidateGiaTien.setToolTipText(InputValidatorUtil.isValidAddress(txtGiaTien.getText()));
+            lblValidateGiaTien.setToolTipText(InputValidatorUtil.isValidMoney(txtGiaTien.getText()));
         }
         
         if (InputValidatorUtil.isValidStartDate(DCNgayBatDau.getDate()).isEmpty())  
@@ -201,18 +202,18 @@ public class popUpGiaTour extends javax.swing.JFrame {
        
     }
     
-    private DoanDTO getFormInfo() throws IOException {
-        DoanDTO doan = new DoanDTO();
-        if(this.doan != null) {
-            doan.setId(this.doan.getId());
+    private GiaTourDTO getFormInfo() throws IOException {
+        TourDTO tour = new TourDTO();
+        if(this.giaTour != null) {
+            tour.setId(this.giaTour.getId());
         }
-        doan.setTenDoan(txtGiaTien.getText().trim());
-        doan.setNgayKhoiHanh(DCNgayBatDau.getDate());
-        doan.setNgayKetThuc(DCNgayKetThuc.getDate());
+        giaTour.setGiaTien(Long.parseLong(txtGiaTien.getText()));
+        giaTour.setNgayBatDau(DCNgayBatDau.getDate());
+        giaTour.setNgayKetThuc(DCNgayKetThuc.getDate());
         String selectedTour = comboBoxTour.getSelectedItem().toString();
         Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        doan.setIdTour(idTour);
-        return doan;
+        giaTour.setIdTour(idTour);
+        return giaTour;
     }
     
     public void setComboBox(JComboBox<String> comboBox, String[] listItems) {
@@ -574,16 +575,16 @@ public class popUpGiaTour extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         if (validateForm())
         {
-            DoanDTO newDoan = null;
+            GiaTourDTO newGiaTour = null;
             try {
-                newDoan = getFormInfo();
+                newGiaTour = getFormInfo();
             } catch (IOException ex) {
                 Logger.getLogger(popUpGiaTour.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if(this.action.equals("POST")) {           
-                    Long newDoanId = doanBLL.save(newDoan);
-                    if(newDoanId != null) {
+                    Long newGiaTourId = giaTourBLL.save(newGiaTour);
+                    if(newGiaTourId != null) {
 
                         JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
@@ -593,7 +594,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
                     }
             } else if(this.action.equals("PUT")) {
                 try {    
-                    doanBLL.update(newDoan);
+                    giaTourBLL.update(newGiaTour);
                     JOptionPane.showMessageDialog(this, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                     dispose();
                 } catch(Exception e) {

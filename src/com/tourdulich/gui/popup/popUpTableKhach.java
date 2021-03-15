@@ -273,7 +273,7 @@ public class popUpTableKhach extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        
+ 
        frame.addListKhachHang(khachHangList);
        this.dispose();
     }//GEN-LAST:event_btnLuuActionPerformed

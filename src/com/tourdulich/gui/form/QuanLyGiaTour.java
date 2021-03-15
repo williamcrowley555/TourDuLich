@@ -308,6 +308,7 @@ public class QuanLyGiaTour extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -352,21 +353,21 @@ public class QuanLyGiaTour extends javax.swing.JPanel {
     }//GEN-LAST:event_tblGiaTourMouseReleased
 
     private void itemSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSuaActionPerformed
-//        int rowindex = tblKhachHang.getSelectedRow();
-//        Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
-//        if (this.popUp == null) {
-//            popUp = new popUpKhachHang("PUT", khachHangBLL.findById(id));
-//        } else {
-//            this.popUp.toFront();
-//            this.popUp.center();
-//        }
-//        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
-//            @Override
-//            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-//                popUp = null;
-//                loadTableData();
-//            }
-//        });
+        int rowindex = tblGiaTour.getSelectedRow();
+        Long id = Long.parseLong(tblGiaTour.getValueAt(rowindex,0).toString());
+        if (this.popUp == null) {
+            popUp = new popUpGiaTour("PUT", giaTourBLL.findById(id));
+        } else {
+            this.popUp.toFront();
+            this.popUp.center();
+        }
+        popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                popUp = null;
+                loadTableData();
+            }
+        });
     }//GEN-LAST:event_itemSuaActionPerformed
 
     private void comboBoxTourItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxTourItemStateChanged

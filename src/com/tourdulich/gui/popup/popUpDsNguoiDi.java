@@ -136,9 +136,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     }
      public boolean validateForm() 
     {   
-        
          return true;
-       
     }
     
     private boolean save() {

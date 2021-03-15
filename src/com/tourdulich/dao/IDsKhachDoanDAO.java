@@ -19,4 +19,5 @@ public interface IDsKhachDoanDAO {
     Long save(DsKhachDoanDTO dsKhachDoan);
     void delete(Long id); 
     void deleteByIdDoanAndIdKhachHang(Long idDoan, Long idKhachHang);
+    
 }
