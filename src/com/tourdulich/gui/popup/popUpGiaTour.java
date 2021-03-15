@@ -163,7 +163,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
 //            lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidName(txtDoan.getText(), true));
 //        }
         
-        if (InputValidatorUtil.isValidMoney(txtGiaTien.getText()).isEmpty())  
+        if (InputValidatorUtil.isVailidNumber(txtGiaTien.getText(), 1000, 1000000000).isEmpty())  
         {
             TenDoan = true;
             lblValidateGiaTien.setIcon(iconCheck);
@@ -171,7 +171,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
         } else {
             TenDoan = false;
             lblValidateGiaTien.setIcon(iconError);
-            lblValidateGiaTien.setToolTipText(InputValidatorUtil.isValidMoney(txtGiaTien.getText()));
+            lblValidateGiaTien.setToolTipText(InputValidatorUtil.isVailidNumber(txtGiaTien.getText(), 1000, 1000000000));
         }
         
         if (InputValidatorUtil.isValidStartDate(DCNgayBatDau.getDate()).isEmpty())  

@@ -133,7 +133,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
         LocalDate ngayKhoiHanh;
         LocalDate ngayKetThuc;
-        if (InputValidatorUtil.isValidAddress(txtHoaDon.getText()).isEmpty())  
+        if (InputValidatorUtil.isValidInvoiceNumber(txtHoaDon.getText()).isEmpty())  
         {
             hoaDon = true;
             lblValidateHoaDon.setIcon(iconCheck);
@@ -141,10 +141,10 @@ public class popUpChiPhi extends javax.swing.JFrame {
         } else {
             hoaDon = false;
             lblValidateHoaDon.setIcon(iconError);
-            lblValidateHoaDon.setToolTipText(InputValidatorUtil.isValidAddress(txtHoaDon.getText()));
+            lblValidateHoaDon.setToolTipText(InputValidatorUtil.isValidInvoiceNumber(txtHoaDon.getText()));
         }   
 
-        if (InputValidatorUtil.isValidMoney(txtSoTien.getText()).isEmpty())  
+        if (InputValidatorUtil.isVailidNumber(txtSoTien.getText(), 1000, 1000000000).isEmpty())  
         {
             chiPhi = true;
             lblValidateChiPhi.setIcon(iconCheck);
@@ -152,7 +152,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
         } else {
             chiPhi = false;
             lblValidateChiPhi.setIcon(iconError);
-            lblValidateChiPhi.setToolTipText(InputValidatorUtil.isValidAddress(txtSoTien.getText()));
+            lblValidateChiPhi.setToolTipText(InputValidatorUtil.isVailidNumber(txtSoTien.getText(), 1000, 1000000000));
         }
         
         ngayKhoiHanh = doanBLL.findById(idDoan).getNgayKhoiHanh();

@@ -57,6 +57,21 @@ public class InputValidatorUtil {
         return "";
     }
     
+    public static String isValidInvoiceNumber(String invoiceNumber) {
+        if (invoiceNumber.isEmpty()) return " không được để trống";
+        
+        invoiceNumber = RemoveAccentUtil.removeAccent(invoiceNumber);
+        invoiceNumber = invoiceNumber.trim();
+        String regex = "[^A-Za-z0-9\\-]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(invoiceNumber);
+        boolean result = matcher.find();
+        if(result) {
+            return "Hóa đơn không hợp lệ";
+        }
+        return "";
+    }
+    
     public static String isValidBirthDate(LocalDate birthDate, int smallestAge) {
         if (birthDate == null) return " không được để trống";
         LocalDate toDay = LocalDate.now();
