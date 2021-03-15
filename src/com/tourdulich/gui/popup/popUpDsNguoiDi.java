@@ -67,19 +67,17 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
+    
     public popUpDsNguoiDi(String action) {
         initComponents();
+        this.action = action;
         dsKhachDoanBLL = new DsKhachDoanBLL();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         vaiTroNhanVienDoanBLL = new VaiTroNhanVienDoanBLL();
-        this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
-//        String selectedTour = comboBoxTour.getSelectedItem().toString();
-//        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        //setComboBox(comboBoxDoan, getDoanItems(idTour));
         setComboBoxDoan();
         setListKhachDoan();
         setListNhanVienDoan();
@@ -100,16 +98,9 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
       
-        setLabelText(doan);
         this.setVisible(true);    
     }
-     
-    public void setLabelText(DoanDTO doan)
-    {
-       // comboBoxTour.setSelectedItem(getTourItemName(tourBLL.findById(doan.getIdTour())));
-         
-       
-    }
+    
     public void addListKhachHang(ArrayList list)
     {   
         String rs = "" ;
@@ -145,14 +136,18 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         DsNhanVienDoanDTO nhanVienDoan;
         String selectedDoan = comboBoxDoan.getSelectedItem().toString();
         Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
-        Long id;
+        Integer amountOfLists = listNhanVien.size() + listKhach.size();
+        
         
         result = modifyNhanVienList(dsNhanVienDoanBLL.findByIdDoan(idDoan), listNhanVien, idDoan);
         if (result == false)
             return false;
+        
         result = modifyKhachHangList(dsKhachDoanBLL.findByIdDoan(idDoan), listKhach, idDoan);
         if (result == false)
             return false;
+        
+        doanBLL.updateAmount(idDoan, amountOfLists);
         
         return result;
     }
