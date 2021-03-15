@@ -453,58 +453,63 @@ public class popUpTableDiaDiem extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
        int rowindex = tblDiaDiem_Tour.getSelectedRow();
-       Long id = Long.parseLong(tblDiaDiem_Tour.getValueAt(rowindex,0).toString());
-       for (int i = 0; i < diaDiemList.size(); i++)
+       if (rowindex >=0)
        {
-           if (id.equals(diaDiemList.get(i).getId()))
-           diaDiemList.remove(diaDiemList.get(i));
-       }
-        model = new DefaultTableModel(columnNames,0);
-        for (int i = 0; i < diaDiemList.size(); i++) {
-        model.addRow(new Object[]   {
-                                        String.valueOf(diaDiemList.get(i).getId()),
-                                        String.valueOf(diaDiemList.get(i).getTenDiaDiem())    
-                                    });
-           
+        Long id = Long.parseLong(tblDiaDiem_Tour.getValueAt(rowindex,0).toString());
+        for (int i = 0; i < diaDiemList.size(); i++)
+        {
+            if (id.equals(diaDiemList.get(i).getId()))
+            diaDiemList.remove(diaDiemList.get(i));
         }
-        
-         if (diaDiemList.size() > 0) 
-                tblDiaDiem_Tour.setModel(model);
-            else 
-            {
-                 model = new DefaultTableModel(columnNames,0);
+         model = new DefaultTableModel(columnNames,0);
+         for (int i = 0; i < diaDiemList.size(); i++) {
+         model.addRow(new Object[]   {
+                                         String.valueOf(diaDiemList.get(i).getId()),
+                                         String.valueOf(diaDiemList.get(i).getTenDiaDiem())    
+                                     });
+
+         }
+
+          if (diaDiemList.size() > 0) 
                  tblDiaDiem_Tour.setModel(model);
-            }
-         headerColor(14,142,233,tblDiaDiem_Tour);
+             else 
+             {
+                  model = new DefaultTableModel(columnNames,0);
+                  tblDiaDiem_Tour.setModel(model);
+             }
+          headerColor(14,142,233,tblDiaDiem_Tour);
+       }    else JOptionPane.showMessageDialog(this, "Hãy chọn 1 địa điểm để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
      
        diaDiemBLL = new DiaDiemBLL();
        int rowindex = tblDiaDiem.getSelectedRow();
-       Long id = Long.parseLong(tblDiaDiem.getValueAt(rowindex,0).toString());
-       DiaDiemDTO selected = diaDiemBLL.findById(id);
-       boolean duplicate = false;
-       for (DiaDiemDTO diaDiem : diaDiemList)
+       if (rowindex >=0)
        {
-           if (diaDiem.getId().equals(selected.getId()))
-           duplicate = true;
-       }
-       
-        if (!duplicate)
+        Long id = Long.parseLong(tblDiaDiem.getValueAt(rowindex,0).toString());
+        DiaDiemDTO selected = diaDiemBLL.findById(id);
+        boolean duplicate = false;
+        for (DiaDiemDTO diaDiem : diaDiemList)
         {
-            diaDiemList.add(selected);
-            model = new DefaultTableModel(columnNames,0);
-            for (int i = 0; i < diaDiemList.size(); i++) {
-            model.addRow(new Object[]   {
-                                        String.valueOf(diaDiemList.get(i).getId()),
-                                        String.valueOf(diaDiemList.get(i).getTenDiaDiem())                                   
-                                    });
-            tblDiaDiem_Tour.setModel(model);
-            }  
+            if (diaDiem.getId().equals(selected.getId()))
+            duplicate = true;
         }
-        headerColor(14,142,233,tblDiaDiem_Tour);      
-      
+
+         if (!duplicate)
+         {
+             diaDiemList.add(selected);
+             model = new DefaultTableModel(columnNames,0);
+             for (int i = 0; i < diaDiemList.size(); i++) {
+             model.addRow(new Object[]   {
+                                         String.valueOf(diaDiemList.get(i).getId()),
+                                         String.valueOf(diaDiemList.get(i).getTenDiaDiem())                                   
+                                     });
+             tblDiaDiem_Tour.setModel(model);
+             }  
+         }
+         headerColor(14,142,233,tblDiaDiem_Tour);      
+       }    else JOptionPane.showMessageDialog(this, "Hãy chọn 1 địa điểm để thêm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void comboBoxTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTinhActionPerformed

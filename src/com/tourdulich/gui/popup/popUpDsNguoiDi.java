@@ -67,6 +67,8 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
+    private popUpTableKhach popUpKhach;
+    private popUpTableNhanVien popUpNhanVien;
     
     public popUpDsNguoiDi(String action) {
         initComponents();
@@ -625,18 +627,42 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     
     private void btnChonKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonKhachHangActionPerformed
         // TODO add your handling code here:
-        
-        popUpTableKhach popUpKhach = new popUpTableKhach(this, listKhach);
-        popUpKhach.setVisible(true);
+        if (this.popUpKhach == null) {
+            this.popUpKhach = new popUpTableKhach(this, listKhach);
+            popUpKhach.setVisible(true);
+            this.popUpKhach.center();
+        } else {
+            this.popUpKhach.toFront();
+            this.popUpKhach.center();
+        }
+        this.popUpKhach.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+             popUpKhach = null;         
+        }
+    });
          
     }//GEN-LAST:event_btnChonKhachHangActionPerformed
 
     private void btnChonNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonNhanVienActionPerformed
-        // TODO add your handling code here:
-        String selectedTour = comboBoxTour.getSelectedItem().toString();
-        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        popUpTableNhanVien popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, idTour);
-        popUpNhanVien.setVisible(true);
+        // TODO add your handling code here:     
+        if (this.popUpNhanVien == null) {
+            String selectedTour = comboBoxTour.getSelectedItem().toString();
+            Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+            popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, idTour);
+            popUpNhanVien.setVisible(true);
+            this.popUpNhanVien.center();
+        } else {
+            this.popUpNhanVien.toFront();
+            this.popUpNhanVien.center();
+        }
+        this.popUpNhanVien.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+             popUpNhanVien = null;
+           
+        }
+    });
     }//GEN-LAST:event_btnChonNhanVienActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed

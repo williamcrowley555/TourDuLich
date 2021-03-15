@@ -17,10 +17,13 @@ import com.tourdulich.dto.NhanVienDTO;
 import com.tourdulich.util.KhachHangTableLoaderUtil;
 import com.tourdulich.util.NhanVienTableLoaderUtil;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +43,7 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
     popUpDsNguoiDi frame;
     ArrayList<NhanVienDTO> nhanVienList = null;
     DefaultTableModel model;
+    LocalDate toDay;
     String[] columnNames = {
                             "Id",
                             "Họ",
@@ -54,7 +58,8 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         initEmptyTableNhanVienDoan();
         setTableNhanVienDoan(this.nhanVienList);
         nhanVienBLL = new NhanVienBLL();
-        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), columnNames));
+        toDay = LocalDate.now();     
+        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(dsNhanVienDoanBLL.getFreeNhanVien(toDay, idTour), columnNames));
         headerColor(14,142,233,tblNhanVien);
         
     }
@@ -101,7 +106,11 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     
-    
+    public void center()
+    {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -230,34 +239,35 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(123, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 111, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -297,63 +307,68 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
        int rowindex = tblNhanVien_Doan.getSelectedRow();
-       Long id = Long.parseLong(tblNhanVien_Doan.getValueAt(rowindex,0).toString());
-       for (int i = 0; i < nhanVienList.size(); i++)
+       if (rowindex >=0)
        {
-           if (id.equals(nhanVienList.get(i).getId()))
-           nhanVienList.remove(nhanVienList.get(i));
-       }
-        model = new DefaultTableModel(columnNames,0);
-        for (int i = 0; i < nhanVienList.size(); i++) {
-        model.addRow(new Object[]   {
-                                        String.valueOf(nhanVienList.get(i).getId()),
-                                        String.valueOf(nhanVienList.get(i).getHo()),
-                                        String.valueOf(nhanVienList.get(i).getTen()),
-                                       
-                                    });
-           
+        Long id = Long.parseLong(tblNhanVien_Doan.getValueAt(rowindex,0).toString());
+        for (int i = 0; i < nhanVienList.size(); i++)
+        {
+            if (id.equals(nhanVienList.get(i).getId()))
+            nhanVienList.remove(nhanVienList.get(i));
         }
-        
-         if (nhanVienList.size() > 0) 
-                tblNhanVien_Doan.setModel(model);
-            else 
-            {
-                 model = new DefaultTableModel(columnNames,0);
+         model = new DefaultTableModel(columnNames,0);
+         for (int i = 0; i < nhanVienList.size(); i++) {
+         model.addRow(new Object[]   {
+                                         String.valueOf(nhanVienList.get(i).getId()),
+                                         String.valueOf(nhanVienList.get(i).getHo()),
+                                         String.valueOf(nhanVienList.get(i).getTen()),
+
+                                     });
+
+         }
+
+          if (nhanVienList.size() > 0) 
                  tblNhanVien_Doan.setModel(model);
-            }
-         headerColor(14,142,233,tblNhanVien_Doan);
+             else 
+             {
+                  model = new DefaultTableModel(columnNames,0);
+                  tblNhanVien_Doan.setModel(model);
+             }
+          headerColor(14,142,233,tblNhanVien_Doan);
+       } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 nhân viên để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
        
        nhanVienBLL = new NhanVienBLL();
        int rowindex = tblNhanVien.getSelectedRow();
-       Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
-       NhanVienDTO selected = nhanVienBLL.findById(id);
-       boolean duplicate = false;
-       for (NhanVienDTO nhanVien : nhanVienList)
+       if (rowindex >=0)
        {
-           if (nhanVien.getId().equals(selected.getId()))
-           duplicate = true;
-       }
-       
-        if (!duplicate)
+        Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
+        NhanVienDTO selected = nhanVienBLL.findById(id);
+        boolean duplicate = false;
+        for (NhanVienDTO nhanVien : nhanVienList)
         {
-            nhanVienList.add(selected);
-            model = new DefaultTableModel(columnNames,0);
-            for (int i = 0; i < nhanVienList.size(); i++) {
-            model.addRow(new Object[]   {
-                                        String.valueOf(nhanVienList.get(i).getId()),
-                                        String.valueOf(nhanVienList.get(i).getHo()),
-                                        String.valueOf(nhanVienList.get(i).getTen()),
-                                       
-                                    });
-            tblNhanVien_Doan.setModel(model);
-            }  
+            if (nhanVien.getId().equals(selected.getId()))
+            duplicate = true;
         }
-        headerColor(14,142,233,tblNhanVien_Doan);
+
+         if (!duplicate)
+         {
+             nhanVienList.add(selected);
+             model = new DefaultTableModel(columnNames,0);
+             for (int i = 0; i < nhanVienList.size(); i++) {
+             model.addRow(new Object[]   {
+                                         String.valueOf(nhanVienList.get(i).getId()),
+                                         String.valueOf(nhanVienList.get(i).getHo()),
+                                         String.valueOf(nhanVienList.get(i).getTen()),
+
+                                     });
+             tblNhanVien_Doan.setModel(model);
+             }  
+         }
+         headerColor(14,142,233,tblNhanVien_Doan);
       
-               
+       }  else JOptionPane.showMessageDialog(this, "Hãy chọn 1 nhân viên để thêm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);     
         
       
     }//GEN-LAST:event_btnThemActionPerformed
