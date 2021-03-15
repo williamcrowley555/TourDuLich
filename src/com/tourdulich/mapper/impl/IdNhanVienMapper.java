@@ -19,7 +19,7 @@ public class IdNhanVienMapper implements RowMapper<Long> {
         public Long mapRow(ResultSet rs) {
             try {
                 Long id = null;
-                id = (rs.getLong("id_nhan_vien"));
+                id = (rs.getLong("id"));
                 
                 return id;
             } catch(SQLException e) {

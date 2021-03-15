@@ -21,7 +21,7 @@ public interface IDsNhanVienDoanDAO extends GenericDAO<DsNhanVienDoanDTO> {
     DsNhanVienDoanDTO findByIdDoanAndIdNhanVien(Long idDoan, Long idNhanVien);
     DsNhanVienDoanDTO findIdNhanVienDoan(Long idDoan, Long idNhanVien);
     Long save(DsNhanVienDoanDTO dsNhanVienDoan);
-    List<Long> getFreeNhanVien(LocalDate date, Long idTour);
+    List<Long> getFreeNhanVien(LocalDate date);
     List<Long> findByIdDoan(Long idDoan);
     void update(DsNhanVienDoanDTO dsNhanVienDoan);
     void delete(Long id);

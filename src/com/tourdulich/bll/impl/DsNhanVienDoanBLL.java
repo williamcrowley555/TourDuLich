@@ -60,14 +60,14 @@ public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
     }
 
     @Override
-    public ArrayList<NhanVienDTO> getFreeNhanVien(LocalDate date, Long idTour) {
-         List<Long> nhanVienIds = dsNhanVienDoanDAO.getFreeNhanVien(date, idTour);
-         ArrayList<NhanVienDTO> nhanVienList = new ArrayList<NhanVienDTO>();
-         for (Long nhanVienId : nhanVienIds)
-         {
-            nhanVienList.add(nhanVienDAO.findById(nhanVienId));     
-         }
-         return nhanVienList;
+    public ArrayList<NhanVienDTO> getFreeNhanVien(LocalDate date) {
+        List<Long> nhanVienIds = dsNhanVienDoanDAO.getFreeNhanVien(date);
+        ArrayList<NhanVienDTO> nhanVienList = new ArrayList<NhanVienDTO>();
+        for (Long nhanVienId : nhanVienIds)
+        {
+           nhanVienList.add(nhanVienDAO.findById(nhanVienId));     
+        }
+        return nhanVienList;
     }
 
     @Override

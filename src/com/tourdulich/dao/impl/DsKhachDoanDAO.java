@@ -10,6 +10,7 @@ import com.tourdulich.dto.DsKhachDoanDTO;
 import com.tourdulich.mapper.impl.DsKhachDoanMapper;
 import com.tourdulich.mapper.impl.IdKhachDoanMapper;
 import com.tourdulich.mapper.impl.IdMapper;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -28,6 +29,16 @@ public class DsKhachDoanDAO extends AbstractDAO<DsKhachDoanDTO> implements IDsKh
         String sql = "SELECT * FROM ds_khach_doan WHERE id = ?";
         List<DsKhachDoanDTO> dsKhachDoan = query(sql, new DsKhachDoanMapper(), id);
         return dsKhachDoan.isEmpty() ? null : dsKhachDoan.get(0);
+    }
+
+    @Override
+    public List<Long> getFreeKhach(LocalDate date) {
+        String sql = "SELECT khach_hang.id FROM khach_hang " +
+                    "EXCEPT (SELECT DISTINCT khach_hang.id " +
+                    "FROM doan LEFT JOIN ds_khach_doan ON ds_khach_doan.id_doan = doan.id " +
+                    "RIGHT JOIN khach_hang ON ds_khach_doan.id_khach = khach_hang.id " +
+                    "WHERE ? BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc)";
+       return query(sql, new IdMapper(), date);
     }
 
     @Override

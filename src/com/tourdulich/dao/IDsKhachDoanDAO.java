@@ -6,6 +6,7 @@
 package com.tourdulich.dao;
 
 import com.tourdulich.dto.DsKhachDoanDTO;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public interface IDsKhachDoanDAO {
     List<DsKhachDoanDTO> findAll();
     DsKhachDoanDTO findById(Long id);
     List<Long> findByIdDoan(Long idDoan);
+    List<Long> getFreeKhach(LocalDate date);
     Long save(DsKhachDoanDTO dsKhachDoan);
     void delete(Long id); 
     void deleteByIdDoanAndIdKhachHang(Long idDoan, Long idKhachHang);

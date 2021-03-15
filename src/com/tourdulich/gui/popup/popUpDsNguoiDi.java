@@ -41,6 +41,7 @@ import com.tourdulich.gui.menu.MyComboBoxEditor;
 import com.tourdulich.gui.menu.MyComboBoxRenderer;
 import java.awt.Font;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -94,6 +95,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         this.doan = doan;
         dsKhachDoanBLL = new DsKhachDoanBLL();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
+        vaiTroNhanVienDoanBLL = new VaiTroNhanVienDoanBLL();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
@@ -628,8 +630,12 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private void btnChonKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonKhachHangActionPerformed
         // TODO add your handling code here:
         if (this.popUpKhach == null) {
-            this.popUpKhach = new popUpTableKhach(this, listKhach);
-            popUpKhach.setVisible(true);
+            String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+            Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
+            LocalDate doanStartDate = doanBLL.findById(idDoan).getNgayKhoiHanh();
+            
+            popUpKhach = new popUpTableKhach(this, listKhach, doanStartDate);
+            this.popUpKhach.setVisible(true);
             this.popUpKhach.center();
         } else {
             this.popUpKhach.toFront();
@@ -645,22 +651,22 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChonKhachHangActionPerformed
 
     private void btnChonNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonNhanVienActionPerformed
-        // TODO add your handling code here:     
         if (this.popUpNhanVien == null) {
-            String selectedTour = comboBoxTour.getSelectedItem().toString();
-            Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-            popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, idTour);
+            String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+            Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
+            LocalDate doanStartDate = doanBLL.findById(idDoan).getNgayKhoiHanh();
+            popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, doanStartDate);
             popUpNhanVien.setVisible(true);
             this.popUpNhanVien.center();
         } else {
             this.popUpNhanVien.toFront();
             this.popUpNhanVien.center();
         }
+        
         this.popUpNhanVien.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent windowEvent) {
              popUpNhanVien = null;
-           
         }
     });
     }//GEN-LAST:event_btnChonNhanVienActionPerformed

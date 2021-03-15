@@ -43,23 +43,20 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
     popUpDsNguoiDi frame;
     ArrayList<NhanVienDTO> nhanVienList = null;
     DefaultTableModel model;
-    LocalDate toDay;
     String[] columnNames = {
                             "Id",
                             "Họ",
                             "Tên"};
-    public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList, Long idTour) {
+    public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList, LocalDate doanStartDate) {
         initComponents();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         if (nhanVienList == null)
-        nhanVienList = new ArrayList<>();
+            nhanVienList = new ArrayList<>();
         this.nhanVienList = nhanVienList;
         this.frame = frame;
         initEmptyTableNhanVienDoan();
         setTableNhanVienDoan(this.nhanVienList);
-        nhanVienBLL = new NhanVienBLL();
-        toDay = LocalDate.now();     
-        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(dsNhanVienDoanBLL.getFreeNhanVien(toDay, idTour), columnNames));
+        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(dsNhanVienDoanBLL.getFreeNhanVien(doanStartDate), columnNames));
         headerColor(14,142,233,tblNhanVien);
         
     }
@@ -295,7 +292,6 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-       
        frame.addListNhanVien(nhanVienList);
        this.dispose();
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -334,7 +330,8 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
                   tblNhanVien_Doan.setModel(model);
              }
           headerColor(14,142,233,tblNhanVien_Doan);
-       } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 nhân viên để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+       } else 
+           JOptionPane.showMessageDialog(this, "Hãy chọn 1 nhân viên để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

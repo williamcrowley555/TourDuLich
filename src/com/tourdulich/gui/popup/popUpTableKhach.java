@@ -5,7 +5,9 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.tourdulich.bll.IDsKhachDoanBLL;
 import com.tourdulich.bll.IKhachHangBLL;
+import com.tourdulich.bll.impl.DsKhachDoanBLL;
 import com.tourdulich.bll.impl.KhachHangBLL;
 import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.util.KhachHangTableLoaderUtil;
@@ -14,6 +16,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,6 +36,7 @@ public class popUpTableKhach extends javax.swing.JFrame {
      * Creates new form popUpTableKhach
      */
     IKhachHangBLL khachHangBLL;
+    IDsKhachDoanBLL dsKhachDoanBLL;
     popUpDsNguoiDi frame;
     ArrayList<KhachHangDTO> khachHangList = null;
     DefaultTableModel model;    
@@ -40,17 +44,17 @@ public class popUpTableKhach extends javax.swing.JFrame {
                             "Id",
                             "Họ",
                             "Tên"};
-    public popUpTableKhach(popUpDsNguoiDi frame, ArrayList<KhachHangDTO> khachHangList ) {
+    public popUpTableKhach(popUpDsNguoiDi frame, ArrayList<KhachHangDTO> khachHangList, LocalDate doanStartDate) {
         initComponents();
+        dsKhachDoanBLL = new DsKhachDoanBLL();
         if (khachHangList == null)
-        khachHangList = new ArrayList<>();
+            khachHangList = new ArrayList<>();
         this.khachHangList = khachHangList;
         this.frame = frame;  
         initEmptyTableKhachDoan();
         setTableKhachDoan(this.khachHangList);
         IKhachHangBLL khachHangBLL = new KhachHangBLL();
-        tblKhachHang.setModel(new KhachHangTableLoaderUtil().setTable(khachHangBLL.findAll(), columnNames));
-         
+        tblKhachHang.setModel(new KhachHangTableLoaderUtil().setTable(dsKhachDoanBLL.getFreeKhach(doanStartDate), columnNames));
         headerColor(14,142,233,tblKhachHang);
         
     }
@@ -312,7 +316,6 @@ public class popUpTableKhach extends javax.swing.JFrame {
                                         String.valueOf(khachHangList.get(i).getTen()),
                                         String.valueOf(khachHangList.get(i).getGioiTinh()),
                                     });
-           
         }
         
          if (khachHangList.size() > 0) 
@@ -323,7 +326,8 @@ public class popUpTableKhach extends javax.swing.JFrame {
                  tblKhach_Doan.setModel(model);
             }
          headerColor(14,142,233,tblKhach_Doan);
-       } JOptionPane.showMessageDialog(this, "Hãy chọn 1 khách để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+       } else 
+           JOptionPane.showMessageDialog(this, "Hãy chọn 1 khách để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

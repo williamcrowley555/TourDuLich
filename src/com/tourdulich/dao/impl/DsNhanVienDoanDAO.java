@@ -61,13 +61,13 @@ public class DsNhanVienDoanDAO extends AbstractDAO<DsNhanVienDoanDTO> implements
     }
 
     @Override
-    public List<Long> getFreeNhanVien(LocalDate date, Long idTour) {
-        String sql ="SELECT DISTINCT ds_nhan_vien_doan.id_nhan_vien FROM doan\n" +
-                    "JOIN ds_nhan_vien_doan \n" +
-                    "ON ds_nhan_vien_doan.id_doan = doan.id\n" +
-                    "WHERE ? NOT BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc AND doan.id_tour = ?";
-       return query(sql, new IdNhanVienMapper(), date, idTour);
-
+    public List<Long> getFreeNhanVien(LocalDate date) {
+        String sql = "SELECT nhan_vien.id FROM nhan_vien " +
+                    "EXCEPT (SELECT DISTINCT nhan_vien.id " +
+                    "FROM doan LEFT JOIN ds_nhan_vien_doan ON ds_nhan_vien_doan.id_doan = doan.id " +
+                    "RIGHT JOIN nhan_vien ON ds_nhan_vien_doan.id_nhan_vien = nhan_vien.id " +
+                    "WHERE ? BETWEEN doan.ngay_khoi_hanh AND doan.ngay_ket_thuc)";
+       return query(sql, new IdMapper(), date);
     }
 
     @Override

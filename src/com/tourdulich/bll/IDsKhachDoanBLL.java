@@ -7,6 +7,7 @@ package com.tourdulich.bll;
 
 import com.tourdulich.dto.DsKhachDoanDTO;
 import com.tourdulich.dto.KhachHangDTO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public interface IDsKhachDoanBLL {
     List<DsKhachDoanDTO> findAll();
     DsKhachDoanDTO findById(Long id);
     ArrayList<KhachHangDTO> findByIdDoan(Long idDoan);
+    List <KhachHangDTO> getFreeKhach(LocalDate date);
     Long save(DsKhachDoanDTO dsKhachDoan);
     void delete(Long id);     
     void deleteByIdDoanAndIdKhachHang(Long idDoan, Long idKhachHang);

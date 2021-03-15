@@ -13,6 +13,7 @@ import com.tourdulich.dao.impl.DsKhachDoanDAO;
 import com.tourdulich.dao.impl.KhachHangDAO;
 import com.tourdulich.dto.DsKhachDoanDTO;
 import com.tourdulich.dto.KhachHangDTO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,18 @@ public class DsKhachDoanBLL implements IDsKhachDoanBLL {
    @Override
     public DsKhachDoanDTO findById(Long id) {
         return dsKhachDoanDAO.findById(id);
-    }    
+    }
+
+    @Override
+    public List<KhachHangDTO> getFreeKhach(LocalDate date) {
+        List<Long> khachHangIds = dsKhachDoanDAO.getFreeKhach(date);
+        ArrayList<KhachHangDTO> khachHangList = new ArrayList<KhachHangDTO>();
+        for (Long khachHangId : khachHangIds)
+        {
+           khachHangList.add(khachHangDAO.findById(khachHangId));     
+        }
+        return khachHangList;
+    }
     
     @Override
     public Long save(DsKhachDoanDTO dsKhachDoan) {
