@@ -93,15 +93,11 @@ public class popUpGiaTour extends javax.swing.JFrame {
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
-        giaTourBLL = new GiaTourBLL();
-        
-        
+        giaTourBLL = new GiaTourBLL();  
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
-        
-        
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
-       
+        disableEditorDateChooser();
         this.setVisible(true);    
     }
     
@@ -115,7 +111,7 @@ public class popUpGiaTour extends javax.swing.JFrame {
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
-       
+        disableEditorDateChooser();
         setLabelText(doan);
         this.setVisible(true);    
     }
@@ -128,7 +124,11 @@ public class popUpGiaTour extends javax.swing.JFrame {
         DCNgayKetThuc.setDate(doan.getNgayKetThuc());     
     }
     
-    
+      public void disableEditorDateChooser()
+    {
+        DCNgayBatDau.getComponentDateTextField().setEditable(false);
+        DCNgayKetThuc.getComponentDateTextField().setEditable(false);
+    }
     
   
     

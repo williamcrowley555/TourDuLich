@@ -5,6 +5,7 @@
  */
 package com.tourdulich.gui.popup;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import com.toedter.calendar.JTextFieldDateEditor;
 import com.tourdulich.bll.IDiaDiemBLL;
 import com.tourdulich.bll.IDiaDiemBLL;
@@ -85,6 +86,8 @@ public class popUpDoan extends javax.swing.JFrame {
     private ArrayList<KhachHangDTO> listKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
+    private popUpTableChonGia popUp;
+    private GiaTourDTO giaTour;
     
     
     public popUpDoan(String action) {
@@ -93,15 +96,11 @@ public class popUpDoan extends javax.swing.JFrame {
         this.action = action;    
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
-        giaTourBLL = new GiaTourBLL();
-        
-        
+        giaTourBLL = new GiaTourBLL();        
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
-        
-        DCNgayKhoiHanh.getComponentDateTextField().getDocument().addDocumentListener(createDateChooserEvent());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
-        comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));  
+        disableEditorDateChooser();
         this.setVisible(true);    
     }
     
@@ -115,8 +114,10 @@ public class popUpDoan extends javax.swing.JFrame {
         CustomWindow();
         setComboBox(comboBoxTour, getTourItems());
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
-        comboBoxGiaTour = myComboBox(comboBoxGiaTour, new Color(14,142,233));
         setLabelText(doan);
+        String selectedTour = comboBoxTour.getSelectedItem().toString();
+        Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));     
+        disableEditorDateChooser();
         this.setVisible(true);    
     }
      
@@ -125,54 +126,23 @@ public class popUpDoan extends javax.swing.JFrame {
        // comboBoxTour.setSelectedItem(getTourItemName(tourBLL.findById(doan.getIdTour())));
         txtDoan.setText(doan.getTenDoan());
         DCNgayKhoiHanh.setDate(doan.getNgayKhoiHanh());
-        DCNgayKetThuc.setDate(doan.getNgayKetThuc());     
+        DCNgayKetThuc.setDate(doan.getNgayKetThuc());
+        txtGiaTour.setText(doan.getGiaTien().toString());
     }
     
     
     
-    public DocumentListener createDateChooserEvent()
-    {   
-        
-        DocumentListener dl = new DocumentListener() {
-
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    updateFieldState();
-                }
-
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                     updateFieldState();
-                }
-
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    updateFieldState();
-                }
-
-                protected void updateFieldState() {
-                   setComboBoxGiaTour();
-                }
-            };
-        return dl;
-    }
-    
-    public void setComboBoxGiaTour()
+    public void disableEditorDateChooser()
     {
-        String selectedTour = comboBoxTour.getSelectedItem().toString();
-        Long idTour;
-        if (this.action.equals("POST"))
-        idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-        else idTour = this.doan.getIdTour();
-        LocalDate startDate = DCNgayKhoiHanh.getDate();
-        LocalDate endDate = DCNgayKetThuc.getDate();
-        setComboBox(comboBoxGiaTour, getGiaTienItems(idTour, startDate, endDate));
-//        System.out.println(startDate);
+        DCNgayKhoiHanh.getComponentDateTextField().setEditable(false);
+        DCNgayKetThuc.getComponentDateTextField().setEditable(false);
     }
+    
+    
      public boolean validateForm() 
     {   
         
-        boolean TenDoan, StartDate, EndDate; 
+        boolean TenDoan, StartDate, EndDate, GiaTour = false; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
          
@@ -219,8 +189,19 @@ public class popUpDoan extends javax.swing.JFrame {
             lblValidateNgayKetThuc.setIcon(iconError);
             lblValidateNgayKetThuc.setToolTipText(InputValidatorUtil.isValidEndDate(DCNgayKhoiHanh.getDate(),DCNgayKetThuc.getDate()));
         }
-        
-        if (TenDoan && StartDate && EndDate)
+        if (txtGiaTour.getText().equals(""))
+        {
+            GiaTour = false;
+            MatteBorder border = new MatteBorder(2, 2, 2, 2, new Color(240,52,52));
+            txtGiaTour.setBorder(border);
+            txtGiaTour.setToolTipText("Giá tour không được để trống !");
+                       
+        } else {
+            GiaTour = true;
+            MatteBorder border = new MatteBorder(2, 2 , 2, 2, new Color(46,204,113));
+            txtGiaTour.setBorder(border); 
+        }
+        if (TenDoan && StartDate && EndDate && GiaTour)
         return true;
         else return false;
        
@@ -259,26 +240,19 @@ public class popUpDoan extends javax.swing.JFrame {
         return tour.getId() + " - " + tour.getTenTour();
     }
     
-    public String[] getGiaTienItems(Long idTour, LocalDate startDate, LocalDate endDate) {
-        
-        List<GiaTourDTO> giaTourLists = giaTourBLL.findByIdTourAndDatesBetween(idTour, startDate, endDate);
-        String[] giaTourItems = null;
-       
-            giaTourItems = new String[giaTourLists.size()];
-            int index = 0;
-            for(GiaTourDTO vt : giaTourLists) {
-                giaTourItems[index] = vt.getGiaTien().toString();
-                ++ index;           
-            }
-        
-        return giaTourItems;
+    
+    
+    public void  setGiaTour(GiaTourDTO giaTour)
+    {
+        this.giaTour = giaTour;
+        txtGiaTour.setText(this.giaTour.getGiaTien().toString());
     }
     
-    public String getGiaTienItem(GiaTourDTO giaTour) {
-        return giaTour.getGiaTien().toString();
+    public void resetGiaTour()
+    {
+        this.giaTour = null;
+        txtGiaTour.setText("");
     }
-    
-    
     public popUpDoan() {
         initComponents();
         CustomWindow();
@@ -365,7 +339,6 @@ public class popUpDoan extends javax.swing.JFrame {
         lblChonTour = new javax.swing.JLabel();
         lblTenDoan = new javax.swing.JLabel();
         comboBoxTour = new javax.swing.JComboBox<>();
-        lblGiaTour = new javax.swing.JLabel();
         btnLuu = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
         lblValidateNgayKetThuc = new javax.swing.JLabel();
@@ -373,9 +346,10 @@ public class popUpDoan extends javax.swing.JFrame {
         lblValidateTenDoan = new javax.swing.JLabel();
         DCNgayKhoiHanh = new com.github.lgooddatepicker.components.DatePicker();
         DCNgayKetThuc = new com.github.lgooddatepicker.components.DatePicker();
-        comboBoxGiaTour = new javax.swing.JComboBox<>();
         lblNgayKetThuc = new javax.swing.JLabel();
         lblNgayKhoiHanh = new javax.swing.JLabel();
+        btnChonGia = new javax.swing.JButton();
+        txtGiaTour = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -448,9 +422,6 @@ public class popUpDoan extends javax.swing.JFrame {
             }
         });
 
-        lblGiaTour.setText("Giá Tour:");
-        lblGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
@@ -506,19 +477,34 @@ public class popUpDoan extends javax.swing.JFrame {
             }
         });
 
-        comboBoxGiaTour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
-        comboBoxGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboBoxGiaTour.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxGiaTourActionPerformed(evt);
-            }
-        });
-
         lblNgayKetThuc.setText("Ngày Kết Thúc");
         lblNgayKetThuc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         lblNgayKhoiHanh.setText("Ngày Khởi Hành:");
         lblNgayKhoiHanh.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnChonGia.setBackground(new java.awt.Color(14, 142, 233));
+        btnChonGia.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnChonGia.setForeground(new java.awt.Color(255, 255, 255));
+        btnChonGia.setText("Chọn Giá");
+        btnChonGia.setBorder(null);
+        btnChonGia.setContentAreaFilled(false);
+        btnChonGia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnChonGia.setOpaque(true);
+        btnChonGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonGiaActionPerformed(evt);
+            }
+        });
+
+        txtGiaTour.setEditable(false);
+        txtGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtGiaTour.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtGiaTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGiaTourActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
         pnlBody.setLayout(pnlBodyLayout);
@@ -526,47 +512,35 @@ public class popUpDoan extends javax.swing.JFrame {
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBodyLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblChonTour, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                                        .addComponent(lblNgayKhoiHanh)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblValidateNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(87, 87, 87)
-                                        .addComponent(lblGiaTour))
-                                    .addComponent(DCNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(129, 129, 129))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
-                                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
-                                            .addComponent(DCNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(61, 61, 61)
-                                            .addComponent(comboBoxGiaTour, 0, 139, Short.MAX_VALUE))
-                                        .addComponent(txtDoan, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(comboBoxTour, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
-                                        .addGap(221, 221, 221)
-                                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(305, 305, 305))
-                    .addGroup(pnlBodyLayout.createSequentialGroup()
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblNgayKetThuc)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblValidateNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlBodyLayout.createSequentialGroup()
-                                .addComponent(lblTenDoan)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblValidateTenDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblChonTour, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                        .addComponent(lblNgayKhoiHanh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValidateNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DCNgayKetThuc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                        .addComponent(lblTenDoan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblValidateTenDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBodyLayout.createSequentialGroup()
+                            .addComponent(lblNgayKetThuc)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblValidateNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtGiaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDoan, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(comboBoxTour, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlBodyLayout.createSequentialGroup()
+                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(DCNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnChonGia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         pnlBodyLayout.setVerticalGroup(
             pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,20 +562,23 @@ public class popUpDoan extends javax.swing.JFrame {
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlBodyLayout.createSequentialGroup()
                         .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblGiaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblValidateNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DCNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxGiaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(DCNgayKhoiHanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlBodyLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(btnChonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtGiaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(lblValidateNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(19, 19, 19)
                 .addComponent(DCNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -613,7 +590,7 @@ public class popUpDoan extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-            .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -682,12 +659,11 @@ public class popUpDoan extends javax.swing.JFrame {
 
     private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
         // TODO add your handling code here:
-       // setGiaTour();
+      resetGiaTour();
+      DCNgayKhoiHanh.setDate(null);
+      DCNgayKetThuc.setDate(null);
+      
     }//GEN-LAST:event_comboBoxTourActionPerformed
-
-    private void comboBoxGiaTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxGiaTourActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxGiaTourActionPerformed
 
     private void DCNgayKhoiHanhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhPropertyChange
         // TODO add your handling code here:
@@ -714,6 +690,37 @@ public class popUpDoan extends javax.swing.JFrame {
     private void DCNgayKhoiHanhMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_DCNgayKhoiHanhMouseExited
+
+    private void btnChonGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonGiaActionPerformed
+       
+        if (DCNgayKhoiHanh.getDate() == null || DCNgayKetThuc.getDate() == null)
+        {   
+             JOptionPane.showMessageDialog(this, "Hãy chọn ngày khởi hành và ngày kết thúc trước khi chọn giá", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else 
+        {      
+            if (this.popUp == null) {
+                String selectedTour = comboBoxTour.getSelectedItem().toString();
+                Long idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
+                this.popUp = new popUpTableChonGia(this, idTour, DCNgayKhoiHanh.getDate(), DCNgayKetThuc.getDate());
+                popUp.setVisible(true);
+                popUp.center();
+            } else {
+                this.popUp.toFront();
+                this.popUp.center();
+            }
+            popUp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                popUp = null;
+
+            }
+            });
+        }
+    }//GEN-LAST:event_btnChonGiaActionPerformed
+
+    private void txtGiaTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaTourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGiaTourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -760,14 +767,13 @@ public class popUpDoan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DatePicker DCNgayKetThuc;
     private com.github.lgooddatepicker.components.DatePicker DCNgayKhoiHanh;
+    private javax.swing.JButton btnChonGia;
     private javax.swing.ButtonGroup btnGroupGioiTinh;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
-    private javax.swing.JComboBox<String> comboBoxGiaTour;
     private javax.swing.JComboBox<String> comboBoxTour;
     private javax.swing.JLabel lblChonTour;
     private javax.swing.JLabel lblExit;
-    private javax.swing.JLabel lblGiaTour;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNgayKetThuc;
     private javax.swing.JLabel lblNgayKhoiHanh;
@@ -778,5 +784,6 @@ public class popUpDoan extends javax.swing.JFrame {
     private javax.swing.JPanel panelHeader;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JTextField txtDoan;
+    private javax.swing.JTextField txtGiaTour;
     // End of variables declaration//GEN-END:variables
 }

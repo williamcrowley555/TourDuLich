@@ -85,6 +85,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
         comboBoxDichVu = myComboBox(comboBoxDichVu, new Color(14,142,233));
+        DCNgayHoaDon.getComponentDateTextField().setEditable(false);
         this.setVisible(true);   
         
     }
@@ -109,6 +110,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
         comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
         setLabelText(chiPhiDoan);
+        DCNgayHoaDon.getComponentDateTextField().setEditable(false);
         this.setVisible(true);    
     }
 
