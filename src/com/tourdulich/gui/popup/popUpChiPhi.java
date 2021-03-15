@@ -48,6 +48,7 @@ import com.tourdulich.util.ImageUtil;
 import com.tourdulich.util.InputValidatorUtil;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,6 +87,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
         comboBoxDoan = myComboBox(comboBoxDoan, new Color(14,142,233));
         comboBoxDichVu = myComboBox(comboBoxDichVu, new Color(14,142,233));
         DCNgayHoaDon.getComponentDateTextField().setEditable(false);
+        setComboBoxDoan();
         this.setVisible(true);   
         
     }
@@ -104,7 +106,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
         
         comboBoxTour.setEnabled(false);
         comboBoxDoan.setEnabled(false);
-        
+        comboBoxDichVu = myComboBox(comboBoxDichVu, new Color(14,142,233));
         setComboBox(comboBoxDichVu, getDichVuItems());
         CustomWindow();
         comboBoxTour = myComboBox(comboBoxTour, new Color(14,142,233));
@@ -124,11 +126,13 @@ public class popUpChiPhi extends javax.swing.JFrame {
     }
     public boolean validateForm() 
     {   
-        boolean hoaDon, chiPhi; 
+        boolean hoaDon, chiPhi, ngayHD; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
-         
-        
+        String selectedDoan = comboBoxDoan.getSelectedItem().toString();
+        Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
+        LocalDate ngayKhoiHanh;
+        LocalDate ngayKetThuc;
         if (InputValidatorUtil.isValidAddress(txtHoaDon.getText()).isEmpty())  
         {
             hoaDon = true;
@@ -140,7 +144,7 @@ public class popUpChiPhi extends javax.swing.JFrame {
             lblValidateHoaDon.setToolTipText(InputValidatorUtil.isValidAddress(txtHoaDon.getText()));
         }   
 
-        if (InputValidatorUtil.isVailidNumber(txtSoTien.getText()).isEmpty())  
+        if (InputValidatorUtil.isValidMoney(txtSoTien.getText()).isEmpty())  
         {
             chiPhi = true;
             lblValidateChiPhi.setIcon(iconCheck);
@@ -151,7 +155,29 @@ public class popUpChiPhi extends javax.swing.JFrame {
             lblValidateChiPhi.setToolTipText(InputValidatorUtil.isValidAddress(txtSoTien.getText()));
         }
         
-        if (hoaDon && chiPhi)
+        ngayKhoiHanh = doanBLL.findById(idDoan).getNgayKhoiHanh();
+        ngayKetThuc = doanBLL.findById(idDoan).getNgayKetThuc();
+        LocalDate ngayHoaDon = DCNgayHoaDon.getDate();
+        if (ngayHoaDon != null)
+        {
+            if (ngayHoaDon.isAfter(ngayKhoiHanh.minusDays(1)) && ngayHoaDon.isBefore(ngayKetThuc.plusDays(1)))
+            {
+                ngayHD = true;
+                lblValidateNgayHoaDon.setIcon(iconCheck);
+                lblValidateNgayHoaDon.setToolTipText(null);
+            }
+            else {
+                ngayHD = false;
+                lblValidateNgayHoaDon.setIcon(iconError);
+                lblValidateNgayHoaDon.setToolTipText("Ngày hóa đơn không hợp lệ");
+            }
+        } else {
+                ngayHD = false;
+                lblValidateNgayHoaDon.setIcon(iconError);
+                lblValidateNgayHoaDon.setToolTipText("Ngày hóa đơn không được để trống");
+        }
+
+        if (hoaDon && chiPhi && ngayHD)
         return true;
         else return false;
        
