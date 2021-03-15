@@ -165,8 +165,9 @@ public class popUpDoan extends javax.swing.JFrame {
         idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
         else idTour = this.doan.getIdTour();
         LocalDate startDate = DCNgayKhoiHanh.getDate();
-        setComboBox(comboBoxGiaTour, getGiaTienItems(idTour,startDate));
-        System.out.println(startDate);
+        LocalDate endDate = DCNgayKetThuc.getDate();
+        setComboBox(comboBoxGiaTour, getGiaTienItems(idTour, startDate, endDate));
+//        System.out.println(startDate);
     }
      public boolean validateForm() 
     {   
@@ -258,9 +259,9 @@ public class popUpDoan extends javax.swing.JFrame {
         return tour.getId() + " - " + tour.getTenTour();
     }
     
-    public String[] getGiaTienItems(Long idTour, LocalDate startDate) {
+    public String[] getGiaTienItems(Long idTour, LocalDate startDate, LocalDate endDate) {
         
-        List<GiaTourDTO> giaTourLists = giaTourBLL.findByIdTourAndStartDate(idTour, startDate);
+        List<GiaTourDTO> giaTourLists = giaTourBLL.findByIdTourAndDatesBetween(idTour, startDate, endDate);
         String[] giaTourItems = null;
        
             giaTourItems = new String[giaTourLists.size()];
@@ -450,14 +451,14 @@ public class popUpDoan extends javax.swing.JFrame {
         lblGiaTour.setText("Giá Tour:");
         lblGiaTour.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
+        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/save_icon.png"))); // NOI18N
         btnLuu.setText(" Lưu");
-        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setBorder(null);
         btnLuu.setContentAreaFilled(false);
         btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setOpaque(true);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -465,14 +466,14 @@ public class popUpDoan extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/cancel_icon.png"))); // NOI18N
         btnHuy.setText(" Hủy");
-        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
         btnHuy.setBorder(null);
         btnHuy.setContentAreaFilled(false);
         btnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setOpaque(true);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -482,6 +483,23 @@ public class popUpDoan extends javax.swing.JFrame {
 
         lblValidateNgayKetThuc.setPreferredSize(new java.awt.Dimension(24, 24));
 
+        DCNgayKhoiHanh.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                DCNgayKhoiHanhFocusLost(evt);
+            }
+        });
+        DCNgayKhoiHanh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DCNgayKhoiHanhMouseExited(evt);
+            }
+        });
+        DCNgayKhoiHanh.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                DCNgayKhoiHanhInputMethodTextChanged(evt);
+            }
+        });
         DCNgayKhoiHanh.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 DCNgayKhoiHanhPropertyChange(evt);
@@ -682,7 +700,20 @@ public class popUpDoan extends javax.swing.JFrame {
 //       else idTour = this.doan.getIdTour();
 //       LocalDate startDate = DCNgayKhoiHanh.getDate();
 //       setComboBox(comboBoxGiaTour, getGiaTienItems(idTour,startDate));
+        
     }//GEN-LAST:event_DCNgayKhoiHanhPropertyChange
+
+    private void DCNgayKhoiHanhInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhInputMethodTextChanged
+        
+    }//GEN-LAST:event_DCNgayKhoiHanhInputMethodTextChanged
+
+    private void DCNgayKhoiHanhFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhFocusLost
+        
+    }//GEN-LAST:event_DCNgayKhoiHanhFocusLost
+
+    private void DCNgayKhoiHanhMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DCNgayKhoiHanhMouseExited
 
     /**
      * @param args the command line arguments

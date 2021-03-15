@@ -62,7 +62,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
     }
     
     public void loadTableData() {
-        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findAll(), this.listColumns)) ;
+        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(nhanVienBLL.findByStatus(true), this.listColumns)) ;
         this.rowSorter = TableSetupUtil.setTableFilter(tblNhanVien, txtTimKiem);
         headerColor(14,142,233,tblNhanVien);
     }
@@ -310,7 +310,7 @@ public class QuanLyNhanVien extends javax.swing.JPanel {
             int rowindex = tblNhanVien.getSelectedRow();
             Long id = Long.parseLong(tblNhanVien.getValueAt(rowindex,0).toString());
             try {
-                nhanVienBLL.delete(id);
+                nhanVienBLL.updateStatus(false, id);
                 JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);

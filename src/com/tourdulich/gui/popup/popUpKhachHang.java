@@ -215,8 +215,6 @@ public class popUpKhachHang extends javax.swing.JFrame {
             }
         }
        
-       
-       
         return khachHang;
     }
     

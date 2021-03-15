@@ -47,9 +47,9 @@ public class KhachHangDAO extends AbstractDAO<KhachHangDTO> implements IKhachHan
     @Override
     public void update(KhachHangDTO khachHang) {
         String sql = "UPDATE khach_hang SET ho = ?, ten = ?, gioi_tinh = ?, cmnd = ?, sdt = ?, dia_chi = ?, "
-                + "hinh_anh = ?, ngay_sinh = ?, WHERE id = ?";
+                + "hinh_anh = ?, ngay_sinh = ? WHERE id = ?";
         update(sql, khachHang.getHo(), khachHang.getTen(), khachHang.getGioiTinh(), khachHang.getCmnd(), khachHang.getSdt(),
-                khachHang.getDiaChi(), khachHang.getHinhAnh(), khachHang.getNgaySinh());
+                khachHang.getDiaChi(), khachHang.getHinhAnh(), khachHang.getNgaySinh(), khachHang.getId());
     }
 
     @Override

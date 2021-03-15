@@ -29,6 +29,11 @@ public class NhanVienBLL implements INhanVienBLL {
     }
 
     @Override
+    public List<NhanVienDTO> findByStatus(boolean status) {
+        return nhanVienDAO.findByStatus(status);
+    }
+
+    @Override
     public NhanVienDTO findById(Long id) {
         return nhanVienDAO.findById(id);
     }
@@ -46,6 +51,11 @@ public class NhanVienBLL implements INhanVienBLL {
     @Override
     public void update(NhanVienDTO nhanVien) {
         nhanVienDAO.update(nhanVien);
+    }
+
+    @Override
+    public void updateStatus(boolean status, Long id) {
+        nhanVienDAO.updateStatus(status, id);
     }
 
     @Override
