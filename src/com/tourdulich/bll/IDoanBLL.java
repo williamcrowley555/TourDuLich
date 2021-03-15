@@ -18,5 +18,6 @@ public interface IDoanBLL {
     List<DoanDTO> findByIdTour(Long id);
     Long save(DoanDTO doan);
     void update(DoanDTO doan);
+    void updateAmount(Long id, Integer amount);
     void delete(Long id);     
 }

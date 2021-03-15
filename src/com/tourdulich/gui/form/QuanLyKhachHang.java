@@ -99,8 +99,8 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
         pnlHeader = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
-        btnTimKiem = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        lblTimKiem = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblKhachHang = new javax.swing.JTable();
@@ -138,22 +138,19 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             }
         });
 
+        txtTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(14, 142, 233)));
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
             }
         });
 
-        btnTimKiem.setBackground(new java.awt.Color(14, 142, 233));
-        btnTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnTimKiem.setForeground(new java.awt.Color(255, 255, 255));
-        btnTimKiem.setText("Tìm");
-        btnTimKiem.setContentAreaFilled(false);
-        btnTimKiem.setOpaque(true);
-
         lblTitle.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Quản Lý Khách Hàng");
+
+        lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/search_icon.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
         pnlHeader.setLayout(pnlHeaderLayout);
@@ -162,23 +159,25 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
             .addGroup(pnlHeaderLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
+                .addComponent(lblTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(31, 31, 31))
             .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlHeaderLayout.setVerticalGroup(
             pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHeaderLayout.createSequentialGroup()
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(32, 32, 32))
         );
 
@@ -294,8 +293,8 @@ public class QuanLyKhachHang extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnTimKiem;
     private javax.swing.JMenuItem itemSua;
+    private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHeader;

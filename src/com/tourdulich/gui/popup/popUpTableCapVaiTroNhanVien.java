@@ -22,6 +22,7 @@ import com.tourdulich.dto.VaiTroDTO;
 import com.tourdulich.dto.VaiTroNhanVienDoanDTO;
 import com.tourdulich.util.KhachHangTableLoaderUtil;
 import com.tourdulich.util.NhanVienTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
 import com.tourdulich.util.VaiTroTableLoaderUtil;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,6 +35,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -50,6 +53,7 @@ public class popUpTableCapVaiTroNhanVien extends javax.swing.JFrame {
     DefaultTableModel model;
     List<VaiTroDTO> vaiTroList = null;
     Long idVaiTroNhanVienDoan;
+    
     String[] columnNames = {
                             "Id",
                             "Tên Vai Trò"
@@ -72,6 +76,7 @@ public class popUpTableCapVaiTroNhanVien extends javax.swing.JFrame {
     public void loadTableVaiTro()
     {
         tblVaiTro.setModel(new VaiTroTableLoaderUtil().setTable(vaiTroBLL.findAll(), columnNames));
+         
         headerColor(14,142,233,tblVaiTro);
     }
     
@@ -260,26 +265,27 @@ public class popUpTableCapVaiTroNhanVien extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(123, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap())
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(33, 33, 33)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,57 +338,62 @@ public class popUpTableCapVaiTroNhanVien extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
        int rowindex = tblVaiTro_Doan.getSelectedRow();
-       Long id = Long.parseLong(tblVaiTro_Doan.getValueAt(rowindex,0).toString());
-       for (int i = 0; i < vaiTroList.size(); i++)
+       if (rowindex >=0)
        {
-           if (id.equals(vaiTroList.get(i).getId()))
-           vaiTroList.remove(vaiTroList.get(i));
-       }
-        model = new DefaultTableModel(columnNames,0);
-        for (int i = 0; i < vaiTroList.size(); i++) {
-        model.addRow(new Object[]   {
-                                        String.valueOf(vaiTroList.get(i).getId()),
-                                        String.valueOf(vaiTroList.get(i).getTenVaiTro())    
-                                    });
-           
+        Long id = Long.parseLong(tblVaiTro_Doan.getValueAt(rowindex,0).toString());
+        for (int i = 0; i < vaiTroList.size(); i++)
+        {
+            if (id.equals(vaiTroList.get(i).getId()))
+            vaiTroList.remove(vaiTroList.get(i));
         }
-        
-         if (vaiTroList.size() > 0) 
-                tblVaiTro_Doan.setModel(model);
-            else 
-            {
-                 model = new DefaultTableModel(columnNames,0);
+         model = new DefaultTableModel(columnNames,0);
+         for (int i = 0; i < vaiTroList.size(); i++) {
+         model.addRow(new Object[]   {
+                                         String.valueOf(vaiTroList.get(i).getId()),
+                                         String.valueOf(vaiTroList.get(i).getTenVaiTro())    
+                                     });
+
+         }
+
+          if (vaiTroList.size() > 0) 
                  tblVaiTro_Doan.setModel(model);
-            }
-         headerColor(14,142,233,tblVaiTro_Doan);
+             else 
+             {
+                  model = new DefaultTableModel(columnNames,0);
+                  tblVaiTro_Doan.setModel(model);
+             }
+          headerColor(14,142,233,tblVaiTro_Doan);
+       }    else JOptionPane.showMessageDialog(this, "Hãy chọn 1 vai trò để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
        vaiTroBLL = new VaiTroBLL();
        int rowindex = tblVaiTro.getSelectedRow();
-       Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());
-       VaiTroDTO selected = vaiTroBLL.findById(id);
-       boolean duplicate = false;
-       for (VaiTroDTO vaiTro : this.vaiTroList)
+       if (rowindex >=0)
        {
-           if (vaiTro.getId().equals(selected.getId()))
-           duplicate = true;
-       }
-       
-        if (!duplicate)
+        Long id = Long.parseLong(tblVaiTro.getValueAt(rowindex,0).toString());
+        VaiTroDTO selected = vaiTroBLL.findById(id);
+        boolean duplicate = false;
+        for (VaiTroDTO vaiTro : this.vaiTroList)
         {
-            vaiTroList.add(selected);
-            model = new DefaultTableModel(columnNames,0);
-            for (int i = 0; i < vaiTroList.size(); i++) {
-            model.addRow(new Object[]   {
-                                        String.valueOf(vaiTroList.get(i).getId()),
-                                        String.valueOf(vaiTroList.get(i).getTenVaiTro())                                   
-                                    });
-            tblVaiTro_Doan.setModel(model);
-            }  
+            if (vaiTro.getId().equals(selected.getId()))
+            duplicate = true;
         }
-        headerColor(14,142,233,tblVaiTro_Doan);      
-      
+
+         if (!duplicate)
+         {
+             vaiTroList.add(selected);
+             model = new DefaultTableModel(columnNames,0);
+             for (int i = 0; i < vaiTroList.size(); i++) {
+             model.addRow(new Object[]   {
+                                         String.valueOf(vaiTroList.get(i).getId()),
+                                         String.valueOf(vaiTroList.get(i).getTenVaiTro())                                   
+                                     });
+             tblVaiTro_Doan.setModel(model);
+             }  
+         }
+         headerColor(14,142,233,tblVaiTro_Doan);      
+       }    else JOptionPane.showMessageDialog(this, "Hãy chọn 1 vai trò để thêm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnThemActionPerformed
 
     /**

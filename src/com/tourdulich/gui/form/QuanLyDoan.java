@@ -121,6 +121,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
         lblTitle = new javax.swing.JLabel();
         btnTaoDSNguoiDi = new javax.swing.JButton();
         btnCapVaiTro = new javax.swing.JButton();
+        lblTimKiem = new javax.swing.JLabel();
         pnlBody = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
         tblDoan = new javax.swing.JTable();
@@ -172,6 +173,8 @@ public class QuanLyDoan extends javax.swing.JPanel {
             }
         });
 
+        txtTimKiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTimKiem.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(14, 142, 233)));
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
@@ -224,6 +227,8 @@ public class QuanLyDoan extends javax.swing.JPanel {
             }
         });
 
+        lblTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/search_icon.png"))); // NOI18N
+
         javax.swing.GroupLayout pnlHeadLayout = new javax.swing.GroupLayout(pnlHead);
         pnlHead.setLayout(pnlHeadLayout);
         pnlHeadLayout.setHorizontalGroup(
@@ -235,7 +240,9 @@ public class QuanLyDoan extends javax.swing.JPanel {
                 .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCapVaiTro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(lblTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
             .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -244,13 +251,15 @@ public class QuanLyDoan extends javax.swing.JPanel {
             pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCapVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlHeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTaoDSNguoiDi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCapVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTimKiem))
                 .addGap(32, 32, 32))
         );
 
@@ -436,6 +445,7 @@ public class QuanLyDoan extends javax.swing.JPanel {
     private javax.swing.JButton btnThem;
     private javax.swing.JMenuItem itemSua;
     private javax.swing.JMenuItem itemXoa;
+    private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlHead;

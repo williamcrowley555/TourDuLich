@@ -77,12 +77,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblChonTour" min="-2" pref="83" max="-2" attributes="0"/>
                       <Component id="comboBoxTour" alignment="0" min="-2" pref="440" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Component id="lblChonDoan" min="-2" pref="83" max="-2" attributes="0"/>
                           <Component id="comboBoxDoan" min="-2" pref="439" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="lblChonTour" alignment="0" min="-2" pref="49" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -196,6 +196,9 @@
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Component id="lblTimKiem" min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtTimKiem" min="-2" pref="162" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnThem" min="-2" pref="105" max="-2" attributes="0"/>
@@ -211,11 +214,12 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtTimKiem" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="btnThem" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="lblTimKiem" alignment="0" pref="41" max="32767" attributes="0"/>
+                      <Component id="txtTimKiem" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="scroll" pref="436" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="scroll" pref="441" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -247,6 +251,18 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="txtTimKiem">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="2" left="2" right="2" top="2">
+                  <Color PropertyName="color" blue="e9" green="8e" red="e" type="rgb"/>
+                </MatteColorBorder>
+              </Border>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
           </Events>
@@ -273,6 +289,16 @@
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnThemMousePressed"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblTimKiem">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="16" style="0"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/tourdulich/img/search_icon.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

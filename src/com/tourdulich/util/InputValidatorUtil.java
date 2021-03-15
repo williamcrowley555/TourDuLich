@@ -42,7 +42,7 @@ public class InputValidatorUtil {
         
         boolean result = isVailidNumber(name).isEmpty();
         if(result) {
-            return "Dịa chỉ không hợp lệ";
+            return "Địa chỉ không hợp lệ";
         }
         
         name = RemoveAccentUtil.removeAccent(name);
@@ -52,7 +52,22 @@ public class InputValidatorUtil {
         Matcher matcher = pattern.matcher(name);
         result = matcher.find();
         if(result) {
-            return "Dịa chỉ không hợp lệ";
+            return "Địa chỉ không hợp lệ";
+        }
+        return "";
+    }
+    
+    public static String isValidInvoiceNumber(String invoiceNumber) {
+        if (invoiceNumber.isEmpty()) return " không được để trống";
+        
+        invoiceNumber = RemoveAccentUtil.removeAccent(invoiceNumber);
+        invoiceNumber = invoiceNumber.trim();
+        String regex = "[^A-Za-z0-9\\-]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(invoiceNumber);
+        boolean result = matcher.find();
+        if(result) {
+            return "Hóa đơn không hợp lệ";
         }
         return "";
     }
@@ -150,6 +165,20 @@ public class InputValidatorUtil {
                 return "Số nhập vào tối đa là " + max;
             }
         }
+        return "";
+    }
+    
+    public static String isValidMoney(String money)
+    {
+        if (money.isEmpty()) return " không được để trống";
+        String regex = "[^0-9]";
+        boolean result = money.matches(regex);
+        if(result) {
+            return "Số tiền không hợp lệ";
+        }
+        String message = isInteger(money);
+        if(!message.isEmpty()) return message;
+        if(Long.parseLong(money)<0) return "Số tiền phải lớn hơn 0";
         return "";
     }
     

@@ -5,6 +5,14 @@
         <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/dao/impl/KhachHangDAO.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/gui/popup/popUpKhachHang.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDiaDiem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyChiPhi.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoan.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/ThongKeTheoTour.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableKhach.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableCapVaiTroNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpTableNhanVien.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
         </group>
     </open-files>
 </project-private>

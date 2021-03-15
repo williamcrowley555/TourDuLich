@@ -9,13 +9,19 @@ import com.tourdulich.bll.IKhachHangBLL;
 import com.tourdulich.bll.impl.KhachHangBLL;
 import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.util.KhachHangTableLoaderUtil;
+import com.tourdulich.util.TableSetupUtil;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -29,7 +35,7 @@ public class popUpTableKhach extends javax.swing.JFrame {
     IKhachHangBLL khachHangBLL;
     popUpDsNguoiDi frame;
     ArrayList<KhachHangDTO> khachHangList = null;
-    DefaultTableModel model;
+    DefaultTableModel model;    
     String[] columnNames = {
                             "Id",
                             "Họ",
@@ -44,6 +50,7 @@ public class popUpTableKhach extends javax.swing.JFrame {
         setTableKhachDoan(this.khachHangList);
         IKhachHangBLL khachHangBLL = new KhachHangBLL();
         tblKhachHang.setModel(new KhachHangTableLoaderUtil().setTable(khachHangBLL.findAll(), columnNames));
+         
         headerColor(14,142,233,tblKhachHang);
         
     }
@@ -89,7 +96,11 @@ public class popUpTableKhach extends javax.swing.JFrame {
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     
-    
+    public void center()
+    {
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -273,7 +284,7 @@ public class popUpTableKhach extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        
+ 
        frame.addListKhachHang(khachHangList);
        this.dispose();
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -285,6 +296,8 @@ public class popUpTableKhach extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
        int rowindex = tblKhach_Doan.getSelectedRow();
+       if (rowindex >=0)
+       {
        Long id = Long.parseLong(tblKhach_Doan.getValueAt(rowindex,0).toString());
        for (int i = 0; i < khachHangList.size(); i++)
        {
@@ -310,37 +323,40 @@ public class popUpTableKhach extends javax.swing.JFrame {
                  tblKhach_Doan.setModel(model);
             }
          headerColor(14,142,233,tblKhach_Doan);
+       } JOptionPane.showMessageDialog(this, "Hãy chọn 1 khách để xóa", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
        
        khachHangBLL = new KhachHangBLL();
        int rowindex = tblKhachHang.getSelectedRow();
-       Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
-       KhachHangDTO selected = khachHangBLL.findById(id);
-       boolean duplicate = false;
-       for (KhachHangDTO khach : khachHangList)
+       if (rowindex >=0)
        {
-           if (khach.getId().equals(selected.getId()))
-           duplicate = true;
-       }
-       
-        if (!duplicate)
+        Long id = Long.parseLong(tblKhachHang.getValueAt(rowindex,0).toString());
+        KhachHangDTO selected = khachHangBLL.findById(id);
+        boolean duplicate = false;
+        for (KhachHangDTO khach : khachHangList)
         {
-            khachHangList.add(selected);
-            model = new DefaultTableModel(columnNames,0);
-            for (int i = 0; i < khachHangList.size(); i++) {
-            model.addRow(new Object[]    {      
-                                             String.valueOf(khachHangList.get(i).getId()),
-                                             String.valueOf(khachHangList.get(i).getHo()),
-                                             String.valueOf(khachHangList.get(i).getTen()),
-                                             String.valueOf(khachHangList.get(i).getGioiTinh()),
-                                         });
-            tblKhach_Doan.setModel(model);
-            }  
+            if (khach.getId().equals(selected.getId()))
+            duplicate = true;
         }
-        headerColor(14,142,233,tblKhach_Doan);
-      
+
+         if (!duplicate)
+         {
+             khachHangList.add(selected);
+             model = new DefaultTableModel(columnNames,0);
+             for (int i = 0; i < khachHangList.size(); i++) {
+             model.addRow(new Object[]    {      
+                                              String.valueOf(khachHangList.get(i).getId()),
+                                              String.valueOf(khachHangList.get(i).getHo()),
+                                              String.valueOf(khachHangList.get(i).getTen()),
+                                              String.valueOf(khachHangList.get(i).getGioiTinh()),
+                                          });
+             tblKhach_Doan.setModel(model);
+             }  
+         }
+         headerColor(14,142,233,tblKhach_Doan);
+       } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 khách để thêm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                
         
       
@@ -395,5 +411,8 @@ public class popUpTableKhach extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblKhachHang;
     private javax.swing.JTable tblKhach_Doan;
+    private javax.swing.JTextField txtTimKiem;
+    private javax.swing.JTextField txtTimKiem1;
+    private javax.swing.JTextField txtTimKiem2;
     // End of variables declaration//GEN-END:variables
 }
