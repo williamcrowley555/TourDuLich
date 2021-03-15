@@ -5,6 +5,12 @@
         <group>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dao/impl/DoanDAO.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/popUpDsNguoiDi.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/popUpChiPhi.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyChiPhi.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/impl/DsKhachDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dao/IDsKhachDoanDAO.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyVaiTro.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyKhachHang.java</file>
         </group>
     </open-files>
 </project-private>
