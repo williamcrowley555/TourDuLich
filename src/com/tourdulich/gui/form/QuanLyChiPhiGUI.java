@@ -203,7 +203,6 @@ public class QuanLyChiPhiGUI extends javax.swing.JPanel {
 
         rightClickMenu = new javax.swing.JPopupMenu();
         itemSua = new javax.swing.JMenuItem();
-        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         comboBoxTour = new javax.swing.JComboBox<>();
@@ -226,17 +225,6 @@ public class QuanLyChiPhiGUI extends javax.swing.JPanel {
             }
         });
         rightClickMenu.add(itemSua);
-
-        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
-        itemXoa.setText("Xóa");
-        itemXoa.setToolTipText("");
-        itemXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemXoaActionPerformed(evt);
-            }
-        });
-        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -439,22 +427,6 @@ public class QuanLyChiPhiGUI extends javax.swing.JPanel {
     });
     }//GEN-LAST:event_itemSuaActionPerformed
 
-    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-        if(response == JOptionPane.YES_OPTION) {
-            int rowindex = tblChiPhi.getSelectedRow();
-            Long id = Long.parseLong(tblChiPhi.getValueAt(rowindex,0).toString());
-            try {
-                chiPhiDoanBLL.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        }
-        loadTableData();
-    }//GEN-LAST:event_itemXoaActionPerformed
-
     private void tblChiPhiMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiPhiMouseReleased
         // TODO add your handling code here:
         int r = tblChiPhi.rowAtPoint(evt.getPoint());
@@ -495,7 +467,6 @@ public class QuanLyChiPhiGUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboBoxDoan;
     private javax.swing.JComboBox<String> comboBoxTour;
     private javax.swing.JMenuItem itemSua;
-    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblChonDoan;
     private javax.swing.JLabel lblChonTour;
     private javax.swing.JLabel lblTimKiem;
