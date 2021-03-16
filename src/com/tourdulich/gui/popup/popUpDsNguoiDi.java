@@ -66,7 +66,9 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
     private IDsNhanVienDoanBLL dsNhanVienDoanBLL;
     private IVaiTroNhanVienDoanBLL vaiTroNhanVienDoanBLL;
     private ArrayList<KhachHangDTO> listKhach = null;
+    private ArrayList<KhachHangDTO> listDeletedKhach = null;
     private ArrayList<NhanVienDTO> listNhanVien = null;
+    private ArrayList<NhanVienDTO> listDeletedNhanVien = null;
     private IVaiTroBLL vaiTroBLL;
     private popUpTableKhach popUpKhach;
     private popUpTableNhanVien popUpNhanVien;
@@ -77,6 +79,8 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         dsKhachDoanBLL = new DsKhachDoanBLL();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         vaiTroNhanVienDoanBLL = new VaiTroNhanVienDoanBLL();
+        listDeletedKhach = new ArrayList<>();
+        listDeletedNhanVien = new ArrayList<>();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
@@ -96,6 +100,8 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
         dsKhachDoanBLL = new DsKhachDoanBLL();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         vaiTroNhanVienDoanBLL = new VaiTroNhanVienDoanBLL();
+        listDeletedKhach = new ArrayList<>();
+        listDeletedNhanVien = new ArrayList<>();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
         CustomWindow();
@@ -115,6 +121,26 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
            rs += "\n";
         }
         txtKhachHangList.setText(rs);
+    }
+    
+    public void addDeletedKhach(KhachHangDTO deleted)
+    {
+       boolean duplicate = false; 
+       for (int i = 0; i < listDeletedKhach.size(); i++)
+           if (listDeletedKhach.get(i).getId().equals(deleted.getId()))
+           duplicate = true;
+       if (!duplicate)
+      listDeletedKhach.add(deleted);         
+    }
+    
+    public void addDeletedNhanVien(NhanVienDTO deleted)
+    {
+       boolean duplicate = false; 
+       for (int i = 0; i < listDeletedNhanVien.size(); i++)
+           if (listDeletedNhanVien.get(i).getId().equals(deleted.getId()))
+           duplicate = true;
+       if (!duplicate)
+      listDeletedNhanVien.add(deleted);         
     }
     
     public void addListNhanVien(ArrayList list)
@@ -644,7 +670,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
             Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
             LocalDate doanStartDate = doanBLL.findById(idDoan).getNgayKhoiHanh();
             
-            popUpKhach = new popUpTableKhach(this, listKhach, doanStartDate);
+            popUpKhach = new popUpTableKhach(this, listKhach, listDeletedKhach, doanStartDate);
             this.popUpKhach.setVisible(true);
             this.popUpKhach.center();
         } else {
@@ -665,7 +691,7 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
             String selectedDoan = comboBoxDoan.getSelectedItem().toString();
             Long idDoan = Long.parseLong(selectedDoan.substring(0, selectedDoan.indexOf(" - ")));
             LocalDate doanStartDate = doanBLL.findById(idDoan).getNgayKhoiHanh();
-            popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, doanStartDate);
+            popUpNhanVien = new popUpTableNhanVien(this, listNhanVien, listDeletedNhanVien, doanStartDate);
             popUpNhanVien.setVisible(true);
             this.popUpNhanVien.center();
         } else {

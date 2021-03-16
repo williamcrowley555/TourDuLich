@@ -18,6 +18,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -39,12 +40,14 @@ public class popUpTableKhach extends javax.swing.JFrame {
     IDsKhachDoanBLL dsKhachDoanBLL;
     popUpDsNguoiDi frame;
     ArrayList<KhachHangDTO> khachHangList = null;
-    DefaultTableModel model;    
+    ArrayList<KhachHangDTO> deletedKhachHangList;
+    DefaultTableModel model;   
+    DefaultTableModel modelKhach;
     String[] columnNames = {
                             "Id",
                             "Họ",
                             "Tên"};
-    public popUpTableKhach(popUpDsNguoiDi frame, ArrayList<KhachHangDTO> khachHangList, LocalDate doanStartDate) {
+    public popUpTableKhach(popUpDsNguoiDi frame, ArrayList<KhachHangDTO> khachHangList, ArrayList<KhachHangDTO> deletedKhachHangList, LocalDate doanStartDate) {
         initComponents();
         dsKhachDoanBLL = new DsKhachDoanBLL();
         if (khachHangList == null)
@@ -54,7 +57,11 @@ public class popUpTableKhach extends javax.swing.JFrame {
         initEmptyTableKhachDoan();
         setTableKhachDoan(this.khachHangList);
         IKhachHangBLL khachHangBLL = new KhachHangBLL();
-        tblKhachHang.setModel(new KhachHangTableLoaderUtil().setTable(dsKhachDoanBLL.getFreeKhach(doanStartDate), columnNames));
+        modelKhach = new KhachHangTableLoaderUtil().setTable(dsKhachDoanBLL.getFreeKhach(doanStartDate), columnNames);
+        tblKhachHang.setModel(modelKhach);
+        if (deletedKhachHangList == null)
+            deletedKhachHangList = new ArrayList<>();
+        addDeletedList(deletedKhachHangList);
         headerColor(14,142,233,tblKhachHang);
         
     }
@@ -83,6 +90,40 @@ public class popUpTableKhach extends javax.swing.JFrame {
         tblKhach_Doan.setModel(model);
         }
         headerColor(14,142,233,tblKhach_Doan);
+    }
+    
+    public void addDeleted(KhachHangDTO deleted)
+    {
+        boolean duplicate = false;
+        boolean dupicateList = false;
+        for (int i = 0; i < modelKhach.getRowCount(); i++)
+        {
+            if (modelKhach.getValueAt(i, 0) == deleted.getId())
+            duplicate = true;
+        }
+        
+        if (!duplicate)
+        {
+        Vector khach = new Vector();
+        khach.add(deleted.getId());
+        khach.add(deleted.getHo());
+        khach.add(deleted.getTen());
+        modelKhach.addRow(khach);      
+        }
+
+    }
+    
+    public void addDeletedList(ArrayList<KhachHangDTO> deletedList)
+    {      
+        for (int i = 0; i < deletedList.size(); i++)
+        {
+            Vector khach = new Vector();
+            khach.add(deletedList.get(i).getId());
+            khach.add(deletedList.get(i).getHo());
+            khach.add(deletedList.get(i).getTen());
+            modelKhach.addRow(khach);
+        }
+        tblKhachHang.setModel(modelKhach);
     }
     
     public void headerColor(int r, int b, int g, JTable table)
@@ -288,7 +329,7 @@ public class popUpTableKhach extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
- 
+       
        frame.addListKhachHang(khachHangList);
        this.dispose();
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -307,7 +348,11 @@ public class popUpTableKhach extends javax.swing.JFrame {
        for (int i = 0; i < khachHangList.size(); i++)
        {
            if (id.equals(khachHangList.get(i).getId()))
+           {
+           addDeleted(khachHangList.get(i));
+           frame.addDeletedKhach(khachHangList.get(i));
            khachHangList.remove(khachHangList.get(i));
+           }
        }
         model = new DefaultTableModel(columnNames,0);
         for (int i = 0; i < khachHangList.size(); i++) {

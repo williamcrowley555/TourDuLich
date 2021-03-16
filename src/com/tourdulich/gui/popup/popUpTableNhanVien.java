@@ -22,11 +22,13 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -43,11 +45,12 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
     popUpDsNguoiDi frame;
     ArrayList<NhanVienDTO> nhanVienList = null;
     DefaultTableModel model;
+    DefaultTableModel modelNhanVien;
     String[] columnNames = {
                             "Id",
                             "Họ",
                             "Tên"};
-    public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList, LocalDate doanStartDate) {
+    public popUpTableNhanVien(popUpDsNguoiDi frame, ArrayList<NhanVienDTO> nhanVienList, ArrayList<NhanVienDTO> deletedNhanVienList, LocalDate doanStartDate) {
         initComponents();
         dsNhanVienDoanBLL = new DsNhanVienDoanBLL();
         if (nhanVienList == null)
@@ -56,7 +59,12 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         this.frame = frame;
         initEmptyTableNhanVienDoan();
         setTableNhanVienDoan(this.nhanVienList);
-        tblNhanVien.setModel(new NhanVienTableLoaderUtil().setTable(dsNhanVienDoanBLL.getFreeNhanVien(doanStartDate), columnNames));
+        modelNhanVien = new NhanVienTableLoaderUtil().setTable(dsNhanVienDoanBLL.getFreeNhanVien(doanStartDate), columnNames);
+        tblNhanVien.setModel(modelNhanVien);
+        
+        if (deletedNhanVienList == null)
+            deletedNhanVienList = new ArrayList<>();
+        addDeletedList(deletedNhanVienList);
         headerColor(14,142,233,tblNhanVien);
         
     }
@@ -107,6 +115,38 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
     {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    }
+    
+    public void addDeleted(NhanVienDTO deleted)
+    {
+        boolean duplicate = false;
+        for (int i = 0; i < modelNhanVien.getRowCount(); i++)
+        {
+            if (modelNhanVien.getValueAt(i, 0) == deleted.getId())
+            duplicate = true;
+        }
+        
+        if (!duplicate)
+        {
+        Vector nhanVien = new Vector();
+        nhanVien.add(deleted.getId());
+        nhanVien.add(deleted.getHo());
+        nhanVien.add(deleted.getTen());
+        modelNhanVien.addRow(nhanVien);
+        }
+    }
+    
+    public void addDeletedList(ArrayList<NhanVienDTO> deletedList)
+    {      
+        for (int i = 0; i < deletedList.size(); i++)
+        {
+            Vector nhanVien = new Vector();
+            nhanVien.add(deletedList.get(i).getId());
+            nhanVien.add(deletedList.get(i).getHo());
+            nhanVien.add(deletedList.get(i).getTen());
+            modelNhanVien.addRow(nhanVien);
+        }
+        tblNhanVien.setModel(modelNhanVien);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -310,7 +350,11 @@ public class popUpTableNhanVien extends javax.swing.JFrame {
         for (int i = 0; i < nhanVienList.size(); i++)
         {
             if (id.equals(nhanVienList.get(i).getId()))
+            {
+            addDeleted(nhanVienList.get(i));
+            frame.addDeletedNhanVien(nhanVienList.get(i));
             nhanVienList.remove(nhanVienList.get(i));
+            }
         }
          model = new DefaultTableModel(columnNames,0);
          for (int i = 0; i < nhanVienList.size(); i++) {
