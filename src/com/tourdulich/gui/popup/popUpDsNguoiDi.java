@@ -294,6 +294,16 @@ public class popUpDsNguoiDi extends javax.swing.JFrame {
        
     }
     
+    public void cancelNhanVienPopUp()
+    {   
+        setListNhanVienDoan();
+    }
+    
+    public void cancelKhachPopUp()
+    {    
+        setListKhachDoan();
+    }
+    
     public void CustomWindow()
     {   
         Color flatBlue = new Color(14,142,233);  
