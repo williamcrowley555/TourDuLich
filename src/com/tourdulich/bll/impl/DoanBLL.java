@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IDoanBLL;
-import com.tourdulich.dao.IDoanDAO;
-import com.tourdulich.dao.impl.DoanDAO;
+import com.tourdulich.dal.impl.DoanDAL;
 import com.tourdulich.dto.DoanDTO;
 import java.util.List;
+import com.tourdulich.dal.IDoanDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class DoanBLL implements IDoanBLL {
     
-    private IDoanDAO doanDAO;
+    private IDoanDAL doanDAO;
     
     public DoanBLL() {
-        this.doanDAO = new DoanDAO();
+        this.doanDAO = new DoanDAL();
     }    
     
     @Override

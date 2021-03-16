@@ -7,26 +7,26 @@ package com.tourdulich.bll.impl;
 
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import com.tourdulich.bll.IDsKhachDoanBLL;
-import com.tourdulich.dao.IDsKhachDoanDAO;
-import com.tourdulich.dao.IKhachHangDAO;
-import com.tourdulich.dao.impl.DsKhachDoanDAO;
-import com.tourdulich.dao.impl.KhachHangDAO;
+import com.tourdulich.dal.impl.DsKhachDoanDAL;
+import com.tourdulich.dal.impl.KhachHangDAL;
 import com.tourdulich.dto.DsKhachDoanDTO;
 import com.tourdulich.dto.KhachHangDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.tourdulich.dal.IDsKhachDoanDAL;
+import com.tourdulich.dal.IKhachHangDAL;
 
 /**
  *
  * @author kossp
  */
 public class DsKhachDoanBLL implements IDsKhachDoanBLL {
-    private IDsKhachDoanDAO dsKhachDoanDAO;
-    private IKhachHangDAO khachHangDAO;
+    private IDsKhachDoanDAL dsKhachDoanDAO;
+    private IKhachHangDAL khachHangDAO;
     public DsKhachDoanBLL() {
-        this.dsKhachDoanDAO = new DsKhachDoanDAO();
-        this.khachHangDAO = new KhachHangDAO();
+        this.dsKhachDoanDAO = new DsKhachDoanDAL();
+        this.khachHangDAO = new KhachHangDAL();
     }    
     
     @Override

@@ -6,21 +6,21 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IGiaTourBLL;
-import com.tourdulich.dao.IGiaTourDAO;
-import com.tourdulich.dao.impl.GiaTourDAO;
+import com.tourdulich.dal.impl.GiaTourDAL;
 import com.tourdulich.dto.GiaTourDTO;
 import java.time.LocalDate;
 import java.util.List;
+import com.tourdulich.dal.IGiaTourDAL;
 
 /**
  *
  * @author kossp
  */
 public class GiaTourBLL implements IGiaTourBLL {
-    private IGiaTourDAO giaTourDAO;
+    private IGiaTourDAL giaTourDAO;
     
     public GiaTourBLL() {
-        this.giaTourDAO = new GiaTourDAO();
+        this.giaTourDAO = new GiaTourDAL();
     }    
     
     @Override

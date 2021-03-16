@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.INhanVienBLL;
-import com.tourdulich.dao.INhanVienDAO;
-import com.tourdulich.dao.impl.NhanVienDAO;
+import com.tourdulich.dal.impl.NhanVienDAL;
 import com.tourdulich.dto.NhanVienDTO;
 import java.util.List;
+import com.tourdulich.dal.INhanVienDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class NhanVienBLL implements INhanVienBLL {
     
-    private INhanVienDAO nhanVienDAO;
+    private INhanVienDAL nhanVienDAO;
 
     public NhanVienBLL() {
-        this.nhanVienDAO = new NhanVienDAO();
+        this.nhanVienDAO = new NhanVienDAL();
     }
 
     @Override

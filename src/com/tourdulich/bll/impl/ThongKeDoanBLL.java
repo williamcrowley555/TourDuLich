@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IThongKeDoanBLL;
-import com.tourdulich.dao.IThongKeDoanDAO;
-import com.tourdulich.dao.impl.ThongKeDoanDAO;
+import com.tourdulich.dal.impl.ThongKeDoanDAL;
 import com.tourdulich.dto.ThongKeDoanDTO;
 import java.util.List;
+import com.tourdulich.dal.IThongKeDoanDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class ThongKeDoanBLL implements IThongKeDoanBLL {
     
-    private IThongKeDoanDAO thongKeDoanDAO;
+    private IThongKeDoanDAL thongKeDoanDAO;
     
     public ThongKeDoanBLL() {
-        this.thongKeDoanDAO = new ThongKeDoanDAO();
+        this.thongKeDoanDAO = new ThongKeDoanDAL();
     }    
 
     @Override

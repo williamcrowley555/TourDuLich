@@ -6,26 +6,26 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IVaiTroNhanVienDoanBLL;
-import com.tourdulich.dao.IVaiTroDAO;
-import com.tourdulich.dao.IVaiTroNhanVienDoanDAO;
-import com.tourdulich.dao.impl.VaiTroDAO;
-import com.tourdulich.dao.impl.VaiTroNhanVienDoanDAO;
+import com.tourdulich.dal.impl.VaiTroDAL;
+import com.tourdulich.dal.impl.VaiTroNhanVienDoanDAL;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.VaiTroDTO;
 import com.tourdulich.dto.VaiTroNhanVienDoanDTO;
 import java.util.ArrayList;
 import java.util.List;
+import com.tourdulich.dal.IVaiTroDAL;
+import com.tourdulich.dal.IVaiTroNhanVienDoanDAL;
 
 /**
  *
  * @author kossp
  */
 public class VaiTroNhanVienDoanBLL implements IVaiTroNhanVienDoanBLL {
-    private IVaiTroNhanVienDoanDAO vaiTroNhanVienDoanDAO;
-    private IVaiTroDAO vaiTroDAO;
+    private IVaiTroNhanVienDoanDAL vaiTroNhanVienDoanDAO;
+    private IVaiTroDAL vaiTroDAO;
     public VaiTroNhanVienDoanBLL() {
-        this.vaiTroNhanVienDoanDAO = new VaiTroNhanVienDoanDAO();
-        this.vaiTroDAO = new VaiTroDAO();
+        this.vaiTroNhanVienDoanDAO = new VaiTroNhanVienDoanDAL();
+        this.vaiTroDAO = new VaiTroDAL();
     }    
     
     @Override

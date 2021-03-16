@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IKhachHangBLL;
-import com.tourdulich.dao.IKhachHangDAO;
-import com.tourdulich.dao.impl.KhachHangDAO;
+import com.tourdulich.dal.impl.KhachHangDAL;
 import com.tourdulich.dto.KhachHangDTO;
 import java.util.List;
+import com.tourdulich.dal.IKhachHangDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class KhachHangBLL implements IKhachHangBLL {
     
-    private IKhachHangDAO khachHangDAO;
+    private IKhachHangDAL khachHangDAO;
 
     public KhachHangBLL() {
-        this.khachHangDAO = new KhachHangDAO();
+        this.khachHangDAO = new KhachHangDAL();
     }
 
     @Override

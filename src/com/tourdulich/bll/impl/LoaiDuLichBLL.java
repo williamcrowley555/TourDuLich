@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.ILoaiDuLichBLL;
-import com.tourdulich.dao.ILoaiDuLichDAO;
-import com.tourdulich.dao.impl.LoaiDuLichDAO;
+import com.tourdulich.dal.impl.LoaiDuLichDAL;
 import com.tourdulich.dto.LoaiDuLichDTO;
 import java.util.List;
+import com.tourdulich.dal.ILoaiDuLichDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class LoaiDuLichBLL implements ILoaiDuLichBLL {
 
-    private ILoaiDuLichDAO loaiDuLichDAO;
+    private ILoaiDuLichDAL loaiDuLichDAO;
 
     public LoaiDuLichBLL() {
-        this.loaiDuLichDAO = new LoaiDuLichDAO();
+        this.loaiDuLichDAO = new LoaiDuLichDAL();
     }
     
     @Override

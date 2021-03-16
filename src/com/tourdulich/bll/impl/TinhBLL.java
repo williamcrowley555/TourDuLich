@@ -6,20 +6,20 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.ITinhBLL;
-import com.tourdulich.dao.ITinhDAO;
-import com.tourdulich.dao.impl.TinhDAO;
+import com.tourdulich.dal.impl.TinhDAL;
 import com.tourdulich.dto.TinhDTO;
 import java.util.List;
+import com.tourdulich.dal.ITinhDAL;
 
 /**
  *
  * @author kossp
  */
 public class TinhBLL implements ITinhBLL {    
-    private ITinhDAO tinhDAO;
+    private ITinhDAL tinhDAO;
     
     public TinhBLL() {
-        this.tinhDAO = new TinhDAO();
+        this.tinhDAO = new TinhDAL();
     }    
     
     @Override

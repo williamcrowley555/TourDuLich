@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IDichVuBLL;
-import com.tourdulich.dao.IDichVuDAO;
-import com.tourdulich.dao.impl.DichVuDAO;
+import com.tourdulich.dal.impl.DichVuDAL;
 import com.tourdulich.dto.DichVuDTO;
 import java.util.List;
+import com.tourdulich.dal.IDichVuDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class DichVuBLL implements IDichVuBLL {
 
-    private IDichVuDAO dichVuDAO;
+    private IDichVuDAL dichVuDAO;
 
     public DichVuBLL() {
-        this.dichVuDAO = new DichVuDAO();
+        this.dichVuDAO = new DichVuDAL();
     }
     
     @Override

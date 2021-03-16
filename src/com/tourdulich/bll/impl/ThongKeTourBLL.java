@@ -6,20 +6,20 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IThongKeTourBLL;
-import com.tourdulich.dao.IThongKeTourDAO;
-import com.tourdulich.dao.impl.ThongKeTourDAO;
+import com.tourdulich.dal.impl.ThongKeTourDAL;
 import com.tourdulich.dto.ThongKeTourDTO;
 import java.util.List;
+import com.tourdulich.dal.IThongKeTourDAL;
 
 /**
  *
  * @author kossp
  */
 public class ThongKeTourBLL implements IThongKeTourBLL{
-private IThongKeTourDAO thongKeTourDAO;
+private IThongKeTourDAL thongKeTourDAO;
 
     public ThongKeTourBLL() {
-        this.thongKeTourDAO = new ThongKeTourDAO();
+        this.thongKeTourDAO = new ThongKeTourDAL();
     }
 
     @Override

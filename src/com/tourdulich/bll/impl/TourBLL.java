@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.ITourBLL;
-import com.tourdulich.dao.ITourDAO;
-import com.tourdulich.dao.impl.TourDAO;
+import com.tourdulich.dal.impl.TourDAL;
 import com.tourdulich.dto.TourDTO;
 import java.util.List;
+import com.tourdulich.dal.ITourDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class TourBLL implements ITourBLL {
 
-    private ITourDAO tourDAO;
+    private ITourDAL tourDAO;
 
     public TourBLL() {
-        this.tourDAO = new TourDAO();
+        this.tourDAO = new TourDAL();
     }
     
     @Override
