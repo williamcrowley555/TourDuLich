@@ -6,14 +6,14 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IDsDiaDiemTourBLL;
-import com.tourdulich.dao.IDiaDiemDAO;
-import com.tourdulich.dao.IDsDiaDiemTourDAO;
-import com.tourdulich.dao.impl.DiaDiemDAO;
-import com.tourdulich.dao.impl.DsDiaDiemTourDAO;
+import com.tourdulich.dal.impl.DiaDiemDAL;
+import com.tourdulich.dal.impl.DsDiaDiemTourDAL;
 import com.tourdulich.dto.DiaDiemDTO;
 import com.tourdulich.dto.DsDiaDiemTourDTO;
 import java.util.ArrayList;
 import java.util.List;
+import com.tourdulich.dal.IDiaDiemDAL;
+import com.tourdulich.dal.IDsDiaDiemTourDAL;
 
 /**
  *
@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class DsDiaDiemTourBLL implements IDsDiaDiemTourBLL {
 
-    private IDsDiaDiemTourDAO dsDiaDiemTourDAO;
-    private IDiaDiemDAO diaDiemDAO;
+    private IDsDiaDiemTourDAL dsDiaDiemTourDAO;
+    private IDiaDiemDAL diaDiemDAO;
     public DsDiaDiemTourBLL() {
-        this.dsDiaDiemTourDAO = new DsDiaDiemTourDAO();
-        this.diaDiemDAO = new DiaDiemDAO();
+        this.dsDiaDiemTourDAO = new DsDiaDiemTourDAL();
+        this.diaDiemDAO = new DiaDiemDAL();
     }
     
     @Override

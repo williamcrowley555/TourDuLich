@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IVaiTroBLL;
-import com.tourdulich.dao.IVaiTroDAO;
-import com.tourdulich.dao.impl.VaiTroDAO;
+import com.tourdulich.dal.impl.VaiTroDAL;
 import com.tourdulich.dto.VaiTroDTO;
 import java.util.List;
+import com.tourdulich.dal.IVaiTroDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class VaiTroBLL implements IVaiTroBLL {
 
-    private IVaiTroDAO vaiTroDAO;
+    private IVaiTroDAL vaiTroDAO;
 
     public VaiTroBLL() {
-        this.vaiTroDAO = new VaiTroDAO();
+        this.vaiTroDAO = new VaiTroDAL();
     }
     
     @Override

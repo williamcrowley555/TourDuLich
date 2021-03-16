@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IDiaDiemBLL;
-import com.tourdulich.dao.IDiaDiemDAO;
-import com.tourdulich.dao.impl.DiaDiemDAO;
+import com.tourdulich.dal.impl.DiaDiemDAL;
 import com.tourdulich.dto.DiaDiemDTO;
 import java.util.List;
+import com.tourdulich.dal.IDiaDiemDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class DiaDiemBLL implements IDiaDiemBLL {
     
-    private IDiaDiemDAO diaDiemDAO;
+    private IDiaDiemDAL diaDiemDAO;
     
     public DiaDiemBLL() {
-        this.diaDiemDAO = new DiaDiemDAO();
+        this.diaDiemDAO = new DiaDiemDAL();
     }
     
     @Override

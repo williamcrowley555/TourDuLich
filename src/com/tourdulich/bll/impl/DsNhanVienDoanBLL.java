@@ -6,32 +6,32 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IDsNhanVienDoanBLL;
-import com.tourdulich.dao.IDsNhanVienDoanDAO;
-import com.tourdulich.dao.INhanVienDAO;
-import com.tourdulich.dao.IVaiTroNhanVienDoanDAO;
-import com.tourdulich.dao.impl.DsNhanVienDoanDAO;
-import com.tourdulich.dao.impl.NhanVienDAO;
-import com.tourdulich.dao.impl.VaiTroNhanVienDoanDAO;
+import com.tourdulich.dal.impl.DsNhanVienDoanDAL;
+import com.tourdulich.dal.impl.NhanVienDAL;
+import com.tourdulich.dal.impl.VaiTroNhanVienDoanDAL;
 import com.tourdulich.dto.DsNhanVienDoanDTO;
 import com.tourdulich.dto.KhachHangDTO;
 import com.tourdulich.dto.NhanVienDTO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.tourdulich.dal.IDsNhanVienDoanDAL;
+import com.tourdulich.dal.INhanVienDAL;
+import com.tourdulich.dal.IVaiTroNhanVienDoanDAL;
 
 /**
  *
  * @author HP
  */
 public class DsNhanVienDoanBLL implements IDsNhanVienDoanBLL {
-    private INhanVienDAO nhanVienDAO; 
-    private IDsNhanVienDoanDAO dsNhanVienDoanDAO;
-    private IVaiTroNhanVienDoanDAO vaiTroNhanVienDoanDAO;
+    private INhanVienDAL nhanVienDAO; 
+    private IDsNhanVienDoanDAL dsNhanVienDoanDAO;
+    private IVaiTroNhanVienDoanDAL vaiTroNhanVienDoanDAO;
 
     public DsNhanVienDoanBLL() {
-        this.nhanVienDAO = new NhanVienDAO();
-        this.dsNhanVienDoanDAO = new DsNhanVienDoanDAO();
-        this.vaiTroNhanVienDoanDAO = new VaiTroNhanVienDoanDAO();
+        this.nhanVienDAO = new NhanVienDAL();
+        this.dsNhanVienDoanDAO = new DsNhanVienDoanDAL();
+        this.vaiTroNhanVienDoanDAO = new VaiTroNhanVienDoanDAL();
     }
     
     @Override

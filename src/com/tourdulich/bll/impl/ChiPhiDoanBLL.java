@@ -6,10 +6,10 @@
 package com.tourdulich.bll.impl;
 
 import com.tourdulich.bll.IChiPhiDoanBLL;
-import com.tourdulich.dao.IChiPhiDoanDAO;
-import com.tourdulich.dao.impl.ChiPhiDoanDAO;
+import com.tourdulich.dal.impl.ChiPhiDoanDAL;
 import com.tourdulich.dto.ChiPhiDoanDTO;
 import java.util.List;
+import com.tourdulich.dal.IChiPhiDoanDAL;
 
 /**
  *
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class ChiPhiDoanBLL implements IChiPhiDoanBLL {
     
-    private IChiPhiDoanDAO chiPhiDoanDAO;
+    private IChiPhiDoanDAL chiPhiDoanDAO;
     
     public ChiPhiDoanBLL() {
-        this.chiPhiDoanDAO = new ChiPhiDoanDAO();
+        this.chiPhiDoanDAO = new ChiPhiDoanDAL();
     }
     
     @Override
