@@ -310,12 +310,13 @@ public class QuanLyNhanVienGUI extends javax.swing.JPanel {
             try {
                 nhanVienBLL.updateStatus(false, id);
                 JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                loadTableData();
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         }
-        loadTableData();
+        
     }//GEN-LAST:event_itemXoaActionPerformed
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped

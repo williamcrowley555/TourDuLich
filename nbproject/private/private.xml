@@ -5,6 +5,9 @@
         <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/bll/impl/GiaTourBLL.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/gui/menu/MenuItem.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/main/MainGUI.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyNhanVienGUI.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/PopUpNhanVienGUI.java</file>
         </group>
     </open-files>
 </project-private>
