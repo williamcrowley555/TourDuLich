@@ -91,7 +91,6 @@ public class QuanLyDichVuGUI extends javax.swing.JPanel {
 
         rightClickMenu = new javax.swing.JPopupMenu();
         itemSua = new javax.swing.JMenuItem();
-        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -110,17 +109,6 @@ public class QuanLyDichVuGUI extends javax.swing.JPanel {
             }
         });
         rightClickMenu.add(itemSua);
-
-        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
-        itemXoa.setText("Xóa");
-        itemXoa.setToolTipText("");
-        itemXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemXoaActionPerformed(evt);
-            }
-        });
-        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -270,22 +258,6 @@ public class QuanLyDichVuGUI extends javax.swing.JPanel {
     });
     }//GEN-LAST:event_itemSuaActionPerformed
 
-    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-        if(response == JOptionPane.YES_OPTION) {
-            int rowindex = tblDichVu.getSelectedRow();
-            Long id = Long.parseLong(tblDichVu.getValueAt(rowindex,0).toString());
-            try {
-                dichVuBLL.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        }
-        loadTableData();
-    }//GEN-LAST:event_itemXoaActionPerformed
-
     private void tblDichVuMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichVuMouseReleased
         // TODO add your handling code here:
         int r = tblDichVu.rowAtPoint(evt.getPoint());
@@ -309,7 +281,6 @@ public class QuanLyDichVuGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
     private javax.swing.JMenuItem itemSua;
-    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
