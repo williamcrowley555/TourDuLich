@@ -59,7 +59,6 @@ public class PopUpTourGUI extends javax.swing.JFrame {
         setComboBox(comboBoxLoaiDuLich, getLoaiDuLichItems());
         comboBoxLoaiDuLich = myComboBox(comboBoxLoaiDuLich, new Color(14,142,233));
         
-        
         this.setVisible(true);    
     }
     
@@ -76,7 +75,6 @@ public class PopUpTourGUI extends javax.swing.JFrame {
         setComboBox(comboBoxLoaiDuLich, getLoaiDuLichItems());
         setLabelText(this.tour);
         comboBoxLoaiDuLich = myComboBox(comboBoxLoaiDuLich, new Color(14,142,233));
-        
         
         this.setVisible(true);    
     }
@@ -123,7 +121,7 @@ public class PopUpTourGUI extends javax.swing.JFrame {
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
          
         
-        if (InputValidatorUtil.isValidAddress(txtTenTour.getText()).isEmpty())  
+        if (InputValidatorUtil.isValidPattern(txtTenTour.getText(), "[^A-Za-z0-9\\-\\s]", "Tên tour không hợp lệ").isEmpty())  
         {
             Ten = true;
             lblValidateTenTour.setIcon(iconCheck);
@@ -131,7 +129,7 @@ public class PopUpTourGUI extends javax.swing.JFrame {
         } else {
             Ten = false;
             lblValidateTenTour.setIcon(iconError);
-            lblValidateTenTour.setToolTipText(InputValidatorUtil.isValidName(txtTenTour.getText(), true));
+            lblValidateTenTour.setToolTipText(InputValidatorUtil.isValidPattern(txtTenTour.getText(), "[^A-Za-z0-9\\-\\s]", "Tên tour không hợp lệ"));
         } 
         
         if (InputValidatorUtil.isValidAddress(txtDacDiem.getText()).isEmpty())  
@@ -171,7 +169,6 @@ public class PopUpTourGUI extends javax.swing.JFrame {
         center();
         lblMinimize.setText("\u2014");
         lblExit.setText("X");
-       // comboBoxTinh = myComboBox(comboBoxTinh, new Color(240,240,240));
     }
     
     public void myTextArea()

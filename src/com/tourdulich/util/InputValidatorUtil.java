@@ -18,6 +18,21 @@ import java.util.regex.Pattern;
  */
 public class InputValidatorUtil {
     
+    
+    public static String isValidPattern(String value, String regex, String message) {
+        if (value.isEmpty()) return " không được để trống";
+        
+        value = RemoveAccentUtil.removeAccent(value);
+        value = value.trim();
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(value);
+        boolean result = matcher.find();
+        if(result) {
+            return message;
+        }
+        return "";
+    }
+    
     public static String isValidName(String name, boolean whitespace) {
         name = RemoveAccentUtil.removeAccent(name);
        
@@ -62,7 +77,7 @@ public class InputValidatorUtil {
         
         invoiceNumber = RemoveAccentUtil.removeAccent(invoiceNumber);
         invoiceNumber = invoiceNumber.trim();
-        String regex = "[^A-Za-z0-9\\-]";
+        String regex = "[^A-Za-z0-9\\-\\s]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(invoiceNumber);
         boolean result = matcher.find();

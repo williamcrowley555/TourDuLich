@@ -123,7 +123,6 @@ public class PopUpDoanGUI extends javax.swing.JFrame {
      
     public void setLabelText(DoanDTO doan)
     {
-       // comboBoxTour.setSelectedItem(getTourItemName(tourBLL.findById(doan.getIdTour())));
         txtDoan.setText(doan.getTenDoan());
         DCNgayKhoiHanh.setDate(doan.getNgayKhoiHanh());
         DCNgayKetThuc.setDate(doan.getNgayKetThuc());
@@ -145,19 +144,8 @@ public class PopUpDoanGUI extends javax.swing.JFrame {
         boolean TenDoan, StartDate, EndDate, GiaTour = false; 
         ImageIcon iconCheck = new ImageIcon(getClass().getResource("/com/tourdulich/img/check.png"));
         ImageIcon iconError = new ImageIcon(getClass().getResource("/com/tourdulich/img/error.png"));
-         
-//        if (InputValidatorUtil.isValidName(txtDoan.getText(), true).isEmpty())  
-//        {
-//            TenDoan = true;
-//            lblValidateTenDoan.setIcon(iconCheck);
-//            lblValidateTenDoan.setToolTipText(null);
-//        } else {
-//            TenDoan = false;
-//            lblValidateTenDoan.setIcon(iconError);
-//            lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidName(txtDoan.getText(), true));
-//        }
         
-        if (InputValidatorUtil.isValidAddress(txtDoan.getText()).isEmpty())  
+        if (InputValidatorUtil.isValidPattern(txtDoan.getText(), "[^A-Za-z0-9\\-\\s]", "Tên đoàn không hợp lệ").isEmpty())  
         {
             TenDoan = true;
             lblValidateTenDoan.setIcon(iconCheck);
@@ -165,7 +153,7 @@ public class PopUpDoanGUI extends javax.swing.JFrame {
         } else {
             TenDoan = false;
             lblValidateTenDoan.setIcon(iconError);
-            lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidAddress(txtDoan.getText()));
+            lblValidateTenDoan.setToolTipText(InputValidatorUtil.isValidPattern(txtDoan.getText(), "[^A-Za-z0-9\\-\\s]", "Tên đoàn không hợp lệ"));
         }
         
         if (InputValidatorUtil.isValidStartDate(DCNgayKhoiHanh.getDate()).isEmpty())  
@@ -261,8 +249,7 @@ public class PopUpDoanGUI extends javax.swing.JFrame {
    
     public void CustomWindow()
     {   
-        Color flatBlue = new Color(14,142,233);  
-        //this.setSize(new Dimension(563,424));
+        Color flatBlue = new Color(14,142,233);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(0,1,1,1, flatBlue));   
         center();
         lblMinimize.setText("\u2014");
@@ -617,7 +604,7 @@ public class PopUpDoanGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_panelHeaderMouseDragged
 
     private void txtDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDoanActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txtDoanActionPerformed
     
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
@@ -654,29 +641,17 @@ public class PopUpDoanGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void comboBoxTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTourActionPerformed
-        // TODO add your handling code here:
-      resetGiaTour();
+       resetGiaTour();
       DCNgayKhoiHanh.setDate(null);
       DCNgayKetThuc.setDate(null);
       
     }//GEN-LAST:event_comboBoxTourActionPerformed
 
     private void DCNgayKhoiHanhPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DCNgayKhoiHanhPropertyChange
-        // TODO add your handling code here:
-       
-//       String selectedTour = comboBoxTour.getSelectedItem().toString();
-//       Long idTour;
-//       System.out.println(action);
-//       if (this.action.equals("POST"))
-//       idTour = Long.parseLong(selectedTour.substring(0, selectedTour.indexOf(" - ")));
-//       else idTour = this.doan.getIdTour();
-//       LocalDate startDate = DCNgayKhoiHanh.getDate();
-//       setComboBox(comboBoxGiaTour, getGiaTienItems(idTour,startDate));
         
     }//GEN-LAST:event_DCNgayKhoiHanhPropertyChange
 

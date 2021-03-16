@@ -55,20 +55,6 @@ public class QuanLyDoanGUI extends javax.swing.JPanel {
         initComponents();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
-//        Vector header = createHeader(columnNames);
-//        DefaultTableModel model = (DefaultTableModel) tblDoan.getModel();
-//        model = new DefaultTableModel(header, 0);
-//       
-//        Vector row = new Vector();
-//        row.add("1");
-//        row.add("Đoàn NA01");
-//        row.add("6/2/2021");
-//        row.add("7/2/2021");
-//        row.add("1");
-//        row.add(30);
-
-//        model.addRow(row);
-//        tblDoan.setModel(model);
         loadTableData();
         
         headerColor(14,142,233,tblDoan);
