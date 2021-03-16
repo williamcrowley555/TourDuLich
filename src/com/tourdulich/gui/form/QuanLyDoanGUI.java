@@ -48,27 +48,12 @@ public class QuanLyDoanGUI extends javax.swing.JPanel {
     
     private IDoanBLL doanBLL;
     private ITourBLL tourBLL;
-   // private popUpDoan popUp = null;
     TableRowSorter<TableModel> rowSorter = null;
     
     public QuanLyDoanGUI() {
         initComponents();
         doanBLL = new DoanBLL();
         tourBLL = new TourBLL();
-//        Vector header = createHeader(columnNames);
-//        DefaultTableModel model = (DefaultTableModel) tblDoan.getModel();
-//        model = new DefaultTableModel(header, 0);
-//       
-//        Vector row = new Vector();
-//        row.add("1");
-//        row.add("Đoàn NA01");
-//        row.add("6/2/2021");
-//        row.add("7/2/2021");
-//        row.add("1");
-//        row.add(30);
-
-//        model.addRow(row);
-//        tblDoan.setModel(model);
         loadTableData();
         
         headerColor(14,142,233,tblDoan);
@@ -114,7 +99,6 @@ public class QuanLyDoanGUI extends javax.swing.JPanel {
 
         rightClickMenu = new javax.swing.JPopupMenu();
         itemSua = new javax.swing.JMenuItem();
-        itemXoa = new javax.swing.JMenuItem();
         pnlHead = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         txtTimKiem = new javax.swing.JTextField();
@@ -135,17 +119,6 @@ public class QuanLyDoanGUI extends javax.swing.JPanel {
             }
         });
         rightClickMenu.add(itemSua);
-
-        itemXoa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        itemXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/delete_icon.png"))); // NOI18N
-        itemXoa.setText("Xóa");
-        itemXoa.setToolTipText("");
-        itemXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemXoaActionPerformed(evt);
-            }
-        });
-        rightClickMenu.add(itemXoa);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -352,22 +325,6 @@ public class QuanLyDoanGUI extends javax.swing.JPanel {
         });
     }//GEN-LAST:event_itemSuaActionPerformed
 
-    private void itemXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemXoaActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa dòng này?");
-        if(response == JOptionPane.YES_OPTION) {
-            int rowindex = tblDoan.getSelectedRow();
-            Long id = Long.parseLong(tblDoan.getValueAt(rowindex,0).toString());
-            try {
-                doanBLL.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        }
-        loadTableData();
-    }//GEN-LAST:event_itemXoaActionPerformed
-
     private void tblDoanMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDoanMouseReleased
         // TODO add your handling code here:
         int r = tblDoan.rowAtPoint(evt.getPoint());
@@ -444,7 +401,6 @@ public class QuanLyDoanGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnTaoDSNguoiDi;
     private javax.swing.JButton btnThem;
     private javax.swing.JMenuItem itemSua;
-    private javax.swing.JMenuItem itemXoa;
     private javax.swing.JLabel lblTimKiem;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pnlBody;
