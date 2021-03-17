@@ -321,8 +321,7 @@ public class PopUpTableCapVaiTroNhanVienGUI extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
        if (save())
-       {
-       save();
+       {      
        JOptionPane.showMessageDialog(null, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
        this.dispose();
        }
