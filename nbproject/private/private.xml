@@ -3,18 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/gui/form/QuanLyGiaTourGUI.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/bll/impl/GiaTourBLL.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/gui/menu/MenuItem.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/main/MainGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyGiaTourGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyNhanVienGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyChiPhiGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDiaDiemGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyLoaiDuLichGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDichVuGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyKhachHangGUI.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/form/QuanLyDoanGUI.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/impl/DsKhachDoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dal/impl/DoanDAL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/IDsKhachDoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableKhachGUI.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/PopUpDsNguoiDiGUI.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/bll/impl/DoanBLL.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableDiaDiemGUI.java</file>
+            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dal/impl/DsKhachDoanDAL.java</file>
         </group>
     </open-files>
 </project-private>

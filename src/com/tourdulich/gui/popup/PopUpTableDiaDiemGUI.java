@@ -157,20 +157,21 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
     
     private boolean save(){
         try{
-        DsDiaDiemTourDTO diaDiemTour;       
-        if(dsDiaDiemTourBLL.findByIdTour(idTour) != null)
-            dsDiaDiemTourBLL.deleteByIdTour(idTour);
-        for (DiaDiemDTO diaDiem : diaDiemList)
-        {
-            diaDiemTour = new DsDiaDiemTourDTO(this.idTour, diaDiem.getId());
-            dsDiaDiemTourBLL.save(diaDiemTour);
-        }
+            DsDiaDiemTourDTO diaDiemTour;       
+            if(dsDiaDiemTourBLL.findByIdTour(idTour) != null)
+                dsDiaDiemTourBLL.deleteByIdTour(idTour);
+            for (DiaDiemDTO diaDiem : diaDiemList)
+            {
+                diaDiemTour = new DsDiaDiemTourDTO(this.idTour, diaDiem.getId());
+                dsDiaDiemTourBLL.save(diaDiemTour);
+            }
         } catch(Exception e)
         {
             return false;
         }
         return true;
     }
+    
     public JComboBox myComboBox(JComboBox box, Color color)
     {   
         box.setRenderer(new MyComboBoxRenderer());
@@ -437,12 +438,11 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
        if (save())
        {
-       save();
-       JOptionPane.showMessageDialog(null, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-       this.dispose();
+        JOptionPane.showMessageDialog(null, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
        }
        else {
-       JOptionPane.showMessageDialog(null, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);    
+        JOptionPane.showMessageDialog(null, "Lưu thất bại!!!", "Thông báo", JOptionPane.ERROR_MESSAGE);    
        } 
     }//GEN-LAST:event_btnLuuActionPerformed
 
