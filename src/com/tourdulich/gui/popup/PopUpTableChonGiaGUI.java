@@ -43,6 +43,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
@@ -89,7 +90,8 @@ public class PopUpTableChonGiaGUI extends javax.swing.JFrame {
         this.startDate = startDate;
         this.endDate = endDate;
         loadTableGiaTour();
-         
+        
+        tblGiaTour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //setTableDiaDiem_Tour(this.nhanVienList);
        
         headerColor(14,142,233,tblGiaTour);

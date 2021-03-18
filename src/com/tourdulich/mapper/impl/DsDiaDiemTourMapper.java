@@ -22,6 +22,7 @@ public class DsDiaDiemTourMapper implements RowMapper<DsDiaDiemTourDTO>{
             DsDiaDiemTourDTO dsDiaDiemTour = new DsDiaDiemTourDTO();
             dsDiaDiemTour.setIdTour(rs.getLong("idTour"));
             dsDiaDiemTour.setIdDiaDiem(rs.getLong("idDiaDiem"));
+            dsDiaDiemTour.setStt(rs.getInt("stt"));
             
             return dsDiaDiemTour;
         } catch(SQLException e) {

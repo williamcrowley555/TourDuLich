@@ -32,6 +32,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -39,6 +41,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
@@ -77,7 +80,8 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
         loadTableDiaDiem();
         this.diaDiemList = getDiaDiem_TourList();
         setTableDiaDiemTour(diaDiemList);
-        //setTableDiaDiem_Tour(this.nhanVienList);
+        tblDiaDiem_Tour.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);     
+        tblDiaDiem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
        
         headerColor(14,142,233,tblDiaDiem);
         
@@ -160,9 +164,8 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
             DsDiaDiemTourDTO diaDiemTour;       
             if(dsDiaDiemTourBLL.findByIdTour(idTour) != null)
                 dsDiaDiemTourBLL.deleteByIdTour(idTour);
-            for (DiaDiemDTO diaDiem : diaDiemList)
-            {
-                diaDiemTour = new DsDiaDiemTourDTO(this.idTour, diaDiem.getId());
+            for (int i = 0; i < diaDiemList.size(); ++i) {
+                diaDiemTour = new DsDiaDiemTourDTO(this.idTour, diaDiemList.get(i).getId(), i + 1);
                 dsDiaDiemTourBLL.save(diaDiemTour);
             }
         } catch(Exception e)
@@ -246,6 +249,8 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
         comboBoxTinh = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         lblTour_DiaDiem = new javax.swing.JLabel();
+        btnUp = new javax.swing.JButton();
+        btnDown = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -291,14 +296,14 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblDiaDiem_Tour);
 
+        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
+        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/save_icon.png"))); // NOI18N
         btnLuu.setText(" Lưu");
-        btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setBorder(null);
         btnLuu.setContentAreaFilled(false);
         btnLuu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setOpaque(true);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,14 +311,14 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
             }
         });
 
+        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/cancel_icon.png"))); // NOI18N
         btnHuy.setText(" Hủy");
-        btnHuy.setBackground(new java.awt.Color(14, 142, 233));
         btnHuy.setBorder(null);
         btnHuy.setContentAreaFilled(false);
         btnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setOpaque(true);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,14 +326,14 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
             }
         });
 
+        btnThem.setBackground(new java.awt.Color(14, 142, 233));
+        btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/save_icon.png"))); // NOI18N
         btnThem.setText("Thêm");
-        btnThem.setBackground(new java.awt.Color(14, 142, 233));
         btnThem.setBorder(null);
         btnThem.setContentAreaFilled(false);
         btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnThem.setForeground(new java.awt.Color(255, 255, 255));
         btnThem.setOpaque(true);
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,14 +341,14 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
             }
         });
 
+        btnXoa.setBackground(new java.awt.Color(14, 142, 233));
+        btnXoa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/gui/popup/save_icon.png"))); // NOI18N
         btnXoa.setText("Xóa");
-        btnXoa.setBackground(new java.awt.Color(14, 142, 233));
         btnXoa.setBorder(null);
         btnXoa.setContentAreaFilled(false);
         btnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXoa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnXoa.setForeground(new java.awt.Color(255, 255, 255));
         btnXoa.setOpaque(true);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -364,6 +369,34 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
 
         lblTour_DiaDiem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTour_DiaDiem.setText("Các Điểm Đến Của Tour:");
+
+        btnUp.setBackground(new java.awt.Color(14, 142, 233));
+        btnUp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnUp.setForeground(new java.awt.Color(255, 255, 255));
+        btnUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/up_arrow_icon.png"))); // NOI18N
+        btnUp.setBorder(null);
+        btnUp.setContentAreaFilled(false);
+        btnUp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUp.setOpaque(true);
+        btnUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpActionPerformed(evt);
+            }
+        });
+
+        btnDown.setBackground(new java.awt.Color(14, 142, 233));
+        btnDown.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDown.setForeground(new java.awt.Color(255, 255, 255));
+        btnDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/tourdulich/img/down_arrow_icon.png"))); // NOI18N
+        btnDown.setBorder(null);
+        btnDown.setContentAreaFilled(false);
+        btnDown.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDown.setOpaque(true);
+        btnDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -389,6 +422,10 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblTour_DiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
@@ -409,7 +446,9 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(comboBoxTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTour_DiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblTour_DiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUp, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDown, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -517,6 +556,39 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
         loadTableDiaDiem();
     }//GEN-LAST:event_comboBoxTinhActionPerformed
 
+    private void btnUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpActionPerformed
+        // TODO add your handling code here:
+        
+        int rowindex = tblDiaDiem_Tour.getSelectedRow();
+        if (rowindex > 0)
+            Collections.swap(diaDiemList, rowindex, rowindex-1 );
+        model = new DefaultTableModel(columnNames,0);
+             for (int i = 0; i < diaDiemList.size(); i++) {
+             model.addRow(new Object[]   {
+                                         String.valueOf(diaDiemList.get(i).getId()),
+                                         String.valueOf(diaDiemList.get(i).getTenDiaDiem())                                   
+                                     });
+             tblDiaDiem_Tour.setModel(model);
+             }
+        headerColor(14,142,233,tblDiaDiem_Tour);
+    }//GEN-LAST:event_btnUpActionPerformed
+
+    private void btnDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownActionPerformed
+        // TODO add your handling code here:
+        int rowindex = tblDiaDiem_Tour.getSelectedRow();
+        if (rowindex != diaDiemList.size()-1 && rowindex >= 0)
+            Collections.swap(diaDiemList, rowindex, rowindex+1 );
+        model = new DefaultTableModel(columnNames,0);
+             for (int i = 0; i < diaDiemList.size(); i++) {
+             model.addRow(new Object[]   {
+                                         String.valueOf(diaDiemList.get(i).getId()),
+                                         String.valueOf(diaDiemList.get(i).getTenDiaDiem())                                   
+                                     });
+             tblDiaDiem_Tour.setModel(model);
+             }
+        headerColor(14,142,233,tblDiaDiem_Tour);
+    }//GEN-LAST:event_btnDownActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -584,9 +656,11 @@ public class PopUpTableDiaDiemGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDown;
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnUp;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> comboBoxTinh;
     private javax.swing.JLabel jLabel1;
