@@ -105,7 +105,7 @@ public class PopUpDichVuGUI extends javax.swing.JFrame {
             lblTenDichVu.setToolTipText(InputValidatorUtil.isValidName(txtTenDichVu.getText(), true));
         } 
         
-        if (InputValidatorUtil.isValidAddress(txtMoTa.getText()).isEmpty())  
+        if (InputValidatorUtil.isValidPattern(txtMoTa.getText(), "[^A-Za-z0-9.,\\-\\s\\/]", "Mô tả không hợp lệ").isEmpty())  
         {
             moTa = true;
             lblMoTa.setIcon(iconCheck);
@@ -113,7 +113,7 @@ public class PopUpDichVuGUI extends javax.swing.JFrame {
         } else {
             moTa = false;
             lblMoTa.setIcon(iconError);
-            lblMoTa.setToolTipText(InputValidatorUtil.isValidName(txtMoTa.getText(), true));
+            lblMoTa.setToolTipText(InputValidatorUtil.isValidPattern(txtMoTa.getText(), "[^A-Za-z0-9.,\\-\\s\\/]", "Mô tả không hợp lệ"));
         } 
         
         if (tenDichVu && moTa)
@@ -129,7 +129,7 @@ public class PopUpDichVuGUI extends javax.swing.JFrame {
     public void CustomWindow()
     {   
         Color flatBlue = new Color(14,142,233);  
-        this.setSize(new Dimension(263,252));
+        
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(0,1,1,1, flatBlue));   
         center();
         lblMinimize.setText("\u2014");
@@ -169,20 +169,20 @@ public class PopUpDichVuGUI extends javax.swing.JFrame {
             }
         });
 
-        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.setBackground(new java.awt.Color(255, 255, 255));
         lblMinimize.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMinimizeMouseClicked(evt);
             }
         });
 
-        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.setBackground(new java.awt.Color(255, 255, 255));
         lblExit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblExit.setForeground(new java.awt.Color(255, 255, 255));
+        lblExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExitMouseClicked(evt);
@@ -210,8 +210,8 @@ public class PopUpDichVuGUI extends javax.swing.JFrame {
         lblTenDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTenDichVu.setText("Tên dịch vụ:");
 
-        txtTenDichVu.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtTenDichVu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtTenDichVu.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
 
         btnLuu.setBackground(new java.awt.Color(14, 142, 233));
         btnLuu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -312,7 +312,7 @@ public class PopUpDichVuGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(pnlBody, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
