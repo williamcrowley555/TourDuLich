@@ -80,4 +80,5 @@ public class DiaDiemDTO {
     public String toString() {
         return "DiaDiemDTO{" + "id=" + id + ", tenDiaDiem=" + tenDiaDiem + ", diaChi=" + diaChi + ", gioiThieu=" + gioiThieu + ", hinhAnh=" + hinhAnh + ", idTinh=" + idTinh + '}';
     }
+
 }
