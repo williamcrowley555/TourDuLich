@@ -3,14 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/IChiPhiDoanBLL.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableNhanVienGUI.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/IDsNhanVienDoanBLL.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpDsNguoiDiGUI.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/impl/DsKhachDoanBLL.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/impl/ChiPhiDoanBLL.java</file>
-        </group>
-        <group>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/form/ThongKeTheoDoanGUI.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableDiaDiemGUI.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableCapVaiTroNhanVienGUI.java</file>
@@ -30,5 +22,6 @@
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableKhachGUI.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpNhanVienGUI.java</file>
         </group>
+        <group/>
     </open-files>
 </project-private>
