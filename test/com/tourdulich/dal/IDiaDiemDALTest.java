@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tourdulich.bll;
+package com.tourdulich.dal;
 
-import com.tourdulich.bll.impl.DiaDiemBLL;
+import com.tourdulich.dal.impl.DiaDiemDAL;
 import com.tourdulich.dto.DiaDiemDTO;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,11 +17,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Khoa Nguyen
+ * @author Hi
  */
-public class IDiaDiemBLLTest {
+public class IDiaDiemDALTest {
     
-    public IDiaDiemBLLTest() {
+    public IDiaDiemDALTest() {
     }
     
     @BeforeClass
@@ -41,56 +40,37 @@ public class IDiaDiemBLLTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of findAll method, of class IDiaDiemBLL.
-     */
     @Test
-    public void testFindAll() throws Exception {
+    public void testFindAll() {
         System.out.println("findAll");
-        
-        IDiaDiemBLL instance = new DiaDiemBLL();
+        IDiaDiemDAL instance = new DiaDiemDAL();
         List<DiaDiemDTO> expResult = null;
         List<DiaDiemDTO> result = instance.findAll();
         assertNotNull(result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of findById method, of class IDiaDiemBLL.
-     */
     @Test
     public void testFindById() {
         System.out.println("findById");
         Long id = 4L;
-        IDiaDiemBLL instance = new DiaDiemBLL();
+        IDiaDiemDAL instance = new DiaDiemDAL();
         DiaDiemDTO result = instance.findById(id);
         
         assertEquals(id, result.getId());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of findByIdTinh method, of class IDiaDiemBLL.
-     */
     @Test
     public void testFindByIdTinh() {
         System.out.println("findByIdTinh");
         Long idTinh = 52L;
-        IDiaDiemBLL instance = new DiaDiemBLL();
+        IDiaDiemDAL instance = new DiaDiemDAL();
         List<DiaDiemDTO> result = instance.findByIdTinh(idTinh);
         
         for (DiaDiemDTO diaDiem : result) {
             assertEquals(idTinh, diaDiem.getIdTinh());
         }
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of save method, of class IDiaDiemBLL.
-     */
     @Test
     public void testSave() {
         System.out.println("save");
@@ -98,57 +78,44 @@ public class IDiaDiemBLLTest {
         String diaChi = "Sapa";
         String gioiThieu = "Không có mèo";
         Long idTinh = 49L;
-                
+        
         DiaDiemDTO diaDiem = new DiaDiemDTO();
+        
         diaDiem.setTenDiaDiem(tenDiaDiem);
         diaDiem.setDiaChi(diaChi);
         diaDiem.setGioiThieu(gioiThieu);
         diaDiem.setIdTinh(idTinh);
         
-        IDiaDiemBLL instance = new DiaDiemBLL();
+        IDiaDiemDAL instance = new DiaDiemDAL();
         Long savedId = instance.save(diaDiem);
+               
         DiaDiemDTO result = instance.findById(savedId);
-        
         assertEquals(tenDiaDiem, result.getTenDiaDiem());
         assertEquals(diaChi, result.getDiaChi());
         assertEquals(gioiThieu, result.getGioiThieu());
         assertEquals(idTinh, result.getIdTinh());
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of update method, of class IDiaDiemBLL.
-     */
     @Test
     public void testUpdate() {
-        System.out.println("update");
-        IDiaDiemBLL instance = new DiaDiemBLL();
-        
-        Long diaDiemId = 2L;
+        System.out.println("update");     
+        IDiaDiemDAL instance = new DiaDiemDAL();
+        Long diaDiemId = 3L;
         String gioiThieu = "Có mèo";
         DiaDiemDTO diaDiem = instance.findById(diaDiemId);
         diaDiem.setGioiThieu(gioiThieu);
         instance.update(diaDiem);
         
         assertEquals(gioiThieu, instance.findById(diaDiemId).getGioiThieu());
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of delete method, of class IDiaDiemBLL.
-     */
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long id = 8L;
-        IDiaDiemBLL instance = new DiaDiemBLL();
+        Long id = 3L;
+        DiaDiemDAL instance = new DiaDiemDAL();
         instance.delete(id);
         DiaDiemDTO result = instance.findById(id);
         assertNull(result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 }
