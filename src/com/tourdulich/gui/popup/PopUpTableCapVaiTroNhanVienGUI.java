@@ -33,6 +33,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -65,7 +66,9 @@ public class PopUpTableCapVaiTroNhanVienGUI extends javax.swing.JFrame {
         vaiTroNhanVienDoanBLL = new VaiTroNhanVienDoanBLL();
         loadTableVaiTro();
         this.vaiTroList = getVaiTro_DoanList();
-        setTableVaiTroDoan(this.vaiTroList);
+        setTableVaiTroDoan(this.vaiTroList);      
+        tblVaiTro.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);     
+        tblVaiTro_Doan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
     }
 
@@ -321,8 +324,7 @@ public class PopUpTableCapVaiTroNhanVienGUI extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
        if (save())
-       {
-       save();
+       {      
        JOptionPane.showMessageDialog(null, "Lưu thành công!!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
        this.dispose();
        }

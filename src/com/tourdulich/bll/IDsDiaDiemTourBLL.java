@@ -19,7 +19,5 @@ public interface IDsDiaDiemTourBLL {
     DsDiaDiemTourDTO findById(Long idTour);
     List<DiaDiemDTO> findByIdTour(Long idTour);
     Long save(DsDiaDiemTourDTO dsDiaDiemTour);
-    void update(DsDiaDiemTourDTO dsDiaDiemTour);
-    void delete(Long id);
     void deleteByIdTour(Long idTour);
 }

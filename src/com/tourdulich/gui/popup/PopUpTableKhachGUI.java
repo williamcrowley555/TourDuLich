@@ -22,6 +22,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -61,7 +62,9 @@ public class PopUpTableKhachGUI extends javax.swing.JFrame {
         tblKhachHang.setModel(modelKhach);
         if (deletedKhachHangList == null)
             deletedKhachHangList = new ArrayList<>();
-        addDeletedList(deletedKhachHangList);
+        addDeletedList(deletedKhachHangList);       
+        tblKhachHang.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);     
+        tblKhach_Doan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         headerColor(14,142,233,tblKhachHang);
         
     }

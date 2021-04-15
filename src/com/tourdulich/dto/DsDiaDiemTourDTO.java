@@ -13,13 +13,15 @@ public class DsDiaDiemTourDTO {
     
     private Long idTour;
     private Long idDiaDiem;
+    private Integer stt;
 
     public DsDiaDiemTourDTO() {
     }
 
-    public DsDiaDiemTourDTO(Long idTour, Long idDiaDiem) {
+    public DsDiaDiemTourDTO(Long idTour, Long idDiaDiem, Integer stt) {
         this.idTour = idTour;
         this.idDiaDiem = idDiaDiem;
+        this.stt = stt;
     }
 
     public Long getIdTour() {
@@ -38,8 +40,16 @@ public class DsDiaDiemTourDTO {
         this.idDiaDiem = idDiaDiem;
     }
 
+    public Integer getStt() {
+        return stt;
+    }
+
+    public void setStt(Integer stt) {
+        this.stt = stt;
+    }
+
     @Override
     public String toString() {
-        return "DsDiaDiemTourDTO{" + "idTour=" + idTour + ", idDiaDiem=" + idDiaDiem + '}';
+        return "DsDiaDiemTourDTO{" + "idTour=" + idTour + ", idDiaDiem=" + idDiaDiem + ", stt=" + stt + '}';
     }
 }
