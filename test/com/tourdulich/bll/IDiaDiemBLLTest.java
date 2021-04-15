@@ -45,12 +45,13 @@ public class IDiaDiemBLLTest {
      * Test of findAll method, of class IDiaDiemBLL.
      */
     @Test
-    public void testFindAll() {
+    public void testFindAll() throws Exception {
         System.out.println("findAll");
+      
         IDiaDiemBLL instance = new DiaDiemBLL();
         List<DiaDiemDTO> expResult = null;
         List<DiaDiemDTO> result = instance.findAll();
-        assertEquals(expResult, result);
+        assertNotNull(result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -160,6 +161,9 @@ public class IDiaDiemBLLTest {
         Long id = 8L;
         IDiaDiemBLL instance = new DiaDiemBLL();
         instance.delete(id);
+        DiaDiemDTO result = instance.findById(id);
+        assertEquals(result, null);
+        
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
