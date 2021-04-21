@@ -3,25 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/IDiaDiemBLL.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/gui/popup/PopUpCapVaiTroGUI.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/gui/popup/PopUpCapVaiTroGUITest.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dal/IDoanDAL.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
-        </group>
-        <group/>
-        <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dal/IDiaDiemDAL.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dal/IDiaDiemDAL.java</file>
-        </group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDichVuDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
         </group>
     </open-files>
 </project-private>
