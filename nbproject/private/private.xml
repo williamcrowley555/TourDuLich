@@ -15,12 +15,22 @@
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IKhachHangDALTest.java</file>
         </group>
         <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ILoaiDuLichBLLTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IVaiTroBLLTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IKhachHangBLLTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IVaiTroDALTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/IChiPhiDoanBLL.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IKhachHangDALTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/bll/IGiaTourBLL.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/impl/TourBLLTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IVaiTroDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/VaiTroDALTest.java</file>
         </group>
     </open-files>
 </project-private>
