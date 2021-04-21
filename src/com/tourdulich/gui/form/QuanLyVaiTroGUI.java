@@ -20,6 +20,7 @@ import com.tourdulich.gui.menu.MyScrollBarUI;
 import com.tourdulich.util.TableSetupUtil;
 import com.tourdulich.util.VaiTroTableLoaderUtil;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.TableModel;
@@ -75,6 +76,9 @@ public class QuanLyVaiTroGUI extends javax.swing.JPanel {
         table.setFont(new Font("Tahoma", Font.PLAIN, 16));
     }
     
+    public JButton getButtonThem() {
+        return btnThem;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
