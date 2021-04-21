@@ -47,7 +47,7 @@ public class IDiaDiemBLLTest {
     @Test
     public void testFindAll() throws Exception {
         System.out.println("findAll");
-      
+        
         IDiaDiemBLL instance = new DiaDiemBLL();
         List<DiaDiemDTO> expResult = null;
         List<DiaDiemDTO> result = instance.findAll();
@@ -64,15 +64,9 @@ public class IDiaDiemBLLTest {
         System.out.println("findById");
         Long id = 4L;
         IDiaDiemBLL instance = new DiaDiemBLL();
-        DiaDiemDTO expResult = new DiaDiemDTO(4L,"Nhà hàng Sang Mèo","Sapa","Không có mèo",null,49L);
-        
         DiaDiemDTO result = instance.findById(id);
-        assertEquals(expResult.getId(), result.getId());
-        assertEquals(expResult.getTenDiaDiem(), result.getTenDiaDiem());
-        assertEquals(expResult.getDiaChi(), result.getDiaChi());
-        assertEquals(expResult.getGioiThieu(), result.getGioiThieu());
-        assertEquals(expResult.getHinhAnh(), result.getHinhAnh());
-        assertEquals(expResult.getIdTinh(), result.getIdTinh());
+        
+        assertEquals(id, result.getId());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -85,21 +79,11 @@ public class IDiaDiemBLLTest {
         System.out.println("findByIdTinh");
         Long idTinh = 52L;
         IDiaDiemBLL instance = new DiaDiemBLL();
-        DiaDiemDTO expResult = new DiaDiemDTO();
-        expResult.setId(521L);
-        expResult.setTenDiaDiem("Biển Vũng Tàu");
-        expResult.setDiaChi("Bà rịa - Vũng tàu");
-        expResult.setGioiThieu("Biển Vũng Tàu");
-        expResult.setHinhAnh(null);
-        expResult.setIdTinh(52L);
-        //List<DiaDiemDTO> expResult = new ArrayList<DiaDiemDTO>();
         List<DiaDiemDTO> result = instance.findByIdTinh(idTinh);
-        assertEquals(expResult.getId(), result.get(0).getId());
-        assertEquals(expResult.getTenDiaDiem(), result.get(0).getTenDiaDiem());
-        assertEquals(expResult.getDiaChi(), result.get(0).getDiaChi());
-        assertEquals(expResult.getGioiThieu(), result.get(0).getGioiThieu());
-        assertEquals(expResult.getHinhAnh(), result.get(0).getHinhAnh());
-        assertEquals(expResult.getIdTinh(), result.get(0).getIdTinh());
+        
+        for (DiaDiemDTO diaDiem : result) {
+            assertEquals(idTinh, diaDiem.getIdTinh());
+        }
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -162,35 +146,9 @@ public class IDiaDiemBLLTest {
         IDiaDiemBLL instance = new DiaDiemBLL();
         instance.delete(id);
         DiaDiemDTO result = instance.findById(id);
-        assertEquals(result, null);
+        assertNull(result);
         
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
-
-    public class IDiaDiemBLLImpl implements IDiaDiemBLL {
-
-        public List<DiaDiemDTO> findAll() {
-            return null;
-        }
-
-        public DiaDiemDTO findById(Long id) {
-            return null;
-        }
-
-        public List<DiaDiemDTO> findByIdTinh(Long idTinh) {
-            return null;
-        }
-
-        public Long save(DiaDiemDTO diaDiem) {
-            return null;
-        }
-
-        public void update(DiaDiemDTO diaDiem) {
-        }
-
-        public void delete(Long id) {
-        }
-    }
-    
 }

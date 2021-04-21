@@ -47,7 +47,6 @@ public class IDiaDiemDALTest {
         List<DiaDiemDTO> expResult = null;
         List<DiaDiemDTO> result = instance.findAll();
         assertNotNull(result);
-        
     }
 
     @Test
@@ -55,16 +54,9 @@ public class IDiaDiemDALTest {
         System.out.println("findById");
         Long id = 4L;
         IDiaDiemDAL instance = new DiaDiemDAL();
-        DiaDiemDTO expResult = new DiaDiemDTO(4L,"Nhà hàng Sang Mèo","Sapa","Không có mèo",null,49L);
         DiaDiemDTO result = instance.findById(id);
         
-        assertEquals(expResult.getId(), result.getId());
-        assertEquals(expResult.getTenDiaDiem(), result.getTenDiaDiem());
-        assertEquals(expResult.getDiaChi(), result.getDiaChi());
-        assertEquals(expResult.getGioiThieu(), result.getGioiThieu());
-        assertEquals(expResult.getHinhAnh(), result.getHinhAnh());
-        assertEquals(expResult.getIdTinh(), result.getIdTinh());
-      
+        assertEquals(id, result.getId());
     }
 
     @Test
@@ -72,20 +64,11 @@ public class IDiaDiemDALTest {
         System.out.println("findByIdTinh");
         Long idTinh = 52L;
         IDiaDiemDAL instance = new DiaDiemDAL();
-        DiaDiemDTO expResult = new DiaDiemDTO();
-        expResult.setId(521L);
-        expResult.setTenDiaDiem("Biển Vũng Tàu");
-        expResult.setDiaChi("Bà rịa - Vũng tàu");
-        expResult.setGioiThieu("Biển Vũng Tàu");
-        expResult.setHinhAnh(null);
-        expResult.setIdTinh(52L);
         List<DiaDiemDTO> result = instance.findByIdTinh(idTinh);
-        assertEquals(expResult.getId(), result.get(0).getId());
-        assertEquals(expResult.getTenDiaDiem(), result.get(0).getTenDiaDiem());
-        assertEquals(expResult.getDiaChi(), result.get(0).getDiaChi());
-        assertEquals(expResult.getGioiThieu(), result.get(0).getGioiThieu());
-        assertEquals(expResult.getHinhAnh(), result.get(0).getHinhAnh());
-        assertEquals(expResult.getIdTinh(), result.get(0).getIdTinh()); 
+        
+        for (DiaDiemDTO diaDiem : result) {
+            assertEquals(idTinh, diaDiem.getIdTinh());
+        }
     }
 
     @Test
@@ -132,32 +115,7 @@ public class IDiaDiemDALTest {
         Long id = 3L;
         DiaDiemDAL instance = new DiaDiemDAL();
         instance.delete(id);
-        assertEquals(instance.findById(id), null);
+        DiaDiemDTO result = instance.findById(id);
+        assertNull(result);
     }
-
-    public class IDiaDiemDALImpl implements IDiaDiemDAL {
-
-        public List<DiaDiemDTO> findAll() {
-            return null;
-        }
-
-        public DiaDiemDTO findById(Long id) {
-            return null;
-        }
-
-        public List<DiaDiemDTO> findByIdTinh(Long idTinh) {
-            return null;
-        }
-
-        public Long save(DiaDiemDTO diaDiem) {
-            return null;
-        }
-
-        public void update(DiaDiemDTO diaDiem) {
-        }
-
-        public void delete(Long id) {
-        }
-    }
-    
 }
