@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tourdulich.dal.impl;
+package com.tourdulich.dal;
 
-import com.tourdulich.dal.IKhachHangDAL;
+import com.tourdulich.dal.impl.KhachHangDAL;
 import com.tourdulich.dto.KhachHangDTO;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,30 +20,8 @@ import static org.junit.Assert.*;
  *
  * @author Khoa Nguyen
  */
-public class KhachHangDALTest {
-    
-    public KhachHangDALTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
+public class IKhachHangDALTest {
 
-    /**
-     * Test of findAll method, of class KhachHangDAL.
-     */
     @Test
     public void testFindAll() {
         System.out.println("findAll");
@@ -141,5 +119,5 @@ public class KhachHangDALTest {
         KhachHangDTO result = instance.findById(id);
         assertNull(result);
     }
-    
+
 }
