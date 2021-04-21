@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tourdulich.bll;
+package com.tourdulich.bll.impl;
 
-import com.tourdulich.bll.impl.DichVuBLL;
 import com.tourdulich.dto.DichVuDTO;
 import java.util.List;
 import org.junit.After;
@@ -19,17 +18,18 @@ import static org.junit.Assert.*;
  *
  * @author Hi
  */
-public class IDichVuBLLTest {
+public class DichVuBLLTest {
     
-    public IDichVuBLLTest() {
+    public DichVuBLLTest() {
     }
     
+  
 
     @Test
     public void testFindAll() {
         System.out.println("findAll");
        
-        IDichVuBLL instance = new DichVuBLL();
+        DichVuBLL instance = new DichVuBLL();
         List<DichVuDTO> expResult = null;
         List<DichVuDTO> result = instance.findAll();
         assertNotNull(result); 
@@ -39,7 +39,7 @@ public class IDichVuBLLTest {
     public void testFindById() {
        System.out.println("findById");
         Long id = 21L;
-        IDichVuBLL instance = new DichVuBLL();
+        DichVuBLL instance = new DichVuBLL();
         DichVuDTO result = instance.findById(id);
         assertEquals(id, result.getId());
     }
@@ -49,7 +49,7 @@ public class IDichVuBLLTest {
         System.out.println("save");
         String TenDichVu = "Hồ bơi";
         String MoTa = "Hồ bơi vô cực";
-        IDichVuBLL instance = new DichVuBLL();
+        DichVuBLL instance = new DichVuBLL();
         DichVuDTO dichVu = new DichVuDTO();
         dichVu.setMoTa(MoTa);
         dichVu.setTenDichVu(TenDichVu);
@@ -62,7 +62,7 @@ public class IDichVuBLLTest {
         System.out.println("update");
         Long dichVuId = 4L;
         String moTa = "Hồ bơi thiên nhiên";
-        IDichVuBLL instance = new DichVuBLL();
+        DichVuBLL instance = new DichVuBLL();
         DichVuDTO dichVu = instance.findById(dichVuId);
         dichVu.setMoTa(moTa);
         instance.update(dichVu);
@@ -73,9 +73,10 @@ public class IDichVuBLLTest {
     public void testDelete() {
        System.out.println("delete");
         Long id = 5L;
-        IDichVuBLL instance = new DichVuBLL();
+        DichVuBLL instance = new DichVuBLL();
         instance.delete(id);
         DichVuDTO result = instance.findById(id);
         assertNull(result);
     }
+    
 }

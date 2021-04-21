@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.tourdulich.dal;
+package com.tourdulich.bll.impl;
 
-import com.tourdulich.dal.impl.LoaiDuLichDAL;
 import com.tourdulich.dto.LoaiDuLichDTO;
 import java.util.List;
 import org.junit.After;
@@ -19,17 +18,15 @@ import static org.junit.Assert.*;
  *
  * @author Hi
  */
-public class ILoaiDuLichDALTest {
+public class LoaiDuLichBLLTest {
     
-    public ILoaiDuLichDALTest() {
+    public LoaiDuLichBLLTest() {
     }
     
-  
-
-    @Test
+     @Test
     public void testFindAll() {
         System.out.println("findAll");
-        ILoaiDuLichDAL instance = new LoaiDuLichDAL();
+        LoaiDuLichBLL instance = new LoaiDuLichBLL();
         List<LoaiDuLichDTO> expResult = null;
         List<LoaiDuLichDTO> result = instance.findAll();
         assertNotNull(result);
@@ -39,7 +36,7 @@ public class ILoaiDuLichDALTest {
     public void testFindById() {
         System.out.println("findById");
         Long id = 1L;
-        ILoaiDuLichDAL instance = new LoaiDuLichDAL();
+        LoaiDuLichBLL instance = new LoaiDuLichBLL();
         LoaiDuLichDTO result = instance.findById(id);
         assertEquals(id, result.getId());
     }
@@ -50,7 +47,7 @@ public class ILoaiDuLichDALTest {
         String tenLoaiDuLich = "Du lịch trong nước";
         LoaiDuLichDTO loaiDuLich = new LoaiDuLichDTO();
         loaiDuLich.setTenLoaiDuLich(tenLoaiDuLich);
-        ILoaiDuLichDAL instance = new LoaiDuLichDAL();
+        LoaiDuLichBLL instance = new LoaiDuLichBLL();
         Long saveId = instance.save(loaiDuLich);
         LoaiDuLichDTO result = instance.findById(saveId);   
         assertEquals(saveId, result.getId());
@@ -61,7 +58,7 @@ public class ILoaiDuLichDALTest {
         System.out.println("update");
         Long loaiDuLichId = 8L;
         String tenLoaiDuLich = "Du lịch ngoài nước";
-        ILoaiDuLichDAL instance = new LoaiDuLichDAL();
+        LoaiDuLichBLL instance = new LoaiDuLichBLL();
         LoaiDuLichDTO loaiDuLich = instance.findById(loaiDuLichId);
         loaiDuLich.setTenLoaiDuLich(tenLoaiDuLich);
         instance.update(loaiDuLich);
@@ -71,14 +68,12 @@ public class ILoaiDuLichDALTest {
 
     @Test
     public void testDelete() {
-        System.out.println("delete");
+        System.out.println("delete");  
         Long id = 8L;
-        ILoaiDuLichDAL instance = new LoaiDuLichDAL();
+        LoaiDuLichBLL instance = new LoaiDuLichBLL();
         instance.delete(id);
         LoaiDuLichDTO result = instance.findById(id);
         assertNull(result);
     }
-
-    
     
 }
