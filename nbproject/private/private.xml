@@ -10,6 +10,14 @@
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IThongKeDoanBLLTest.java</file>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/ThongKeDoanDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IVaiTroDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/VaiTroDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
         </group>
     </open-files>
 </project-private>
