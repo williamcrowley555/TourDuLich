@@ -44,16 +44,6 @@ public class DsDiaDiemTourBLL implements IDsDiaDiemTourBLL {
     }
 
     @Override
-    public void update(DsDiaDiemTourDTO dsDiaDiemTour) {
-        dsDiaDiemTourDAO.update(dsDiaDiemTour);
-    }
-
-    @Override
-    public void delete(Long id) {
-        dsDiaDiemTourDAO.delete(id);
-    }
-
-    @Override
     public List<DiaDiemDTO> findByIdTour(Long idTour) {   
         List<Long> diaDiemIds = dsDiaDiemTourDAO.findByIdTour(idTour);
         List<DiaDiemDTO> diaDiemList = new ArrayList<>();

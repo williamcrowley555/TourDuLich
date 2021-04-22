@@ -26,6 +26,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -64,7 +65,9 @@ public class PopUpTableNhanVienGUI extends javax.swing.JFrame {
         
         if (deletedNhanVienList == null)
             deletedNhanVienList = new ArrayList<>();
-        addDeletedList(deletedNhanVienList);
+        addDeletedList(deletedNhanVienList);    
+        tblNhanVien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);       
+        tblNhanVien_Doan.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         headerColor(14,142,233,tblNhanVien);
         
     }

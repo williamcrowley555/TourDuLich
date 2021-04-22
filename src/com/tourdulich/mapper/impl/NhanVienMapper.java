@@ -33,6 +33,7 @@ public class NhanVienMapper implements RowMapper<NhanVienDTO>{
             nhanVien.setSdt(rs.getString("sdt"));
             nhanVien.setHinhAnh(rs.getBytes("hinh_anh"));
             nhanVien.setIdVaiTro(rs.getLong("id_vai_tro"));
+            nhanVien.setTrangThai(rs.getBoolean("trang_thai"));
             
             return nhanVien;
         } catch(SQLException e) {

@@ -309,12 +309,11 @@ public class QuanLyTourGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDanhSachDiaDiemMousePressed
 
     private void btnDanhSachDiaDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDanhSachDiaDiemActionPerformed
-        // TODO add your handling code here:
-           int selectedRow = tblTour.getSelectedRow();
-           if (this.popUpDiaDiem == null) {
+        int selectedRow = tblTour.getSelectedRow();
+        if (this.popUpDiaDiem == null) {
             if(selectedRow >=0)
             {
-            this.popUpDiaDiem = new PopUpTableDiaDiemGUI(tblTour.getModel().getValueAt( tblTour.getSelectedRow(), 0).toString());
+            this.popUpDiaDiem = new PopUpTableDiaDiemGUI(tblTour.getModel().getValueAt(tblTour.getSelectedRow(), 0).toString());
             popUpDiaDiem.center();
             popUpDiaDiem.setVisible(true);
             popUpDiaDiem.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -324,14 +323,13 @@ public class QuanLyTourGUI extends javax.swing.JPanel {
                        loadTableData();
                     }
                     });
-            } else JOptionPane.showMessageDialog(this, "Hãy chọn 1 tour", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            
+            } else 
+                JOptionPane.showMessageDialog(this, "Hãy chọn 1 tour", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
         } else {
             this.popUpDiaDiem.toFront();
             this.popUpDiaDiem.center();
         }
-       
-       
     }//GEN-LAST:event_btnDanhSachDiaDiemActionPerformed
 
     private void tblTourMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTourMouseReleased

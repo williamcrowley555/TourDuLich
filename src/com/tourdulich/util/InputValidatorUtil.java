@@ -207,9 +207,9 @@ public class InputValidatorUtil {
             return "Số điện thoại không hợp lệ";
         }
         
-        String message = isLong(phoneNumber);
+        String message = isLong(phoneNumber); 
         if(!message.isEmpty()) return message;
-        
+        if(Long.parseLong(phoneNumber)<0) return "Số điện thoại không hợp lệ";
         return "";
     }
     
