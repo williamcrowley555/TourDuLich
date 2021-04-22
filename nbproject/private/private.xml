@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dal/impl/ThongKeTourDAL.java</file>
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/dal/impl/ThongKeDoanDAL.java</file>
-=======
-            <file>file:/D:/Project/TourDuLich/src/com/tourdulich/gui/popup/PopUpTableCapVaiTroNhanVienGUI.java</file>
->>>>>>> 693f62190e9dd1c87c8f14e95063e36b9fa8d2c2
-        </group>
+        <group/>
     </open-files>
 </project-private>
