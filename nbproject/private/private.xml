@@ -3,14 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IVaiTroDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/VaiTroDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/impl/TourDALTest.java</file>
         </group>
         <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/util/InputValidatorUtil.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
         </group>
         <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/util/InputValidatorUtil.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
         </group>
     </open-files>
 </project-private>
