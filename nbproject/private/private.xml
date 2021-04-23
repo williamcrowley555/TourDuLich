@@ -6,14 +6,15 @@
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/impl/TourDALTest.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/util/InputValidatorUtil.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/src/com/tourdulich/util/InputValidatorUtil.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/ThongKeTourDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IThongKeDoanDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/impl/ThongKeDoanBLLTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IThongKeTourDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IThongKeDoanBLLTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/ThongKeDoanDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IVaiTroDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/VaiTroDALTest.java</file>
         </group>
     </open-files>
 </project-private>
