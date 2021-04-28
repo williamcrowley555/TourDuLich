@@ -100,7 +100,7 @@ public class KhachHangBLLTest {
         System.out.println("update");
         KhachHangBLL instance = new KhachHangBLL();
         
-        Long id = 6L;       
+        Long id = 5L;       
         String ho = "Hồ";
         KhachHangDTO khachHang = instance.findById(id);
         khachHang.setHo(ho);

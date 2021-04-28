@@ -21,29 +21,6 @@ import static org.junit.Assert.*;
  * @author Khoa Nguyen
  */
 public class IKhachHangBLLTest {
-    
-    public IKhachHangBLLTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of findAll method, of class IKhachHangBLL.
-     */
     @Test
     public void testFindAll() {
         System.out.println("findAll");
@@ -120,7 +97,7 @@ public class IKhachHangBLLTest {
         System.out.println("update");
         IKhachHangBLL instance = new KhachHangBLL();
         
-        Long id = 6L;       
+        Long id = 5L;       
         String ho = "Hồ";
         KhachHangDTO khachHang = instance.findById(id);
         khachHang.setHo(ho);
@@ -140,31 +117,5 @@ public class IKhachHangBLLTest {
         instance.delete(id);
         KhachHangDTO result = instance.findById(id);
         assertNull(result);
-    }
-
-    public class IKhachHangBLLImpl implements IKhachHangBLL {
-
-        public List<KhachHangDTO> findAll() {
-            return null;
-        }
-
-        public KhachHangDTO findById(Long id) {
-            return null;
-        }
-
-        public KhachHangDTO findBySdt(String sdt) {
-            return null;
-        }
-
-        public Long save(KhachHangDTO khachHang) {
-            return null;
-        }
-
-        public void update(KhachHangDTO khachHang) {
-        }
-
-        public void delete(Long id) {
-        }
-    }
-    
+    }   
 }
