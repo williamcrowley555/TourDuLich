@@ -52,7 +52,7 @@ public class IDiaDiemDALTest {
     @Test
     public void testFindById() {
         System.out.println("findById");
-        Long id = 4L;
+        Long id = 521L;
         IDiaDiemDAL instance = new DiaDiemDAL();
         DiaDiemDTO result = instance.findById(id);
         
