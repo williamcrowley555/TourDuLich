@@ -112,7 +112,7 @@ public class IDiaDiemDALTest {
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long diaDiemId = 1L;
+        Long diaDiemId = 6L;
         DiaDiemDAL instance = new DiaDiemDAL();
         instance.delete(diaDiemId);
         DiaDiemDTO result = instance.findById(diaDiemId);
