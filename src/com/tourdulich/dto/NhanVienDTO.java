@@ -28,6 +28,7 @@ public class NhanVienDTO {
     private String sdt;
     private byte[] hinhAnh;
     private Long idVaiTro;
+    private Boolean trangThai;
     
     public NhanVienDTO(){}
 
@@ -115,6 +116,14 @@ public class NhanVienDTO {
         this.idVaiTro = idVaiTro;
     }
 
+    public Boolean getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(Boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -171,9 +180,11 @@ public class NhanVienDTO {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-        return "NhanVienDTO{" + "id=" + id + ", ho=" + ho + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", hinhAnh=" + hinhAnh + ", idVaiTro=" + idVaiTro + '}';
+        return "NhanVienDTO{" + "id=" + id + ", ho=" + ho + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", sdt=" + sdt + ", hinhAnh=" + hinhAnh + ", idVaiTro=" + idVaiTro + ", trangThai=" + trangThai + '}';
     }
+    
+    
 }
