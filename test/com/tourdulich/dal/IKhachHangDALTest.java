@@ -98,7 +98,7 @@ public class IKhachHangDALTest {
         System.out.println("update");
         IKhachHangDAL instance = new KhachHangDAL();
         
-        Long id = 6L;       
+        Long id = 5L;       
         String ho = "Hồ";
         KhachHangDTO khachHang = instance.findById(id);
         khachHang.setHo(ho);

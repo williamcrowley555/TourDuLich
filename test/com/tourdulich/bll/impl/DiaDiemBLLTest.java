@@ -42,7 +42,7 @@ public class DiaDiemBLLTest {
     @Test
     public void testFindById() {
         System.out.println("findById");
-        Long id = 4L;
+        Long id = 521L;
         DiaDiemBLL instance = new DiaDiemBLL();
         DiaDiemDTO result = instance.findById(id);
         
@@ -102,18 +102,15 @@ public class DiaDiemBLLTest {
      */
     @Test
     public void testUpdate() {
-        System.out.println("update");
+        System.out.println("update");     
         DiaDiemBLL instance = new DiaDiemBLL();
-        
-        Long diaDiemId = 2L;
-        String gioiThieu = "Có mèo";
+        Long diaDiemId = 491L;
+        String gioiThieu = "Di tích lịch sử cấp quốc gia";
         DiaDiemDTO diaDiem = instance.findById(diaDiemId);
         diaDiem.setGioiThieu(gioiThieu);
         instance.update(diaDiem);
         
         assertEquals(gioiThieu, instance.findById(diaDiemId).getGioiThieu());
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
     /**
@@ -122,10 +119,10 @@ public class DiaDiemBLLTest {
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long id = 8L;
+        Long diaDiemId = 6L;
         DiaDiemBLL instance = new DiaDiemBLL();
-        instance.delete(id);
-        DiaDiemDTO result = instance.findById(id);
+        instance.delete(diaDiemId);
+        DiaDiemDTO result = instance.findById(diaDiemId);
         assertNull(result);
         
         // TODO review the generated test code and remove the default call to fail.
