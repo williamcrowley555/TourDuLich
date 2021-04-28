@@ -5,7 +5,10 @@
  */
 package com.tourdulich.bll;
 
+import com.tourdulich.bll.impl.DoanBLL;
 import com.tourdulich.dto.DoanDTO;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -42,100 +45,91 @@ public class IDoanBLLTest {
     @Test
     public void testFindAll() {
         System.out.println("findAll");
-        IDoanBLL instance = new IDoanBLLImpl();
-        List<DoanDTO> expResult = null;
+        IDoanBLL instance = new DoanBLL();
         List<DoanDTO> result = instance.findAll();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+//        fail("The test case is a prototype.");
     }
 
     @Test
     public void testFindById() {
         System.out.println("findById");
-        Long id = null;
-        IDoanBLL instance = new IDoanBLLImpl();
-        DoanDTO expResult = null;
+        Long id = 1L;
+        IDoanBLL instance = new DoanBLL();
         DoanDTO result = instance.findById(id);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+//        fail("The test case is a prototype.");
     }
 
     @Test
     public void testFindByIdTour() {
         System.out.println("findByIdTour");
-        Long id = null;
-        IDoanBLL instance = new IDoanBLLImpl();
-        List<DoanDTO> expResult = null;
-        List<DoanDTO> result = instance.findByIdTour(id);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        Long idTour = 291L;
+        IDoanBLL instance = new DoanBLL();
+        List<DoanDTO> result = instance.findByIdTour(idTour);
+        for (DoanDTO doan : result) {
+            assertEquals(idTour, doan.getIdTour());
+        }
+//        fail("The test case is a prototype.");
     }
 
     @Test
     public void testSave() {
         System.out.println("save");
-        DoanDTO doan = null;
-        IDoanBLL instance = new IDoanBLLImpl();
-        Long expResult = null;
-        Long result = instance.save(doan);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        String tenDoan = "Thảo Cầm Viên Sài Gòn";
+        LocalDate ngayKhoiHanh = LocalDate.of(2021, Month.APRIL, 22);
+        LocalDate ngayKetThuc = LocalDate.of(2021, Month.APRIL, 23);
+        Long idTour = 291L;
+        
+        DoanDTO doan = new DoanDTO();
+        doan.setTenDoan(tenDoan);
+        doan.setNgayKhoiHanh(ngayKhoiHanh);
+        doan.setNgayKetThuc(ngayKetThuc);
+        doan.setIdTour(idTour);
+        
+        IDoanBLL instance = new DoanBLL();
+        Long savedId = instance.save(doan);
+        DoanDTO result = instance.findById(savedId);
+        
+        assertEquals(tenDoan, result.getTenDoan());
+        assertEquals(ngayKhoiHanh, result.getNgayKhoiHanh());
+        assertEquals(ngayKetThuc, result.getNgayKetThuc());
+        assertEquals(idTour, result.getIdTour());
+//        fail("The test case is a prototype.");
     }
 
     @Test
     public void testUpdate() {
         System.out.println("update");
-        DoanDTO doan = null;
-        IDoanBLL instance = new IDoanBLLImpl();
+        Long doanId = 3L;
+        String tenDoan = "Du lịch Đà Lạt";
+        IDoanBLL instance = new DoanBLL();
+        DoanDTO doan = instance.findById(doanId);
+        doan.setTenDoan(tenDoan);
         instance.update(doan);
-        fail("The test case is a prototype.");
+        assertEquals(tenDoan, instance.findById(doanId).getTenDoan());
+//        fail("The test case is a prototype.");
     }
 
     @Test
     public void testUpdateAmount() {
         System.out.println("updateAmount");
-        Long id = null;
-        Integer amount = null;
-        IDoanBLL instance = new IDoanBLLImpl();
-        instance.updateAmount(id, amount);
-        fail("The test case is a prototype.");
+        Long doanId = 3L;
+        int amount = 6;
+        IDoanBLL instance = new DoanBLL();
+        instance.updateAmount(doanId, amount);
+        assertEquals(amount, instance.findById(doanId).getSoLuong());
+//        fail("The test case is a prototype.");
     }
 
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long id = null;
-        IDoanBLL instance = new IDoanBLLImpl();
+        Long id = 3L;
+        IDoanBLL instance = new DoanBLL();
         instance.delete(id);
-        fail("The test case is a prototype.");
-    }
-
-    public class IDoanBLLImpl implements IDoanBLL {
-
-        public List<DoanDTO> findAll() {
-            return null;
-        }
-
-        public DoanDTO findById(Long id) {
-            return null;
-        }
-
-        public List<DoanDTO> findByIdTour(Long id) {
-            return null;
-        }
-
-        public Long save(DoanDTO doan) {
-            return null;
-        }
-
-        public void update(DoanDTO doan) {
-        }
-
-        public void updateAmount(Long id, Integer amount) {
-        }
-
-        public void delete(Long id) {
-        }
+        assertNull(instance.findById(id));
+//        fail("The test case is a prototype.");
     }
     
 }
