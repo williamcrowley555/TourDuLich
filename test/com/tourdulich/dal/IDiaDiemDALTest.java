@@ -100,8 +100,8 @@ public class IDiaDiemDALTest {
     public void testUpdate() {
         System.out.println("update");     
         IDiaDiemDAL instance = new DiaDiemDAL();
-        Long diaDiemId = 3L;
-        String gioiThieu = "Có mèo";
+        Long diaDiemId = 491L;
+        String gioiThieu = "Di tích lịch sử cấp quốc gia";
         DiaDiemDTO diaDiem = instance.findById(diaDiemId);
         diaDiem.setGioiThieu(gioiThieu);
         instance.update(diaDiem);
@@ -112,10 +112,10 @@ public class IDiaDiemDALTest {
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long id = 3L;
+        Long diaDiemId = 1L;
         DiaDiemDAL instance = new DiaDiemDAL();
-        instance.delete(id);
-        DiaDiemDTO result = instance.findById(id);
+        instance.delete(diaDiemId);
+        DiaDiemDTO result = instance.findById(diaDiemId);
         assertNull(result);
     }
 }

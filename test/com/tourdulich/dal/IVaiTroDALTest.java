@@ -84,7 +84,7 @@ public class IVaiTroDALTest {
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long id = 7L;
+        Long id = 4L;
         IVaiTroDAL instance = new VaiTroDAL();
         instance.delete(id);
         VaiTroDTO result = instance.findById(id);
