@@ -72,7 +72,7 @@ public class ILoaiDuLichDALTest {
     @Test
     public void testDelete() {
         System.out.println("delete");
-        Long id = 8L;
+        Long id = 800L;
         ILoaiDuLichDAL instance = new LoaiDuLichDAL();
         instance.delete(id);
         LoaiDuLichDTO result = instance.findById(id);
