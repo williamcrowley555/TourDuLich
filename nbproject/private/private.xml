@@ -3,37 +3,30 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/RemoveAccentUtilTest.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/impl/DoanBLLTest.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/DBConnectionUtilTest.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDichVuDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ILoaiDuLichBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDichVuDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ILoaiDuLichBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/RemoveAccentUtilTest.java</file>
-            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
-        </group>
-        <group/>
-        <group>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDichVuDALTest.java</file>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/impl/DichVuBLLTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/impl/DichVuBLLTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/impl/DichVuBLLTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
         </group>
     </open-files>
 </project-private>
