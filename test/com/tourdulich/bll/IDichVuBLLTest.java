@@ -25,7 +25,7 @@ public class IDichVuBLLTest {
     
     public IDichVuBLLTest() {
     }
-
+    
    @Rule
     public ExpectedException thrown = ExpectedException.none();
  
@@ -45,7 +45,6 @@ public class IDichVuBLLTest {
         IDichVuBLL instance = new DichVuBLL();
         DichVuDTO result = instance.findById(id);
         assertEquals(id, result.getId());
-        
     }
     
     @Test
@@ -60,7 +59,7 @@ public class IDichVuBLLTest {
     @Test
     public void testFindByIdNotExist() {
         System.out.println("findByIdNotExist");
-        Long id = 1L;
+        Long id = 1999L;
         IDichVuBLL instance = new DichVuBLL();
         DichVuDTO result = instance.findById(id);
         assertNull(result);
