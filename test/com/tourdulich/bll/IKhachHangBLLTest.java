@@ -58,7 +58,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testFindByIdNotExist() {
         System.out.println("findByIdNotExist");
-        Long id = 1999L;
+        Long id = 999L;
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO result = instance.findById(id);
         assertNull(result);
@@ -118,7 +118,7 @@ public class IKhachHangBLLTest {
         String ho = "Nguyễn";
         String ten = "Minh Mẫn";
         Boolean gioiTinh = true;
-        String cmnd = "025995456001";
+        String cmnd = "025995456061";
         String sdt = "0268548207";
         String diaChi = "24 đường Đông Du, Phường Bến Nghé, Quận 1, TP Hồ Chí Minh";
         LocalDate ngaySinh = LocalDate.of(1995,8,19);
@@ -166,7 +166,7 @@ public class IKhachHangBLLTest {
         String ho = null;
         String ten = "Minh Mẫn";
         Boolean gioiTinh = true;
-        String cmnd = "025995456008";
+        String cmnd = "025995456048";
         String sdt = "0268548208";
         String diaChi = "24 đường Đông Du, Phường Bến Nghé, Quận 1, TP Hồ Chí Minh";
         LocalDate ngaySinh = LocalDate.of(1995,8,19);
@@ -386,6 +386,31 @@ public class IKhachHangBLLTest {
     }
     
     @Test
+    public void testSaveInvalidDiaChi() {
+        System.out.println("saveInvalidDiaChi");
+        String ho = "Nguyễn";
+        String ten = "Minh Mẫn";
+        Boolean gioiTinh = true;
+        String cmnd = "0458548517";
+        String sdt = "0458548517";
+        String diaChi = "@";
+        LocalDate ngaySinh = LocalDate.of(1995,8,19);
+        
+        KhachHangDTO khachHang = new KhachHangDTO();
+        khachHang.setHo(ho);
+        khachHang.setTen(ten);
+        khachHang.setGioiTinh(gioiTinh);
+        khachHang.setCmnd(cmnd);
+        khachHang.setSdt(sdt);
+        khachHang.setDiaChi(diaChi);
+        khachHang.setNgaySinh(ngaySinh);
+        
+        IKhachHangBLL instance = new KhachHangBLL();
+        Long savedId = instance.save(khachHang);
+        assertNull(instance.findById(savedId));
+    }
+    
+    @Test
     public void testUpdateHo() {
         System.out.println("update");
         IKhachHangBLL instance = new KhachHangBLL();
@@ -402,7 +427,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateNullHo() {
         System.out.println("updateNullHo");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String ho = null;
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -415,7 +440,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateNullTen() {
         System.out.println("updateNullTen");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String ten = null;
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -428,7 +453,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateNullCmnd() {
         System.out.println("updateNullCmnd");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String cmnd = null;
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -441,7 +466,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateNullSdt() {
         System.out.println("updateNullSdt");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String sdt = null;
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -454,7 +479,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateNullDiaChi() {
         System.out.println("updateNullDiaChi");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String diaChi = null;
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -467,7 +492,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateInvalidHo() {
         System.out.println("updateInvalidHo");
-        Long dichVuId = 35L;
+        Long dichVuId = 62L;
         String ho = "@";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(dichVuId);
@@ -480,7 +505,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateInvalidTen() {
         System.out.println("updateInvalidTen");
-        Long dichVuId = 35L;
+        Long dichVuId = 5L;
         String ten = "@";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(dichVuId);
@@ -493,7 +518,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateInvalidCmnd() {
         System.out.println("updateInvalidCmnd");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String cmnd =  "@";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -506,7 +531,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateInvalidSdt() {
         System.out.println("updateInvalidSdt");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String sdt =  "@";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -519,7 +544,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateInvalidDiaChi() {
         System.out.println("updateInvalidDiaChi");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String diaChi =  "@";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -533,6 +558,7 @@ public class IKhachHangBLLTest {
     public void testUpdateNotExistId() {
         System.out.println("updateNotExistId");
         Long khachHangId = 200L;
+        String ho = "Hồ";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
         assertNull(khachHang);

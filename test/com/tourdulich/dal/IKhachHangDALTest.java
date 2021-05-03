@@ -54,7 +54,7 @@ public class IKhachHangDALTest {
     @Test
     public void testFindByIdNotExist() {
         System.out.println("findByIdNotExist");
-        Long id = 1999L;
+        Long id = 999L;
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO result = instance.findById(id);
         assertNull(result);
@@ -382,6 +382,31 @@ public class IKhachHangDALTest {
     }
     
     @Test
+    public void testSaveInvalidDiaChi() {
+        System.out.println("saveInvalidDiaChi");
+        String ho = "Nguyễn";
+        String ten = "Minh Mẫn";
+        Boolean gioiTinh = true;
+        String cmnd = "0458548517";
+        String sdt = "0458548517";
+        String diaChi = "@";
+        LocalDate ngaySinh = LocalDate.of(1995,8,19);
+        
+        KhachHangDTO khachHang = new KhachHangDTO();
+        khachHang.setHo(ho);
+        khachHang.setTen(ten);
+        khachHang.setGioiTinh(gioiTinh);
+        khachHang.setCmnd(cmnd);
+        khachHang.setSdt(sdt);
+        khachHang.setDiaChi(diaChi);
+        khachHang.setNgaySinh(ngaySinh);
+        
+        IKhachHangDAL instance = new KhachHangDAL();
+        Long savedId = instance.save(khachHang);
+        assertNull(instance.findById(savedId));
+    }
+    
+    @Test
     public void testUpdateHo() {
         System.out.println("update");
         IKhachHangDAL instance = new KhachHangDAL();
@@ -398,7 +423,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateNullHo() {
         System.out.println("updateNullHo");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String ho = null;
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -411,7 +436,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateNullTen() {
         System.out.println("updateNullTen");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String ten = null;
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -424,7 +449,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateNullCmnd() {
         System.out.println("updateNullCmnd");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String cmnd = null;
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -437,7 +462,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateNullSdt() {
         System.out.println("updateNullSdt");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String sdt = null;
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -450,7 +475,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateNullDiaChi() {
         System.out.println("updateNullDiaChi");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String diaChi = null;
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -463,7 +488,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateInvalidHo() {
         System.out.println("updateInvalidHo");
-        Long dichVuId = 35L;
+        Long dichVuId = 5L;
         String ho = "@";
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(dichVuId);
@@ -476,7 +501,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateInvalidTen() {
         System.out.println("updateInvalidTen");
-        Long dichVuId = 35L;
+        Long dichVuId = 5L;
         String ten = "@";
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(dichVuId);
@@ -489,7 +514,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateInvalidCmnd() {
         System.out.println("updateInvalidCmnd");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String cmnd =  "@";
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -502,7 +527,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateInvalidSdt() {
         System.out.println("updateInvalidSdt");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String sdt =  "@";
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -515,7 +540,7 @@ public class IKhachHangDALTest {
     @Test
     public void testUpdateInvalidDiaChi() {
         System.out.println("updateInvalidDiaChi");
-        Long khachHangId = 35L;
+        Long khachHangId = 5L;
         String diaChi =  "@";
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
@@ -529,6 +554,7 @@ public class IKhachHangDALTest {
     public void testUpdateNotExistId() {
         System.out.println("updateNotExistId");
         Long khachHangId = 200L;
+         String ho = "Hồ";
         IKhachHangDAL instance = new KhachHangDAL();
         KhachHangDTO khachHang = instance.findById(khachHangId);
         assertNull(khachHang);

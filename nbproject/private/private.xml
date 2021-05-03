@@ -3,16 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/ITourBLLTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IDichVuDALTest.java</file>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
-        </group>
-        <group>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dto/DichVuDTO.java</file>
-            <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dto/DiaDiemDTO.java</file>
-        </group>
-        <group>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dto/DichVuDTO.java</file>
@@ -33,6 +23,15 @@
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IKhachHangDALTest.java</file>
             <file>file:/D:/XDPMTMHPL/TourDuLich/src/com/tourdulich/dto/KhachHangDTO.java</file>
+        </group>
+        <group>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/impl/NhanVienBLLTest.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IKhachHangDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
         </group>
     </open-files>
 </project-private>
