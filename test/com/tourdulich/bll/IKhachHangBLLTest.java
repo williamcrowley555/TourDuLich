@@ -492,7 +492,7 @@ public class IKhachHangBLLTest {
     @Test
     public void testUpdateInvalidHo() {
         System.out.println("updateInvalidHo");
-        Long dichVuId = 62L;
+        Long dichVuId = 5L;
         String ho = "@";
         IKhachHangBLL instance = new KhachHangBLL();
         KhachHangDTO khachHang = instance.findById(dichVuId);
