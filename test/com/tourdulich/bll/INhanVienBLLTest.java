@@ -170,6 +170,9 @@ public class INhanVienBLLTest {
         
         INhanVienBLL instance = new NhanVienBLL();
         Long savedId = instance.save(nhanVien);
+        
+        assertNotNull(savedId);
+        
         NhanVienDTO result = instance.findById(savedId);
         assertEquals(ho, result.getHo());
         assertEquals(ten, result.getTen());

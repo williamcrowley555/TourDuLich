@@ -170,6 +170,9 @@ public class INhanVienDALTest {
         
         INhanVienDAL instance = new NhanVienDAL();
         Long savedId = instance.save(nhanVien);
+        
+        assertNotNull(savedId);
+        
         NhanVienDTO result = instance.findById(savedId);
         assertEquals(ho, result.getHo());
         assertEquals(ten, result.getTen());

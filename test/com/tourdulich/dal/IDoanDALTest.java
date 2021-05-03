@@ -59,7 +59,7 @@ public class IDoanDALTest {
     @Test
     public void testFindByExistingId() {
         System.out.println("findById");
-        Long id = 1L;
+        Long id = 2911L;
         IDoanDAL instance = new DoanDAL();
         DoanDTO result = instance.findById(id);
         assertEquals(id, result.getId());
@@ -138,6 +138,9 @@ public class IDoanDALTest {
         
         IDoanDAL instance = new DoanDAL();
         Long savedId = instance.save(doan);
+        
+        assertNotNull(savedId);
+        
         DoanDTO result = instance.findById(savedId);
         
         assertEquals(tenDoan, result.getTenDoan());
