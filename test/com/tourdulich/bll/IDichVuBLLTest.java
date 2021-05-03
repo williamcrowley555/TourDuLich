@@ -29,7 +29,6 @@ public class IDichVuBLLTest {
    @Rule
     public ExpectedException thrown = ExpectedException.none();
  
-
     @Test
     public void testFindAll() {
         System.out.println("findAll");
@@ -148,8 +147,6 @@ public class IDichVuBLLTest {
         Long savedId = instance.save(dichVu);
         assertNull(instance.findById(savedId));
     }
-    
-    
     
     @Test
     public void testSaveNullMota() {
