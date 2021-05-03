@@ -130,8 +130,8 @@ public class IVaiTroBLLTest {
     }
     
     @Test
-    public void testUpdateTenVaiTro() {
-        System.out.println("updateTenVaiTro");
+    public void testUpdate() {
+        System.out.println("update");
         IVaiTroBLL instance = new VaiTroBLL();
         
         Long id = 7L;
@@ -158,9 +158,24 @@ public class IVaiTroBLLTest {
     }
     
     @Test
+    public void testUpdateInValid() {
+        System.out.println("updateInvalid");
+        Long vaiTroId = 10L;
+        String tenVaiTro = "!@#!#!123";
+        IVaiTroBLL instance = new VaiTroBLL();
+        VaiTroDTO loaiDuLich = instance.findById(vaiTroId);
+        String oldTenVaiTro = loaiDuLich.getTenVaiTro();
+        loaiDuLich.setTenVaiTro(tenVaiTro);
+        instance.update(loaiDuLich);
+        VaiTroDTO result = instance.findById(vaiTroId);
+        assertEquals(oldTenVaiTro, result.getTenVaiTro());
+    }
+    
+    @Test
     public void testUpdateNotExistId() {
         System.out.println("updateNotExistId");
         Long vaiTroId = 200L;
+        String tenVaiTro = "MC";
         IVaiTroBLL instance = new VaiTroBLL();
         VaiTroDTO dichVu = instance.findById(vaiTroId);
         assertNull(dichVu);

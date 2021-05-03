@@ -57,7 +57,7 @@ public class IDiaDiemDALTest {
     @Test
     public void testFindByIdNotExist() {
         System.out.println("findByIdNotExist");
-        Long id = 1999L;
+        Long id = 999L;
         IDiaDiemDAL instance = new DiaDiemDAL();
         DiaDiemDTO result = instance.findById(id);
         assertNull(result);
@@ -134,6 +134,25 @@ public class IDiaDiemDALTest {
         IDiaDiemDAL instance = new DiaDiemDAL();
         Long savedId = instance.save(diaDiem);
         assertNotNull(instance.findById(savedId));       
+    }
+    
+    @Test
+    public void testSaveNull() {
+        System.out.println("saveNull");
+        String tenDiaDiem = null;
+        String diaChi = null;
+        String gioiThieu = null;
+        Long idTinh = 49L;
+                
+        DiaDiemDTO diaDiem = new DiaDiemDTO();
+        diaDiem.setTenDiaDiem(tenDiaDiem);
+        diaDiem.setDiaChi(diaChi);
+        diaDiem.setGioiThieu(gioiThieu);
+        diaDiem.setIdTinh(idTinh);
+        
+        IDiaDiemDAL instance = new DiaDiemDAL();
+        Long savedId = instance.save(diaDiem);
+        assertNull(instance.findById(savedId));       
     }
 
     @Test
@@ -248,6 +267,25 @@ public class IDiaDiemDALTest {
         IDiaDiemDAL instance = new DiaDiemDAL();
         Long savedId = instance.save(diaDiem);
         assertNull(instance.findById(savedId));       
+    }
+    
+    @Test
+    public void testUpdate() {
+        System.out.println("updateTenDiaDiem");     
+        IDiaDiemDAL instance = new DiaDiemDAL();
+        Long diaDiemId = 491L;
+        String tenDiaDiem = "Nhà cổ trăm cột";
+        String diaChi = "Long Hựu Đông, Cần Đước, Long An";
+        String gioiThieu = "Di tích lịch sử cấp quốc gia";
+        Long idTinh = 41L;
+        DiaDiemDTO diaDiem = instance.findById(diaDiemId);
+        diaDiem.setTenDiaDiem(tenDiaDiem);
+        diaDiem.setDiaChi(diaChi);
+        diaDiem.setGioiThieu(gioiThieu);
+        diaDiem.setIdTinh(idTinh);
+        instance.update(diaDiem);
+        
+        assertEquals(tenDiaDiem, instance.findById(diaDiemId).getTenDiaDiem());
     }
     
     @Test
@@ -384,6 +422,7 @@ public class IDiaDiemDALTest {
     public void testUpdateNotExistId() {
         System.out.println("updateNotExist");
         Long diaDiemId = 200L;
+        String diaChi = "Long Hựu Đông, Cần Đước, Long An";
         IDiaDiemDAL instance = new DiaDiemDAL();
         DiaDiemDTO dichVu = instance.findById(diaDiemId);
         assertNull(dichVu);

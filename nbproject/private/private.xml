@@ -14,6 +14,26 @@
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/impl/DichVuBLLTest.
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/IDoanDALTest.java</file>
+            <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/impl/NhanVienBLLTest.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IDiaDiemDALTest.java</file>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/dal/IKhachHangDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/XDPMTMHPL/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
         </group>
         <group>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>

@@ -167,6 +167,20 @@ public class IVaiTroDALTest {
     }
     
     @Test
+    public void testUpdateInValid() {
+        System.out.println("updateInvalid");
+        Long vaiTroId = 10L;
+        String tenVaiTro = "!@#!#!123";
+        IVaiTroDAL instance = new VaiTroDAL();
+        VaiTroDTO loaiDuLich = instance.findById(vaiTroId);
+        String oldTenVaiTro = loaiDuLich.getTenVaiTro();
+        loaiDuLich.setTenVaiTro(tenVaiTro);
+        instance.update(loaiDuLich);
+        VaiTroDTO result = instance.findById(vaiTroId);
+        assertEquals(oldTenVaiTro, result.getTenVaiTro());
+    }
+    
+    @Test
     public void testDelete() {
         System.out.println("delete");
         Long id = 7L;
