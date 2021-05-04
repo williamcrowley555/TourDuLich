@@ -97,6 +97,16 @@ public class InputValidatorUtilTest {
     }
 
     @Test
+    public void testIsInvalidNameWithNoWhiteSpace() {
+        System.out.println("isValidName");
+        String name = "Minh Khôi";
+        boolean whitespace = false;
+        String result = InputValidatorUtil.isValidName(name, whitespace);
+        assertFalse(result.isEmpty());
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
     public void testIsValidNameWithNull() {
         System.out.println("isValidName");
         String name = null;
