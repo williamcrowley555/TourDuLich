@@ -238,7 +238,7 @@ public class InputValidatorUtilTest {
     public void testIsValidEndDate() {
         System.out.println("isValidEndDate");
         LocalDate startDate = LocalDate.now();
-        LocalDate endDate = LocalDate.of(2021, Month.MAY, 22);
+        LocalDate endDate = startDate.plus(Period.ofDays(1));
         String expResult = "";
         String result = InputValidatorUtil.isValidEndDate(startDate, endDate);
         assertEquals(expResult, result);
@@ -258,7 +258,7 @@ public class InputValidatorUtilTest {
     @Test
     public void testIsValidEndDateWithNull() {
         System.out.println("isValidEndDate");
-        LocalDate startDate = LocalDate.of(2021, Month.APRIL, 22);
+        LocalDate startDate = LocalDate.now();
         LocalDate endDate = null;
         String result = InputValidatorUtil.isValidEndDate(startDate, endDate);
         assertFalse(result.isEmpty());
