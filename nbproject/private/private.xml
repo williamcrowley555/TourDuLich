@@ -6,27 +6,34 @@
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
-        </group>
-        <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDichVuBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
-        </group>
-        <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDoanBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/IDoanDALTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
-        </group>
-        <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/IDiaDiemBLLTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
-        </group>
-        <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/dal/INhanVienDALTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/bll/INhanVienBLLTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ITourDALTest.java</file>
         </group>
     </open-files>
 </project-private>

@@ -136,7 +136,7 @@ public class ITourDALTest {
         Long saveId = instance.save(tour);
         TourDTO result = instance.findById(saveId);
         
-        assertNull(instance.findById(saveId));
+        assertNull(result);
     }
     
     @Test
@@ -317,7 +317,7 @@ public class ITourDALTest {
         
         TourDTO result = instance.findById(id);
         
-        assertNotEquals(result.getDacDiem(), oldId);
+        assertNotEquals(result.getIdLoaiDuLich(), oldId);
     }
     
     @Test
@@ -347,7 +347,7 @@ public class ITourDALTest {
         ITourDAL instance = new TourDAL();
         TourDTO tour = instance.findById(id);
         Long oldId = tour.getIdLoaiDuLich();
-        String oldTenTour = tour.getTenTour();
+        
         tour.setIdLoaiDuLich(idLoaiDuLich);
         instance.update(tour);
         
