@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -44,6 +46,9 @@ public class INhanVienBLLTest {
     @After
     public void tearDown() {
     }
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void testFindAll() {
@@ -55,7 +60,7 @@ public class INhanVienBLLTest {
     }
 
     @Test
-    public void testFindByStatus() {
+    public void testFindByTrueStatus() {
         System.out.println("findByStatus");
         boolean status = true;
         INhanVienBLL instance = new NhanVienBLL();
@@ -67,17 +72,51 @@ public class INhanVienBLLTest {
     }
 
     @Test
-    public void testFindById() {
-        System.out.println("findById");
-        Long id = 1L;
+    public void testFindByFalseStatus() {
+        System.out.println("findByStatus");
+        boolean status = false;
         INhanVienBLL instance = new NhanVienBLL();
-        NhanVienDTO result = instance.findById(id);
-        assertNotNull(result);
+        List<NhanVienDTO> result = instance.findByStatus(status);
+        for (NhanVienDTO nhanVien : result) {
+            assertEquals(nhanVien.getTrangThai(), status);
+        }
 //        fail("The test case is a prototype.");
     }
 
     @Test
-    public void testFindBySdt() {
+    public void testFindByExistingId() {
+        System.out.println("findById");
+        Long id = 1L;
+        INhanVienBLL instance = new NhanVienBLL();
+        NhanVienDTO result = instance.findById(id);
+        assertEquals(id, result.getId());
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testFindByNotExistingId() {
+        System.out.println("findById");
+        Long id = 100L;
+        INhanVienBLL instance = new NhanVienBLL();
+        NhanVienDTO result = instance.findById(id);
+        assertNull(result);
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testFindByInvalidId() {
+        System.out.println("findById");
+        thrown.expect(NumberFormatException.class);
+        String textId = "abc";
+        Long id = Long.valueOf(textId);
+        INhanVienBLL instance = new NhanVienBLL();
+        NhanVienDTO result = instance.findById(id);
+        assertNull(result);
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testFindByExistingSdt() {
         System.out.println("findBySdt");
         String sdt = "0114589521";
         INhanVienBLL instance = new NhanVienBLL();
@@ -87,7 +126,27 @@ public class INhanVienBLLTest {
     }
 
     @Test
-    public void testSave() throws IOException {
+    public void testFindByNotExistingSdt() {
+        System.out.println("findBySdt");
+        String sdt = "0114589529";
+        INhanVienBLL instance = new NhanVienBLL();
+        NhanVienDTO result = instance.findBySdt(sdt);
+        assertNull(result);
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testFindByInvalidSdt() {
+        System.out.println("findBySdt");
+        String sdt = "1114589521";
+        INhanVienBLL instance = new NhanVienBLL();
+        NhanVienDTO result = instance.findBySdt(sdt);
+        assertNull(result);
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testSaveValidData() throws IOException {
         System.out.println("save");
         String ho = "Lê";
         String ten = "Thị Nhung";
@@ -111,6 +170,9 @@ public class INhanVienBLLTest {
         
         INhanVienBLL instance = new NhanVienBLL();
         Long savedId = instance.save(nhanVien);
+        
+        assertNotNull(savedId);
+        
         NhanVienDTO result = instance.findById(savedId);
         assertEquals(ho, result.getHo());
         assertEquals(ten, result.getTen());
@@ -124,15 +186,71 @@ public class INhanVienBLLTest {
     }
 
     @Test
-    public void testUpdate() {
+    public void testSaveNullData() throws IOException {
+        System.out.println("save");
+        
+        NhanVienDTO nhanVien = new NhanVienDTO();
+        
+        INhanVienBLL instance = new NhanVienBLL();
+        Long savedId = instance.save(nhanVien);
+        NhanVienDTO result = instance.findById(savedId);
+        assertNull(result.getHo());
+        assertNull(result.getTen());
+        assertNull(result.getGioiTinh());
+        assertNull(result.getNgaySinh());
+        assertNull(result.getDiaChi());
+        assertNull(result.getSdt());
+        assertNull(result.getHinhAnh());
+        assertNull(result.getIdVaiTro());
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testSaveWithExistingRoleId() throws IOException {
+        System.out.println("save");
+        
+        Long idVaiTro = 2L;
+        
+        NhanVienDTO nhanVien = new NhanVienDTO();
+        nhanVien.setIdVaiTro(idVaiTro);
+        
+        INhanVienBLL instance = new NhanVienBLL();
+        Long savedId = instance.save(nhanVien);
+        NhanVienDTO result = instance.findById(savedId);
+        assertNull(result.getHo());
+        assertNull(result.getTen());
+        assertNull(result.getGioiTinh());
+        assertNull(result.getNgaySinh());
+        assertNull(result.getDiaChi());
+        assertNull(result.getSdt());
+        assertNull(result.getHinhAnh());
+        assertEquals(idVaiTro, result.getIdVaiTro());
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testUpdateValidPhoneNumber() {
         System.out.println("update");
         Long nhanVienId = 1L;
-        String ten = "Tuấn Dũng";
+        String sdt = "0969653020";
         INhanVienBLL instance = new NhanVienBLL();
         NhanVienDTO nhanVien = instance.findById(nhanVienId);
-        nhanVien.setTen(ten);
+        nhanVien.setSdt(sdt);
         instance.update(nhanVien);
-        assertEquals(ten, instance.findById(nhanVienId).getTen());
+        assertEquals(sdt, instance.findById(nhanVienId).getSdt());
+//        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testUpdateInvalidPhoneNumber() {
+        System.out.println("update");
+        Long nhanVienId = 1L;
+        String sdt = "096965302011";
+        INhanVienBLL instance = new NhanVienBLL();
+        NhanVienDTO nhanVien = instance.findById(nhanVienId);
+        nhanVien.setSdt(sdt);
+        instance.update(nhanVien);
+        assertEquals(sdt, instance.findById(nhanVienId).getSdt());
 //        fail("The test case is a prototype.");
     }
 
