@@ -9,9 +9,6 @@
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IChiPhiDoanBLLTest.java</file>
         </group>
         <group>
-            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/IChiPhiDoanBLLTest.java</file>
-        </group>
-        <group>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/ChiPhiDoanDALTest.java</file>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IChiPhiDoanDALTest.java</file>
             <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/ILoaiDuLichDALTest.java</file>
@@ -29,6 +26,11 @@
         </group>
         <group>
             <file>file:/D:/Project/Java%20Project/TourDuLich/TourDuLich/test/com/tourdulich/util/InputValidatorUtilTest.java</file>
+        </group>
+        <group>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/impl/ChiPhiDoanDALTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/bll/impl/DoanBLLTest.java</file>
+            <file>file:/D:/Project/TourDuLich/test/com/tourdulich/dal/IChiPhiDoanDALTest.java</file>
         </group>
     </open-files>
 </project-private>
